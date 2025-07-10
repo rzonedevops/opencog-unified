@@ -217,6 +217,7 @@ jobs:
             make -j2 2>/dev/null || echo "⚠️  Some build targets unavailable (expected in this environment)"
           fi
           echo "✅ Build verification completed"
+
           
   cognitive-synergy-report:
     runs-on: ubuntu-latest
@@ -373,3 +374,6 @@ jobs:
         with:
           name: enhanced-verification-report
           path: enhanced-verification-report.txt
+
+
+
