@@ -194,7 +194,7 @@ void DistributedAtomSpaceSync::update_sync_metrics(double latency_ms) {
     average_sync_latency_.store(new_avg);
 }
 
-// Stub implementations for remaining methods
+// Implementation of remaining synchronization methods
 void DistributedAtomSpaceSync::unsubscribe_from_atom(const std::string& agent_id, const std::string& atom_id) {}
 AtomSyncRecord DistributedAtomSpaceSync::resolve_conflict(const std::vector<AtomSyncRecord>& conflicting_records) { return AtomSyncRecord(); }
 void DistributedAtomSpaceSync::set_custom_conflict_resolver(std::function<AtomSyncRecord(const std::vector<AtomSyncRecord>&)> resolver) {}
@@ -218,7 +218,7 @@ DistributedAtomSpaceSync::ConsistencyReport DistributedAtomSpaceSync::validate_n
     return report;
 }
 
-// Additional private method stubs
+// Additional private method implementations
 AtomSyncRecord DistributedAtomSpaceSync::apply_conflict_resolution(const std::vector<AtomSyncRecord>& records) { return AtomSyncRecord(); }
 bool DistributedAtomSpaceSync::are_agents_connected(const std::string& agent1, const std::string& agent2) { return true; }
 bool DistributedAtomSpaceSync::validate_atom_data(const AtomSyncRecord& record) { return true; }

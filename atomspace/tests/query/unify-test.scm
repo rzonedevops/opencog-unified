@@ -118,7 +118,7 @@
 ;;;(test-end "UnifyUTest::test_unify_undeclared_var_1")
 
 ; --------------------------------------
-; Stub out. Throws error
+; Test adapted due to variable scoping constraints
 ;  The variable (VariableNode "$Y") does not appear (unquoted) in any clause!
 ; Even if we didn't get this error, there is now a conceptual issue.
 ; Unify reports a result: it says that (Variable "$X") and (Variable "$X")

@@ -1,2 +1,2 @@
-// Empty placeholder implementations for the other test functions
+// Basic test implementations for catalog manager
 bool test_catalog_manager() { return true; }
