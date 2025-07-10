@@ -1,0 +1,441 @@
+{
+  "catalog_version": "1.0",
+  "timestamp": "2025-01-01T00:00:00Z",
+  "total_kernels": 6,
+  "kernels": [
+    {
+      "kernel_name": "GHOST",
+      "description": "Goal-oriented Hierarchical OpenCog Scripting Technology",
+      "version": "1.0.0",
+      "status": "production",
+      "implementation_language": "C++/Scheme",
+      "source_location": "opencog/ghost",
+      "functional_roles": [
+        "conversational",
+        "nlp_processing"
+      ],
+      "cognitive_subsystems": [
+        "working_memory",
+        "semantic_memory"
+      ],
+      "parameters": [
+        {
+          "name": "dialogue_depth",
+          "type": "int",
+          "default": 5,
+          "range": [
+            1,
+            10
+          ]
+        },
+        {
+          "name": "response_confidence",
+          "type": "float",
+          "default": 0.7,
+          "range": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "context_window",
+          "type": "int",
+          "default": 20,
+          "range": [
+            1,
+            100
+          ]
+        },
+        {
+          "name": "goal_satisfaction_threshold",
+          "type": "float",
+          "default": 0.8,
+          "range": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "analysis": {
+        "kernel_name": "GHOST",
+        "degrees_of_freedom": 328,
+        "prime_factors": [
+          2,
+          2,
+          2,
+          41
+        ],
+        "optimal_tensor_shape": [
+          82,
+          2,
+          2
+        ],
+        "total_tensor_elements": 328,
+        "memory_efficiency": 0.3,
+        "computational_efficiency": 0.4,
+        "complexity_score": 2.515873843711679
+      }
+    },
+    {
+      "kernel_name": "PLN",
+      "description": "Probabilistic Logic Networks for reasoning",
+      "version": "1.0.0",
+      "status": "production",
+      "implementation_language": "C++/Scheme",
+      "source_location": "opencog/pln",
+      "functional_roles": [
+        "reasoning_inference"
+      ],
+      "cognitive_subsystems": [
+        "working_memory",
+        "semantic_memory",
+        "executive_control"
+      ],
+      "parameters": [
+        {
+          "name": "inference_depth",
+          "type": "int",
+          "default": 15,
+          "range": [
+            1,
+            50
+          ]
+        },
+        {
+          "name": "confidence_threshold",
+          "type": "float",
+          "default": 0.5,
+          "range": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "truth_value_precision",
+          "type": "float",
+          "default": 0.01,
+          "range": [
+            0.001,
+            0.1
+          ]
+        },
+        {
+          "name": "rule_strength",
+          "type": "float",
+          "default": 0.8,
+          "range": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "analysis": {
+        "kernel_name": "PLN",
+        "degrees_of_freedom": 279,
+        "prime_factors": [
+          3,
+          3,
+          31
+        ],
+        "optimal_tensor_shape": [
+          3,
+          3,
+          31
+        ],
+        "total_tensor_elements": 279,
+        "memory_efficiency": 0.09999999999999999,
+        "computational_efficiency": 0.3,
+        "complexity_score": 2.4456042032735974
+      }
+    },
+    {
+      "kernel_name": "ECAN",
+      "description": "Economic Attention Networks",
+      "version": "1.0.0",
+      "status": "production",
+      "implementation_language": "C++",
+      "source_location": "opencog/attention",
+      "functional_roles": [
+        "attention_allocation"
+      ],
+      "cognitive_subsystems": [
+        "attention_system",
+        "working_memory"
+      ],
+      "parameters": [
+        {
+          "name": "attention_allocation_rate",
+          "type": "float",
+          "default": 0.1,
+          "range": [
+            0.01,
+            1.0
+          ]
+        },
+        {
+          "name": "forgetting_rate",
+          "type": "float",
+          "default": 0.01,
+          "range": [
+            0.001,
+            0.1
+          ]
+        },
+        {
+          "name": "max_atom_attention",
+          "type": "float",
+          "default": 100.0,
+          "range": [
+            1.0,
+            1000.0
+          ]
+        },
+        {
+          "name": "hebbian_learning_rate",
+          "type": "float",
+          "default": 0.01,
+          "range": [
+            0.001,
+            0.1
+          ]
+        }
+      ],
+      "analysis": {
+        "kernel_name": "ECAN",
+        "degrees_of_freedom": 100035,
+        "prime_factors": [
+          3,
+          3,
+          3,
+          3,
+          5,
+          13,
+          19
+        ],
+        "optimal_tensor_shape": [
+          171,
+          15,
+          39
+        ],
+        "total_tensor_elements": 100035,
+        "memory_efficiency": 0.19999999999999998,
+        "computational_efficiency": 0.3,
+        "complexity_score": 5.000151976474334
+      }
+    },
+    {
+      "kernel_name": "Eva",
+      "description": "Expressive Virtual Avatar",
+      "version": "1.0.0",
+      "status": "prototype",
+      "implementation_language": "Python/C++",
+      "source_location": "hansonrobotics/eva",
+      "functional_roles": [
+        "conversational",
+        "emotional_affective"
+      ],
+      "cognitive_subsystems": [
+        "emotional_system",
+        "social_cognition",
+        "motor_output"
+      ],
+      "parameters": [
+        {
+          "name": "emotional_expressiveness",
+          "type": "float",
+          "default": 0.7,
+          "range": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "facial_animation_speed",
+          "type": "float",
+          "default": 1.0,
+          "range": [
+            0.1,
+            2.0
+          ]
+        },
+        {
+          "name": "voice_emotion_strength",
+          "type": "float",
+          "default": 0.6,
+          "range": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "personality_traits",
+          "type": "int",
+          "default": 10,
+          "range": [
+            5,
+            20
+          ]
+        }
+      ],
+      "analysis": {
+        "kernel_name": "Eva",
+        "degrees_of_freedom": 428,
+        "prime_factors": [
+          2,
+          2,
+          107
+        ],
+        "optimal_tensor_shape": [
+          2,
+          2,
+          107
+        ],
+        "total_tensor_elements": 428,
+        "memory_efficiency": 0.3,
+        "computational_efficiency": 0.36666666666666664,
+        "complexity_score": 2.6314437690131722
+      }
+    },
+    {
+      "kernel_name": "Loving AI",
+      "description": "Compassionate AI for therapeutic interactions",
+      "version": "1.0.0",
+      "status": "experimental",
+      "implementation_language": "Python",
+      "source_location": "opencog/loving-ai",
+      "functional_roles": [
+        "emotional_affective",
+        "conversational",
+        "social_interaction"
+      ],
+      "cognitive_subsystems": [
+        "emotional_system",
+        "social_cognition"
+      ],
+      "parameters": [
+        {
+          "name": "compassion_level",
+          "type": "float",
+          "default": 0.9,
+          "range": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "empathy_sensitivity",
+          "type": "float",
+          "default": 0.8,
+          "range": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "therapeutic_style",
+          "type": "int",
+          "default": 3,
+          "range": [
+            1,
+            5
+          ]
+        },
+        {
+          "name": "emotional_validation",
+          "type": "float",
+          "default": 0.85,
+          "range": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "analysis": {
+        "kernel_name": "Loving AI",
+        "degrees_of_freedom": 326,
+        "prime_factors": [
+          2,
+          163
+        ],
+        "optimal_tensor_shape": [
+          2,
+          163
+        ],
+        "total_tensor_elements": 326,
+        "memory_efficiency": 0.3,
+        "computational_efficiency": 0.05,
+        "complexity_score": 2.513217600067939
+      }
+    },
+    {
+      "kernel_name": "Game AI",
+      "description": "Strategic game playing artificial intelligence",
+      "version": "1.0.0",
+      "status": "prototype",
+      "implementation_language": "C++/Python",
+      "source_location": "opencog/game-ai",
+      "functional_roles": [
+        "game_strategy",
+        "reasoning_inference"
+      ],
+      "cognitive_subsystems": [
+        "executive_control",
+        "working_memory"
+      ],
+      "parameters": [
+        {
+          "name": "search_depth",
+          "type": "int",
+          "default": 8,
+          "range": [
+            1,
+            20
+          ]
+        },
+        {
+          "name": "exploration_rate",
+          "type": "float",
+          "default": 0.3,
+          "range": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "strategic_patience",
+          "type": "float",
+          "default": 0.7,
+          "range": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "risk_tolerance",
+          "type": "float",
+          "default": 0.5,
+          "range": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "analysis": {
+        "kernel_name": "Game AI",
+        "degrees_of_freedom": 339,
+        "prime_factors": [
+          3,
+          113
+        ],
+        "optimal_tensor_shape": [
+          3,
+          113
+        ],
+        "total_tensor_elements": 339,
+        "memory_efficiency": 0.15,
+        "computational_efficiency": 0.0,
+        "complexity_score": 2.530199698203082
+      }
+    }
+  ]
+}
