@@ -14,6 +14,7 @@ include_directories(${CMAKE_SOURCE_DIR}/atomspace/opencog)
 include_directories(${CMAKE_SOURCE_DIR}/cogserver/opencog)
 include_directories(${CMAKE_SOURCE_DIR}/cognitive-patterns/include)
 include_directories(${CMAKE_SOURCE_DIR}/distributed-cognition/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Source files for cognitive visualization
 set(VISUALIZATION_SOURCES

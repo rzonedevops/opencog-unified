@@ -17,6 +17,32 @@ class CognitiveVisualization {
         this.patterns = new Map();
         this.attentionOverlays = new Map();
         
+        // Enhanced ECAN visualization state
+        this.ecanState = {
+            stiValues: new Map(),
+            ltiValues: new Map(),
+            economicFlows: new Map(),
+            attentionalFocus: [],
+            economicPressure: 0.0,
+            totalStiFunds: 100000.0
+        };
+        
+        // Pattern matcher visualization state
+        this.patternMatchState = {
+            activeTraversals: new Map(),
+            patternQueries: new Map(),
+            matchingProgress: new Map(),
+            unificationSteps: []
+        };
+        
+        // Meta-cognitive introspection state
+        this.introspectionState = {
+            systemMetrics: {},
+            cognitiveFlows: new Map(),
+            metaCognitiveAwareness: 0.0,
+            adaptiveBehavior: false
+        };
+        
         // Recursive feedback state
         this.feedbackActive = false;
         this.feedbackStrength = 0.0;
@@ -185,32 +211,61 @@ class CognitiveVisualization {
 
         this.cycleCount++;
 
+        // Simulate live AtomSpace data integration
+        this.updateFromLiveAtomSpace();
+        
+        // Update ECAN attention dynamics
+        this.updateECANVisualization();
+        
+        // Update pattern matcher state
+        this.updatePatternMatchVisualization();
+        
+        // Update meta-cognitive introspection
+        this.updateIntrospectionState();
+
         // Simulate cognitive state evolution
         this.nodes.forEach((node) => {
-            // Apply small random changes to simulate cognitive dynamics
-            node.state += (Math.random() - 0.5) * 0.02;
+            // Apply attention-driven state changes
+            const attentionBoost = this.ecanState.stiValues.get(node.id) || 0.0;
+            node.state += (Math.random() - 0.5) * 0.02 + attentionBoost * 0.001;
             node.state = Math.max(0, Math.min(1, node.state));
             
             // Update attention based on state and feedback
             node.attention += (Math.random() - 0.5) * 0.05 + this.feedbackStrength * 0.1;
             node.attention = Math.max(0, Math.min(1, node.attention));
+            
+            // Store STI values for ECAN visualization
+            this.ecanState.stiValues.set(node.id, node.attention * 1000);
         });
 
-        // Simulate agent state evolution
+        // Simulate agent state evolution with multi-agent coordination
         this.agents.forEach((agent) => {
             agent.state = agent.state.map(s => {
                 let newState = s + (Math.random() - 0.5) * 0.03;
                 return Math.max(0, Math.min(1, newState));
             });
+            
+            // Add agent interaction effects
+            this.agents.forEach((otherAgent) => {
+                if (agent.id !== otherAgent.id) {
+                    const distance = this.calculateAgentDistance(agent, otherAgent);
+                    if (distance < 100) { // Interaction threshold
+                        const influence = 0.01 * (100 - distance) / 100;
+                        agent.state = agent.state.map((s, i) => {
+                            return Math.max(0, Math.min(1, s + influence * (otherAgent.state[i] - s)));
+                        });
+                    }
+                }
+            });
         });
 
-        // Detect emergent patterns
+        // Detect emergent patterns with enhanced algorithms
         this.detectEmergentPatterns();
 
-        // Update attention overlays
+        // Update attention overlays with ECAN integration
         this.updateAttentionOverlays();
 
-        // Apply recursive feedback
+        // Apply recursive feedback with meta-cognitive awareness
         if (this.feedbackActive) {
             this.applyRecursiveFeedback();
         }
@@ -548,7 +603,7 @@ class CognitiveVisualization {
         document.getElementById('cycleCount').textContent = this.cycleCount;
         document.getElementById('adaptationRate').textContent = this.adaptationRate.toFixed(2);
 
-        // Update attention list
+        // Update attention list with ECAN data
         const attentionList = document.getElementById('attentionList');
         attentionList.innerHTML = '';
         
@@ -559,22 +614,24 @@ class CognitiveVisualization {
         sortedNodes.forEach(node => {
             const item = document.createElement('div');
             item.className = 'info-item';
-            item.innerHTML = `${node.id}: ${node.attention.toFixed(2)}`;
+            const stiValue = this.ecanState.stiValues.get(node.id) || 0;
+            item.innerHTML = `${node.id}: ATT=${node.attention.toFixed(2)} STI=${stiValue.toFixed(0)}`;
             attentionList.appendChild(item);
         });
 
-        // Update pattern list
+        // Update pattern list with enhanced pattern data
         const patternList = document.getElementById('patternList');
         patternList.innerHTML = '';
         
         this.patterns.forEach(pattern => {
             const item = document.createElement('div');
             item.className = 'info-item';
-            item.innerHTML = `${pattern.type}: ${pattern.nodes.length} nodes (${pattern.strength.toFixed(2)})`;
+            const confidence = this.patternMatchState.matchingProgress.get(pattern.id) || 0;
+            item.innerHTML = `${pattern.type}: ${pattern.nodes.length} nodes (${pattern.strength.toFixed(2)}) conf=${confidence.toFixed(2)}`;
             patternList.appendChild(item);
         });
 
-        // Update agent status
+        // Update agent status with coordination info
         const agentStatus = document.getElementById('agentStatus');
         agentStatus.innerHTML = '';
         
@@ -582,9 +639,18 @@ class CognitiveVisualization {
             const item = document.createElement('div');
             item.className = 'info-item';
             const avgState = agent.state.reduce((a, b) => a + b, 0) / agent.state.length;
-            item.innerHTML = `${agent.id}: ${avgState.toFixed(2)} @ ${agent.frequency.toFixed(1)}Hz`;
+            const coordination = this.calculateAgentCoordination(agent);
+            item.innerHTML = `${agent.id}: ${avgState.toFixed(2)} @ ${agent.frequency.toFixed(1)}Hz coord=${coordination.toFixed(2)}`;
             agentStatus.appendChild(item);
         });
+        
+        // Update ECAN economic indicators
+        const ecanIndicator = document.createElement('div');
+        ecanIndicator.innerHTML = `<strong>ECAN Status:</strong> STI Funds: ${this.ecanState.totalStiFunds.toFixed(0)}, Economic Pressure: ${this.ecanState.economicPressure.toFixed(2)}`;
+        
+        // Update meta-cognitive awareness
+        const metaIndicator = document.createElement('div');
+        metaIndicator.innerHTML = `<strong>Meta-Cognitive:</strong> Awareness: ${this.introspectionState.metaCognitiveAwareness.toFixed(2)}, Adaptive: ${this.introspectionState.adaptiveBehavior}`;
     }
 }
 
@@ -592,3 +658,200 @@ class CognitiveVisualization {
 document.addEventListener('DOMContentLoaded', () => {
     window.cognitiveVisualization = new CognitiveVisualization();
 });
+
+// Enhanced Methods for Live System Integration
+
+CognitiveVisualization.prototype.updateFromLiveAtomSpace = function() {
+    // Simulate connection to live AtomSpace data
+    // In production, this would use WebSocket or HTTP APIs to get real data
+    console.log('🔄 Updating from live AtomSpace data...');
+    
+    // Simulate receiving new nodes and attention values
+    if (Math.random() < 0.1) { // 10% chance of new data
+        const newNodeId = `live_node_${Date.now()}`;
+        this.nodes.set(newNodeId, {
+            id: newNodeId,
+            x: Math.random() * (this.canvas.width - 100) + 50,
+            y: Math.random() * (this.canvas.height - 100) + 50,
+            state: Math.random(),
+            attention: Math.random(),
+            type: 'live_concept'
+        });
+    }
+};
+
+CognitiveVisualization.prototype.updateECANVisualization = function() {
+    // Update Economic Attention Networks visualization
+    console.log('💰 Updating ECAN visualization...');
+    
+    // Simulate economic dynamics
+    let totalSTI = 0;
+    this.nodes.forEach(node => {
+        const currentSTI = this.ecanState.stiValues.get(node.id) || 0;
+        // Apply economic pressure and wage/rent dynamics
+        const economicChange = (Math.random() - 0.5) * 50;
+        const newSTI = Math.max(0, currentSTI + economicChange);
+        this.ecanState.stiValues.set(node.id, newSTI);
+        totalSTI += newSTI;
+    });
+    
+    // Update economic pressure
+    this.ecanState.economicPressure = totalSTI / this.ecanState.totalStiFunds;
+    
+    // Update attentional focus
+    this.ecanState.attentionalFocus = Array.from(this.ecanState.stiValues.entries())
+        .filter(([id, sti]) => sti > 500)
+        .map(([id, sti]) => id);
+};
+
+CognitiveVisualization.prototype.updatePatternMatchVisualization = function() {
+    // Update pattern matcher state visualization
+    console.log('🔍 Updating pattern matcher visualization...');
+    
+    // Simulate pattern matching progress
+    this.patterns.forEach(pattern => {
+        const currentProgress = this.patternMatchState.matchingProgress.get(pattern.id) || 0;
+        const progressChange = (Math.random() - 0.3) * 0.1; // Bias toward progress
+        const newProgress = Math.max(0, Math.min(1, currentProgress + progressChange));
+        this.patternMatchState.matchingProgress.set(pattern.id, newProgress);
+        
+        // Create unification steps
+        if (Math.random() < 0.2) { // 20% chance of new unification step
+            this.patternMatchState.unificationSteps.push({
+                patternId: pattern.id,
+                step: `Unifying ${pattern.nodes[0]} with candidate nodes`,
+                timestamp: Date.now(),
+                success: Math.random() > 0.3
+            });
+            
+            // Keep only recent steps
+            if (this.patternMatchState.unificationSteps.length > 10) {
+                this.patternMatchState.unificationSteps.shift();
+            }
+        }
+    });
+};
+
+CognitiveVisualization.prototype.updateIntrospectionState = function() {
+    // Update meta-cognitive introspection state
+    console.log('🧠 Updating introspection state...');
+    
+    // Calculate cognitive coherence
+    const coherence = this.calculateCognitiveCoherence();
+    
+    // Update system metrics
+    this.introspectionState.systemMetrics = {
+        cognitive_coherence: coherence,
+        attention_stability: this.calculateAttentionStability(),
+        pattern_formation_rate: this.patterns.size / Math.max(1, this.cycleCount),
+        agent_coordination: this.calculateOverallAgentCoordination(),
+        meta_cognitive_awareness: this.introspectionState.metaCognitiveAwareness
+    };
+    
+    // Update meta-cognitive awareness based on system state
+    const targetAwareness = (coherence + this.introspectionState.systemMetrics.attention_stability) / 2;
+    this.introspectionState.metaCognitiveAwareness += 0.1 * (targetAwareness - this.introspectionState.metaCognitiveAwareness);
+    
+    // Enable adaptive behavior if awareness is high
+    this.introspectionState.adaptiveBehavior = this.introspectionState.metaCognitiveAwareness > 0.7;
+    
+    // Adapt system parameters based on introspection
+    if (this.introspectionState.adaptiveBehavior) {
+        this.adaptSystemParameters();
+    }
+};
+
+CognitiveVisualization.prototype.calculateAgentDistance = function(agent1, agent2) {
+    return Math.sqrt(
+        Math.pow(agent1.x - agent2.x, 2) + 
+        Math.pow(agent1.y - agent2.y, 2)
+    );
+};
+
+CognitiveVisualization.prototype.calculateAgentCoordination = function(agent) {
+    let coordination = 0;
+    let agentCount = 0;
+    
+    this.agents.forEach(otherAgent => {
+        if (agent.id !== otherAgent.id) {
+            const stateSimilarity = agent.state.reduce((sum, state, index) => {
+                return sum + (1 - Math.abs(state - otherAgent.state[index]));
+            }, 0) / agent.state.length;
+            
+            coordination += stateSimilarity;
+            agentCount++;
+        }
+    });
+    
+    return agentCount > 0 ? coordination / agentCount : 0;
+};
+
+CognitiveVisualization.prototype.calculateOverallAgentCoordination = function() {
+    let totalCoordination = 0;
+    this.agents.forEach(agent => {
+        totalCoordination += this.calculateAgentCoordination(agent);
+    });
+    return this.agents.size > 0 ? totalCoordination / this.agents.size : 0;
+};
+
+CognitiveVisualization.prototype.calculateCognitiveCoherence = function() {
+    // Calculate coherence based on node state similarity and connectivity
+    let coherence = 0;
+    let connectionCount = 0;
+    
+    this.edges.forEach(edge => {
+        const sourceNode = this.nodes.get(edge.source);
+        const targetNode = this.nodes.get(edge.target);
+        
+        if (sourceNode && targetNode) {
+            const stateSimilarity = 1 - Math.abs(sourceNode.state - targetNode.state);
+            const attentionSimilarity = 1 - Math.abs(sourceNode.attention - targetNode.attention);
+            coherence += (stateSimilarity + attentionSimilarity) / 2;
+            connectionCount++;
+        }
+    });
+    
+    return connectionCount > 0 ? coherence / connectionCount : 0;
+};
+
+CognitiveVisualization.prototype.calculateAttentionStability = function() {
+    // Calculate how stable attention allocation is over time
+    let stability = 0;
+    this.nodes.forEach(node => {
+        // Use attention value as proxy for stability (in real system, would track variance)
+        stability += node.attention;
+    });
+    return this.nodes.size > 0 ? stability / this.nodes.size : 0;
+};
+
+CognitiveVisualization.prototype.adaptSystemParameters = function() {
+    // Adapt system parameters based on meta-cognitive insights
+    console.log('🔧 Adapting system parameters based on meta-cognitive analysis...');
+    
+    const metrics = this.introspectionState.systemMetrics;
+    
+    // Adapt attention threshold based on coherence
+    if (metrics.cognitive_coherence < 0.5) {
+        this.attentionThreshold = Math.max(0.1, this.attentionThreshold - 0.05);
+    } else if (metrics.cognitive_coherence > 0.8) {
+        this.attentionThreshold = Math.min(1.0, this.attentionThreshold + 0.05);
+    }
+    
+    // Adapt feedback strength based on agent coordination
+    if (metrics.agent_coordination < 0.3) {
+        this.adaptationRate = Math.min(0.5, this.adaptationRate + 0.01);
+    } else if (metrics.agent_coordination > 0.7) {
+        this.adaptationRate = Math.max(0.05, this.adaptationRate - 0.01);
+    }
+    
+    // Update UI to reflect parameter changes
+    const thresholdSlider = document.getElementById('attentionThreshold');
+    if (thresholdSlider) {
+        thresholdSlider.value = this.attentionThreshold;
+    }
+    
+    const adaptationDisplay = document.getElementById('adaptationRate');
+    if (adaptationDisplay) {
+        adaptationDisplay.textContent = this.adaptationRate.toFixed(2);
+    }
+};
