@@ -51,5 +51,15 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/ggml-tensor-kernel/CMakeLists.txt")
     add_subdirectory(ggml-tensor-kernel)
 endif()
 
+# Add agentic kernels catalog
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/agentic-kernels-catalog/CMakeLists.txt")
+    add_subdirectory(agentic-kernels-catalog)
+endif()
+
 # Global cognitive build targets
 add_custom_target(cognitive ALL DEPENDS cogutil atomspace cogserver)
+
+# Add comprehensive target that includes agentic catalog
+add_custom_target(cognitive-complete 
+    DEPENDS cognitive agentic-kernels-catalog
+    COMMENT "Building complete cognitive system with agentic kernels catalog")
