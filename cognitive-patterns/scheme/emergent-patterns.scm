@@ -3,10 +3,14 @@
 ;
 ; Phase II.2: Emergent Pattern Encoding (Hypergraph Synergy)
 ; Pattern extraction routines for self-reflexive learning
+; Enhanced with emergent phenomena observation hooks
 ;
 
 (use-modules (opencog))
 (use-modules (opencog exec))
+
+; Load emergent phenomena observation hooks
+(load "../../../documentation/hooks/emergent-phenomena-hooks.scm")
 
 ; Define cognitive schema for emergent pattern encoding
 (define cognitive-pattern-schema
@@ -31,9 +35,16 @@
                       (equal? (cog-type link1) (cog-type link2)))
               (let ((similarity (calculate-hypergraph-similarity link1 link2)))
                 (when (> similarity 0.7)
-                  (set! detected-patterns
-                        (cons (create-pattern-descriptor link1 link2 similarity)
-                              detected-patterns))))))
+                  (let ((pattern-descriptor (create-pattern-descriptor link1 link2 similarity)))
+                    (set! detected-patterns
+                          (cons pattern-descriptor detected-patterns))
+                    
+                    ; OBSERVATION HOOK: Document emergent pattern
+                    (observe-pattern-emergence
+                      (string-append "pattern-" (number->string (random 10000)))
+                      (list (cog-name link1) (cog-name link2))
+                      similarity
+                      "hypergraph-similarity-detection"))))))
           links))
       links)
     
@@ -80,33 +91,51 @@
 ; Reify detected patterns as new hypergraph links
 (define (reify-patterns-as-links detected-patterns)
   "Reify detected patterns into new hypergraph link structures"
-  (map (lambda (pattern)
-         (let* ((pattern-id (cog-name (cadr (cog-outgoing-set pattern))))
-                (reified-link
-                 (Inheritance
-                   (Concept "reified-pattern")
-                   (List
-                     (Concept pattern-id)
-                     pattern
-                     ; Recursive self-reference: pattern points to itself
-                     (Inheritance
-                       (Concept "recursive-pattern-reference")
-                       (Variable "$self"))))))
-           
-           ; Add temporal and frequency tracking
-           (Evaluation
-             (Predicate "pattern-reification-time")
-             (List
-               reified-link
-               (Number (current-time))))
-           
-           ; Update pattern frequency
-           (State
-             (Concept (string-append pattern-id "-frequency"))
-             (Number (+ 1 (get-pattern-frequency pattern-id))))
-           
-           reified-link))
-       detected-patterns))
+  (let ((reified-patterns
+         (map (lambda (pattern)
+                (let* ((pattern-id (cog-name (cadr (cog-outgoing-set pattern))))
+                       (reified-link
+                        (Inheritance
+                          (Concept "reified-pattern")
+                          (List
+                            (Concept pattern-id)
+                            pattern
+                            ; Recursive self-reference: pattern points to itself
+                            (Inheritance
+                              (Concept "recursive-pattern-reference")
+                              (Variable "$self"))))))
+                  
+                  ; Add temporal and frequency tracking
+                  (Evaluation
+                    (Predicate "pattern-reification-time")
+                    (List
+                      reified-link
+                      (Number (current-time))))
+                  
+                  ; Update pattern frequency
+                  (State
+                    (Concept (string-append pattern-id "-frequency"))
+                    (Number (+ 1 (get-pattern-frequency pattern-id))))
+                  
+                  ; OBSERVATION HOOK: Document recursive behavior of pattern reification
+                  (observe-recursive-behavior
+                    (string-append "reification-" pattern-id)
+                    "pattern-to-link-conversion"
+                    `(("stability-score" . 0.8)
+                      ("recursion-depth" . 1.0)
+                      ("self-reference-strength" . 0.9)))
+                  
+                  reified-link))
+              detected-patterns)))
+    
+    ; OBSERVATION HOOK: Document meta-cognitive insight about reification process
+    (observe-meta-cognitive-insight
+      (format #f "Reified ~a patterns into hypergraph links, enabling recursive pattern detection"
+              (length detected-patterns))
+      "tactical"
+      0.85)
+    
+    reified-patterns))
 
 ; Self-reflexive learning for pattern detection adaptation
 (define (self-reflexive-pattern-adaptation detection-history)
@@ -131,14 +160,32 @@
       (Concept "pattern-detection-threshold")
       (Number new-threshold))
     
+    ; OBSERVATION HOOK: Document meta-cognitive insight about self-adaptation
+    (observe-meta-cognitive-insight
+      (format #f "Self-reflexive adaptation: threshold changed from ~a to ~a based on quality ~a"
+              current-threshold new-threshold avg-quality)
+      "operational"
+      0.9)
+    
     ; Self-reflexive feedback
-    (Evaluation
-      (Predicate "self-reflexive-adaptation")
-      (List
-        (Concept "old-threshold") (Number current-threshold)
-        (Concept "new-threshold") (Number new-threshold)
-        (Concept "avg-quality") (Number avg-quality)
-        (Concept "pattern-diversity") (Number pattern-diversity)))))
+    (let ((adaptation-result
+           (Evaluation
+             (Predicate "self-reflexive-adaptation")
+             (List
+               (Concept "old-threshold") (Number current-threshold)
+               (Concept "new-threshold") (Number new-threshold)
+               (Concept "avg-quality") (Number avg-quality)
+               (Concept "pattern-diversity") (Number pattern-diversity)))))
+      
+      ; OBSERVATION HOOK: Document recursive behavior of self-adaptation
+      (observe-recursive-behavior
+        "self-reflexive-threshold-adaptation"
+        "parameter-self-modification"
+        `(("stability-score" . ,(abs (- 1.0 (abs (- new-threshold current-threshold)))))
+          ("recursion-depth" . 2.0)
+          ("adaptation-magnitude" . ,(abs (- new-threshold current-threshold)))))
+      
+      adaptation-result)))
 
 ; Generate feedback signals for perception loop
 (define (generate-pattern-feedback reified-patterns)
