@@ -92,7 +92,7 @@ class Application(object):
             start_response('200 OK', [('Content-Type', content_type)])
             return [data]
 
-        if path.startswith("socket.io"):
+        if path == "socket.io":
             socketio_manage(environ, {'/atomspace': AtomSpaceNamespace})
         else:
             return not_found(start_response)
