@@ -21,9 +21,29 @@ add_subdirectory(cogutil)
 add_subdirectory(atomspace)
 add_subdirectory(cogserver)
 
+# Phase I: Core Extensions (Week 1)
+# Add atomspace-rocks if it exists and has CMakeLists.txt
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/atomspace-rocks/CMakeLists.txt")
+    add_subdirectory(atomspace-rocks)
+endif()
+
+# Phase I: Core Extensions (Week 3)
+# Add moses if it exists and has CMakeLists.txt
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/moses/CMakeLists.txt")
+    add_subdirectory(moses)
+endif()
+
 # Define inter-module dependencies explicitly
 add_dependencies(atomspace cogutil)
 add_dependencies(cogserver atomspace)
+# atomspace-rocks depends on atomspace
+if(TARGET atomspace-rocks)
+    add_dependencies(atomspace-rocks atomspace)
+endif()
+# moses depends on cogutil
+if(TARGET moses)
+    add_dependencies(moses cogutil)
+endif()
 
 # Phase II: Recursive Cognitive Expansion modules
 # Create directories for new components
