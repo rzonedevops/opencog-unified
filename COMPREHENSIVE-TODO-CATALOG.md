@@ -3,7 +3,7 @@
 **Problem Identification**
 The OpenCog Unified codebase contains distributed TODOs, FIXMEs, stubs, and "not implemented" fragments that block full cognitive realization. These are detected by CI and halt verification (see job: https://github.com/OzCog/opencog-unified/actions/runs/16539657246/job/46779076096, ref: 25d11bfe332cd501a967d9ab3a6957a22504249f).
 
-**Generated**: 2025-07-26 12:37:13 UTC  
+**Generated**: 2025-07-26 13:21:10 UTC  
 **Total Items**: 828  
 **Commit Reference**: 25d11bfe332cd501a967d9ab3a6957a22504249f
 
@@ -3408,6 +3408,32 @@ A section for emergent TODOs.
 
 ---
 
+
+
+## 🔄 Recursive Resolution Progress
+
+**Current Iteration:** 2  
+**Last Run:** 2025-07-26T13:23:42.301371  
+**TODOs Resolved:** 0  
+**TODOs In Progress:** 5  
+**Total Remaining:** 820
+
+*Use `python scripts/recursive_todo_resolver.py --next-batch` to continue resolution*
+
+---
+
+
+## 🔄 Recursive Resolution Progress
+
+**Current Iteration:** 3  
+**Last Run:** 2025-07-26T13:28:32.632984  
+**TODOs Resolved:** 0  
+**TODOs In Progress:** 10  
+**Total Remaining:** 815
+
+*Use `python scripts/recursive_todo_resolver.py --next-batch` to continue resolution*
+
+---
 ## Meta-Cognitive Enhancement Instructions
 
 ### For Maintainers: Updating This List
@@ -3446,4 +3472,4 @@ The enumeration above represents our cognitive debt, but also our potential. Eac
 
 ---
 
-*This document is automatically generated and should be updated regularly as the codebase evolves. Last updated: 2025-07-26 12:37:13 UTC*
+*This document is automatically generated and should be updated regularly as the codebase evolves. Last updated: 2025-07-26 13:21:10 UTC*
