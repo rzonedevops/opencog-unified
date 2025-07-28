@@ -1754,7 +1754,7 @@ A section for emergent TODOs.
 ### Memory System
 *Total items: 139*
 
-- [ ] **atomspace/opencog/atoms/parallel/ExecuteThreadedLink.cc:59** (CRITICAL, Feature Completion)
+- [x] **atomspace/opencog/atoms/parallel/ExecuteThreadedLink.cc:59** (CRITICAL, Feature Completion)
   - `/// XXX TODO: We could have a non-blocking version of this atom. We`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/atomspace/opencog/atoms/parallel/ExecuteThreadedLink.cc#L59)
 
@@ -3443,6 +3443,45 @@ A section for emergent TODOs.
 **TODOs Resolved:** 1  
 **TODOs In Progress:** 14  
 **Total Remaining:** 810
+
+*Use `python scripts/recursive_todo_resolver.py --next-batch` to continue resolution*
+
+---
+
+
+## 🔄 Recursive Resolution Progress
+
+**Current Iteration:** 5  
+**Last Run:** 2025-07-28T03:14:16.756681  
+**TODOs Resolved:** 2  
+**TODOs In Progress:** 18  
+**Total Remaining:** 805
+
+*Use `python scripts/recursive_todo_resolver.py --next-batch` to continue resolution*
+
+---
+
+
+## 🔄 Recursive Resolution Progress
+
+**Current Iteration:** 6  
+**Last Run:** 2025-07-28T03:20:44.171297  
+**TODOs Resolved:** 2  
+**TODOs In Progress:** 23  
+**Total Remaining:** 800
+
+*Use `python scripts/recursive_todo_resolver.py --next-batch` to continue resolution*
+
+---
+
+
+## 🔄 Recursive Resolution Progress
+
+**Current Iteration:** 7  
+**Last Run:** 2025-07-28T03:21:47.751584  
+**TODOs Resolved:** 2  
+**TODOs In Progress:** 28  
+**Total Remaining:** 795
 
 *Use `python scripts/recursive_todo_resolver.py --next-batch` to continue resolution*
 
