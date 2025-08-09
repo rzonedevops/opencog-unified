@@ -77,7 +77,7 @@
     
     "cognitive_systems_layer": {
       "attention": {
-        "status": "pending",
+        "status": "present",
         "repository": "https://github.com/opencog/attention",
         "dependencies": ["atomspace", "cogserver"],
         "category": "cognitive",
