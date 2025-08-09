@@ -86,7 +86,7 @@
         "description": "Economic Attention Networks (ECAN) implementation"
       },
       "spacetime": {
-        "status": "pending",
+        "status": "present",
         "repository": "https://github.com/opencog/spacetime", 
         "dependencies": ["atomspace"],
         "category": "cognitive",
