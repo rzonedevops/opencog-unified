@@ -114,7 +114,33 @@ if(TARGET language-learning)
     add_dependencies(language-learning cogutil)
 endif()
 
-# Add comprehensive target that includes agentic catalog and logic systems
+# Phase III: Cognitive Systems Integration (Weeks 9-12)
+# Add attention component (Week 9)
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/attention/CMakeLists.txt")
+    add_subdirectory(attention)
+endif()
+
+# Add spacetime component (Week 10) - will be created next
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/spacetime/CMakeLists.txt")
+    add_subdirectory(spacetime)
+endif()
+
+# Add Phase III cognitive systems target
+add_custom_target(cognitive-systems
+    COMMENT "Building Phase III cognitive systems components"
+)
+
+# Add dependencies for cognitive systems if targets exist
+if(TARGET attention)
+    add_dependencies(cognitive-systems attention)
+    add_dependencies(attention atomspace cogserver)
+endif()
+if(TARGET spacetime)
+    add_dependencies(cognitive-systems spacetime)
+    add_dependencies(spacetime atomspace)
+endif()
+
+# Add comprehensive target that includes agentic catalog, logic systems, and cognitive systems
 add_custom_target(cognitive-complete 
-    DEPENDS cognitive agentic-kernels-catalog logic-systems
-    COMMENT "Building complete cognitive system with agentic kernels catalog and logic systems")
+    DEPENDS cognitive agentic-kernels-catalog logic-systems cognitive-systems
+    COMMENT "Building complete cognitive system with agentic kernels, logic systems, and cognitive systems")
