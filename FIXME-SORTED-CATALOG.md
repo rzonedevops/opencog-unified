@@ -2,16 +2,16 @@
 
 ## Executive Summary
 
-This document provides a comprehensive categorization of all **307 FIXME instances** found in the OpenCog Unified repository, sorted by implementation difficulty to guide development priorities and resource allocation.
+This document provides a comprehensive categorization of all **324 FIXME instances** found in the OpenCog Unified repository, sorted by implementation difficulty to guide development priorities and resource allocation.
 
 ### Summary Statistics
 
 | Difficulty Level | Count | Percentage | Estimated Total Effort |
 |-----------------|-------|------------|------------------------|
-| **VERY_HARD** | 33 | 10.7% | 6-18 months |
-| **HARD** | 32 | 10.4% | 2-8 months |  
-| **MEDIUM** | 230 | 74.9% | 3-12 months |
-| **EASY** | 12 | 3.9% | 1-4 weeks |
+| **VERY_HARD** | 36 | 11.1% | 6-18 months |
+| **HARD** | 33 | 10.2% | 2-8 months |  
+| **MEDIUM** | 240 | 74.1% | 3-12 months |
+| **EASY** | 15 | 4.6% | 1-4 weeks |
 
 **Total files affected**: 143
 
@@ -287,6 +287,72 @@ self.assertEqual(get_type_name(2231), "")
 # XXX FIXME is testing the name of the bottom type
 # a sane thing to do?
 self.assertEqual(get_type_name(types.NO_TYPE), "*** Bottom Type! ***")
+```
+</details>
+
+
+**13.** `atomspace/opencog/atomspace/TypeIndex.h:73`
+
+**Issue:** TODO The iterator is NOT thread-safe against the insertion or removal of atoms!
+
+**Category:** Threading/Concurrency  
+**Effort:** 2-6 months  
+**Reasoning:** Requires thread safety expertise and careful concurrency implementation
+
+<details>
+<summary>View Code Context</summary>
+
+```
+ * faster.
+ *
+ * @todo The iterator is NOT thread-safe against the insertion or
+ * removal of atoms!  Either inserting or removing an atom will cause
+ * the iterator references to be freed, leading to mystery crashes!
+```
+</details>
+
+
+**14.** `atomspace/opencog/atoms/base/Valuation.cc:50`
+
+**Issue:** TODO C++ smart pointers are not atomic; we really need to use a lock here
+
+**Category:** Threading/Concurrency  
+**Effort:** 2-6 months  
+**Reasoning:** Requires atomic operations and thread-safe memory management expertise
+
+<details>
+<summary>View Code Context</summary>
+
+```
+void Valuation::setValue(const ValuePtr& v)
+{
+	// XXX TODO -- C++ smart pointers are not atomic; we really
+	// need to use a lock here, to avoid thread-races.
+	_value = v;
+}
+```
+</details>
+
+
+**15.** `atomspace/opencog/atoms/parallel/ExecuteThreadedLink.cc:59`
+
+**Issue:** TODO We could have a non-blocking version of this atom
+
+**Category:** Threading/Concurrency  
+**Effort:** 2-6 months  
+**Reasoning:** Requires expertise in concurrent programming and non-blocking algorithms
+
+<details>
+<summary>View Code Context</summary>
+
+```
+/// Atoms in the set. If the NumberNode is present, then the number of
+/// threads is the smaller of the NumberNode and the seize of the Set.
+///
+/// XXX TODO: We could have a non-blocking version of this atom. We
+/// could just return the QueueValue immediately; the user could check
+/// to see if the queue is closed, to find out if the threads have
+/// finished.
 ```
 </details>
 
@@ -1297,6 +1363,30 @@ void merge_candidates(scored_combo_tree_set& candidates);
 </details>
 
 
+**4.** `atomspace/opencog/atoms/pattern/PatternTerm.h:80`
+
+**Issue:** TODO it would probably be more efficient to swap which of these two is weak
+
+**Category:** Performance/Threading/Complex Algorithm  
+**Effort:** 2-8 weeks  
+**Reasoning:** Requires performance analysis and algorithm optimization expertise
+
+<details>
+<summary>View Code Context</summary>
+
+```
+	Handle _handle;
+	Handle _quote;
+
+	// TODO: it would probably be more efficient to swap which of these
+	// two is weak, since I think _outgoing is requested far more often
+	// than _parent, and having it run faster would be a performance win.
+	PatternTermPtr _parent;
+	PatternTermWSeq _outgoing;
+```
+</details>
+
+
 ### Scripts Component (1 items)
 
 
@@ -2065,7 +2155,7 @@ for difficulty, count in sorted(report['summary']['by_difficulty'].items()):
 </details>
 
 
-### Atomspace Component (57 items)
+### Atomspace Component (67 items)
 
 
 **1.** `atomspace/examples/atomspace/queue.scm:7`
@@ -3261,6 +3351,202 @@ vex = _outgoing[1]->execute(as, silent);
 ; XXX FIXME, this does not quite work as one might naively expect,
 ; because the search results are expanded combinatorially, instead
 ; of being kept in branching-tree form.
+```
+</details>
+
+
+**58.** `atomspace/examples/pattern-matcher/deduction-engine.scm:237`
+
+**Issue:** TODO x is undefined
+
+**Category:** Feature Implementation  
+**Effort:** 1-4 weeks  
+**Reasoning:** Variable scoping issue in example code that needs proper implementation
+
+<details>
+<summary>View Code Context</summary>
+
+```
+;;; Assert query 
+;;;   |- likes(Bill, $y) ?
+;; TODO: x is undefined
+;;; This is an incorrect query. x is not defined, and so when
+;;; the below is evaluated, the result is the empty set.
+```
+</details>
+
+
+**59.** `atomspace/opencog/atomspace/AtomSpace.cc:138`
+
+**Issue:** TODO this should probably be moved to a method on class Atom
+
+**Category:** Code Refactoring  
+**Effort:** 1-2 weeks  
+**Reasoning:** Refactoring task to improve code organization
+
+<details>
+<summary>View Code Context</summary>
+
+```
+
+        // Check the values...
+        // TODO: this should probably be moved to a method on class Atom.
+        if (check_values)
+        {
+            for (const std::pair<const Handle, ValuePtr>& p : h->_values)
+```
+</details>
+
+
+**60.** `atomspace/opencog/guile/SchemeEval.cc:1065`
+
+**Issue:** TODO it would be nice to pass exceptions on through, but this currently breaks unit tests
+
+**Category:** Error Handling  
+**Effort:** 1-3 weeks  
+**Reasoning:** Exception handling improvement, currently breaks unit tests
+
+<details>
+<summary>View Code Context</summary>
+
+```
+	if (_atomspace)
+		SchemeSmob::ss_set_env_as(_atomspace);
+
+	// TODO: it would be nice to pass exceptions on through, but
+	// this currently breaks unit tests.
+	// if (_in_eval)
+	//    return scm_eval(expr, scm_interaction_environment());
+```
+</details>
+
+
+**61.** `atomspace/opencog/atoms/core/Checkers.cc:70`
+
+**Issue:** TODO look up the schema, and make sure its numeric, also
+
+**Category:** Type Checking/Validation  
+**Effort:** 1-3 weeks  
+**Reasoning:** Schema validation and numeric type checking implementation
+
+<details>
+<summary>View Code Context</summary>
+
+```
+		// TODO - look up the schema, and make sure its numeric, also.
+		if (h->is_type(NUMBER_NODE)) continue;
+```
+</details>
+
+
+**62.** `atomspace/opencog/atoms/core/PutLink.cc:72`
+
+**Issue:** TODO we should perform a type-check on the function
+
+**Category:** Type Checking/Validation  
+**Effort:** 1-3 weeks  
+**Reasoning:** Function type validation implementation
+
+<details>
+<summary>View Code Context</summary>
+
+```
+		// XXX TODO we should perform a type-check on the function.
+		// Doing this here means we'll repeat the computation many
+		// times over ... which I guess is fine, for now ...
+```
+</details>
+
+
+**63.** `atomspace/opencog/atoms/core/RandomChoice.cc:74`
+
+**Issue:** TODO if execute() above returns FloatValue, use that!
+
+**Category:** Feature Enhancement  
+**Effort:** 1-2 weeks  
+**Reasoning:** Handle FloatValue return type in execution logic
+
+<details>
+<summary>View Code Context</summary>
+
+```
+			// XXX TODO if execute() above returns FloatValue, use that!
+			NumberNodePtr np(NumberNodeCast(h));
+```
+</details>
+
+
+**64.** `atomspace/opencog/atoms/core/Variables.cc:77`
+
+**Issue:** TODO this does not currently handle type equations, as outlined
+
+**Category:** Type System  
+**Effort:** 2-4 weeks  
+**Reasoning:** Type equation handling in variable system
+
+<details>
+<summary>View Code Context</summary>
+
+```
+ * XXX TODO this does not currently handle type equations, as outlined
+ * in the "math-simple.scm" demo.
+ */
+```
+</details>
+
+
+**65.** `atomspace/opencog/atoms/core/Variables.cc:158`
+
+**Issue:** TODO type-checking could be lazy; if the function is not
+
+**Category:** Type System Optimization  
+**Effort:** 1-3 weeks  
+**Reasoning:** Lazy evaluation optimization for type checking
+
+<details>
+<summary>View Code Context</summary>
+
+```
+	// XXX TODO type-checking could be lazy; if the function is not
+	// evaluatable, then it could skip the type check entirely.
+```
+</details>
+
+
+**66.** `atomspace/opencog/atoms/core/RewriteLink.cc:90`
+
+**Issue:** TODO the following has no unit test!!! Yet it introduces a substantial behavioral change
+
+**Category:** Testing Gap  
+**Effort:** 1-2 weeks  
+**Reasoning:** Add unit test for existing functionality with significant impact
+
+<details>
+<summary>View Code Context</summary>
+
+```
+		// TODO: the following has no unit test!!! Yet it introduces a
+		// substantial behavioral change. It causes a reduction to be
+		// performed, when before reduction was not performed.
+```
+</details>
+
+
+**67.** `atomspace/opencog/atoms/join/JoinLink.cc:106`
+
+**Issue:** TODO it might be faster to use hash tables instead of rb-trees
+
+**Category:** Performance Optimization  
+**Effort:** 1-3 weeks  
+**Reasoning:** Data structure optimization for improved performance
+
+<details>
+<summary>View Code Context</summary>
+
+```
+/// TODO: it might be faster to use hash tables instead of rb-trees
+/// i.e. to use UnorderedHandleSet instead of HandleSet. XXX FIXME.
+/// But maybe not; typical join sizes might be small (???)
 ```
 </details>
 
@@ -6320,7 +6606,7 @@ return False
 
 
 
-## ✅ Easy Priority (12 items)
+## ✅ Easy Priority (15 items)
 
 ### Analyze_Fixme_Instances.Py Component (3 items)
 
@@ -6388,7 +6674,7 @@ return ('fixme' in line_lower or
 </details>
 
 
-### Atomspace Component (5 items)
+### Atomspace Component (8 items)
 
 
 **1.** `atomspace/opencog/scm/opencog.scm:122`
@@ -6492,6 +6778,63 @@ _have_typespec = true;
 ; XXX FIXME replace below by real docs.
 (set-procedure-property! BindLink 'documentation
 (procedure-property QueryLink 'documentation))
+```
+</details>
+
+
+**6.** `atomspace/opencog/cython/PythonEval.cc:24`
+
+**Issue:** TODO When can we remove the singleton instance? Answer: not sure.
+
+**Category:** Documentation/Design Question  
+**Effort:** 1-3 days  
+**Reasoning:** Documentation task to clarify singleton lifecycle
+
+<details>
+<summary>View Code Context</summary>
+
+```
+ * @todo When can we remove the singleton instance? Answer: not sure.
+ * Answer: never, there are too many places in the code where this is
+ * needed, and fixing those is very low priority.
+```
+</details>
+
+
+**7.** `atomspace/opencog/atoms/core/RewriteLink.cc:90`
+
+**Issue:** TODO the following has no unit test!!! Yet it introduces a substantial behavioral change
+
+**Category:** Testing/Documentation  
+**Effort:** 1-3 days  
+**Reasoning:** Add unit test for existing functionality
+
+<details>
+<summary>View Code Context</summary>
+
+```
+		// TODO: the following has no unit test!!! Yet it introduces a
+		// substantial behavioral change. It causes a reduction to be
+		// performed, when before reduction was not performed.
+```
+</details>
+
+
+**8.** `atomspace/opencog/atoms/reduct/BoolOpLink.cc:110`
+
+**Issue:** TODO we can relax this, and accept simple truth values, too.
+
+**Category:** Feature Relaxation  
+**Effort:** 1-3 days  
+**Reasoning:** Simple extension to accept additional input types
+
+<details>
+<summary>View Code Context</summary>
+
+```
+	// XXX TODO we can relax this, and accept simple truth values, too.
+	// But the semantics is a bit weird... unless we really do want
+	// the boolean value.
 ```
 </details>
 
@@ -6660,7 +7003,7 @@ Any commit that triggers CI placeholder detection updates this master TODO issue
 | Component | VERY_HARD | HARD | MEDIUM | EASY | Total |
 |-----------|-----------|------|--------|------|-------|
 | analyze_fixme_instances.py | 0 | 3 | 29 | 3 | 35 |
-| atomspace | 12 | 12 | 57 | 5 | 86 |
+| atomspace | 15 | 13 | 67 | 8 | 103 |
 | atomspace-restful | 0 | 0 | 2 | 0 | 2 |
 | atomspace-rocks | 0 | 0 | 4 | 1 | 5 |
 | atomspace-storage | 2 | 2 | 12 | 0 | 16 |
