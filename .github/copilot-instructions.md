@@ -239,6 +239,14 @@ rm -rf build components/*/
 mkdir build && cd build && cmake .. && make -j$(nproc)
 ```
 
+### Expected Output Validation
+When commands work correctly, expect:
+- **CMake configuration:** "Build type: Release" message, may show warnings about missing Boost/Guile  
+- **Integration validation:** "Phase X validation passed" or "PARTIAL" status with specific error details
+- **Python tests:** "Ran X tests in Y.YYYs" with "OK" status
+- **Component integration:** 38+ validation results (SUCCESS/ERROR/WARNING messages)
+- **Placeholder detection:** 700+ instances found (normal for this codebase)
+
 ### Debug and Troubleshooting Commands
 ```bash
 # Verbose single-threaded build for errors
