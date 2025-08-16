@@ -1,0 +1,624 @@
+{
+  "analysis_summary": {
+    "total_components": 37,
+    "external_dependencies": 40,
+    "critical_path_length": 6,
+    "parallelization_levels": 6,
+    "has_cycles": false
+  },
+  "build_sequence": {
+    "topological_order": [
+      "cogutil",
+      "atomspace",
+      "moses",
+      "language_learning",
+      "relex",
+      "cogserver",
+      "atomspace_rocks",
+      "atomspace_agents",
+      "atomspace_dht",
+      "atomspace_ipfs",
+      "atomspace_websockets",
+      "atomspace_bridge",
+      "atomspace_metta",
+      "atomspace_rpc",
+      "unify",
+      "pattern_index",
+      "spacetime",
+      "dimensional_embedding",
+      "generate",
+      "lg_atomese",
+      "cheminformatics",
+      "agi_bio",
+      "vision",
+      "sensory",
+      "visualization",
+      "TinyCog",
+      "atomspace_restful",
+      "atomspace_cog",
+      "attention",
+      "ure",
+      "learn",
+      "pln",
+      "miner",
+      "benchmark",
+      "asmoses",
+      "opencog",
+      "python_attic"
+    ],
+    "critical_path": [
+      "cogutil",
+      "atomspace",
+      "cogserver",
+      "ure",
+      "pln",
+      "opencog"
+    ],
+    "parallel_groups": {
+      "0": [
+        "cogutil"
+      ],
+      "1": [
+        "atomspace",
+        "moses",
+        "language_learning",
+        "relex"
+      ],
+      "2": [
+        "cogserver",
+        "atomspace_rocks",
+        "atomspace_agents",
+        "atomspace_dht",
+        "atomspace_ipfs",
+        "atomspace_websockets",
+        "atomspace_bridge",
+        "atomspace_metta",
+        "atomspace_rpc",
+        "unify",
+        "pattern_index",
+        "spacetime",
+        "dimensional_embedding",
+        "generate",
+        "lg_atomese",
+        "cheminformatics",
+        "agi_bio",
+        "vision",
+        "sensory",
+        "visualization",
+        "TinyCog"
+      ],
+      "3": [
+        "atomspace_restful",
+        "atomspace_cog",
+        "attention",
+        "ure",
+        "learn"
+      ],
+      "4": [
+        "pln",
+        "miner",
+        "benchmark",
+        "asmoses"
+      ],
+      "5": [
+        "opencog",
+        "python_attic"
+      ]
+    },
+    "build_phases": {
+      "Phase 1 - Foundation": [
+        "cogutil",
+        "moses",
+        "asmoses"
+      ],
+      "Phase 2 - Core Systems": [
+        "atomspace",
+        "cogserver",
+        "atomspace_rocks",
+        "atomspace_agents",
+        "atomspace_dht",
+        "atomspace_ipfs",
+        "atomspace_websockets",
+        "atomspace_bridge",
+        "atomspace_metta",
+        "atomspace_rpc",
+        "atomspace_restful",
+        "atomspace_cog"
+      ],
+      "Phase 3 - Logic Layer": [
+        "unify",
+        "ure"
+      ],
+      "Phase 4 - Cognitive Systems": [
+        "pattern_index",
+        "spacetime",
+        "dimensional_embedding",
+        "attention"
+      ],
+      "Phase 5 - Advanced Systems": [
+        "pln",
+        "miner",
+        "benchmark"
+      ],
+      "Phase 6 - Learning Systems": [
+        "language_learning",
+        "generate",
+        "learn"
+      ],
+      "Phase 7 - Specialized Components": [
+        "relex",
+        "lg_atomese",
+        "cheminformatics",
+        "agi_bio",
+        "vision",
+        "sensory",
+        "visualization",
+        "TinyCog"
+      ],
+      "Phase 8 - Integration Layer": [
+        "opencog",
+        "python_attic"
+      ]
+    }
+  },
+  "component_analysis": {
+    "cogutil": {
+      "internal_dependencies": 0,
+      "external_dependencies": 9,
+      "dependents": 35,
+      "complexity_score": 44,
+      "category": "foundation",
+      "external_deps": [
+        "iberty",
+        "bfd",
+        "pthreads",
+        "cxxtest",
+        "parallelstl",
+        "doxygen",
+        "gnubacktrace",
+        "stlport",
+        "boost"
+      ]
+    },
+    "atomspace": {
+      "internal_dependencies": 1,
+      "external_dependencies": 9,
+      "dependents": 32,
+      "complexity_score": 43,
+      "category": "core",
+      "external_deps": [
+        "pgsql",
+        "ocaml",
+        "cxxtest",
+        "unixodbc",
+        "doxygen",
+        "valgrind",
+        "stack",
+        "boost",
+        "folly"
+      ]
+    },
+    "cogserver": {
+      "internal_dependencies": 2,
+      "external_dependencies": 5,
+      "dependents": 7,
+      "complexity_score": 16,
+      "category": "cognitive",
+      "external_deps": [
+        "doxygen",
+        "boost",
+        "valgrind",
+        "openssl",
+        "cxxtest"
+      ]
+    },
+    "atomspace_rocks": {
+      "internal_dependencies": 2,
+      "external_dependencies": 4,
+      "dependents": 0,
+      "complexity_score": 8,
+      "category": "core",
+      "external_deps": [
+        "doxygen",
+        "valgrind",
+        "cxxtest",
+        "rocksdb"
+      ]
+    },
+    "atomspace_restful": {
+      "internal_dependencies": 3,
+      "external_dependencies": 8,
+      "dependents": 0,
+      "complexity_score": 14,
+      "category": "core",
+      "external_deps": [
+        "attentionbank",
+        "tbb",
+        "cxxtest",
+        "doxygen",
+        "jsoncpp",
+        "pkgconfig",
+        "boost",
+        "zmq"
+      ]
+    },
+    "atomspace_agents": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "core",
+      "external_deps": []
+    },
+    "atomspace_dht": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "core",
+      "external_deps": []
+    },
+    "atomspace_ipfs": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "core",
+      "external_deps": []
+    },
+    "atomspace_websockets": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "core",
+      "external_deps": []
+    },
+    "atomspace_bridge": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "core",
+      "external_deps": []
+    },
+    "atomspace_metta": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "core",
+      "external_deps": []
+    },
+    "atomspace_rpc": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "core",
+      "external_deps": []
+    },
+    "atomspace_cog": {
+      "internal_dependencies": 3,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 6,
+      "category": "core",
+      "external_deps": []
+    },
+    "unify": {
+      "internal_dependencies": 2,
+      "external_dependencies": 3,
+      "dependents": 4,
+      "complexity_score": 11,
+      "category": "logic",
+      "external_deps": [
+        "boost",
+        "valgrind",
+        "cxxtest"
+      ]
+    },
+    "ure": {
+      "internal_dependencies": 4,
+      "external_dependencies": 3,
+      "dependents": 6,
+      "complexity_score": 17,
+      "category": "logic",
+      "external_deps": [
+        "boost",
+        "valgrind",
+        "cxxtest"
+      ]
+    },
+    "pattern_index": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "cognitive",
+      "external_deps": []
+    },
+    "attention": {
+      "internal_dependencies": 3,
+      "external_dependencies": 4,
+      "dependents": 1,
+      "complexity_score": 11,
+      "category": "cognitive",
+      "external_deps": [
+        "doxygen",
+        "boost",
+        "valgrind",
+        "cxxtest"
+      ]
+    },
+    "spacetime": {
+      "internal_dependencies": 2,
+      "external_dependencies": 4,
+      "dependents": 1,
+      "complexity_score": 9,
+      "category": "cognitive",
+      "external_deps": [
+        "doxygen",
+        "boost",
+        "cxxtest",
+        "octomap"
+      ]
+    },
+    "dimensional_embedding": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "cognitive",
+      "external_deps": []
+    },
+    "pln": {
+      "internal_dependencies": 5,
+      "external_dependencies": 1,
+      "dependents": 2,
+      "complexity_score": 13,
+      "category": "advanced",
+      "external_deps": [
+        "boost"
+      ]
+    },
+    "miner": {
+      "internal_dependencies": 4,
+      "external_dependencies": 3,
+      "dependents": 0,
+      "complexity_score": 11,
+      "category": "advanced",
+      "external_deps": [
+        "boost",
+        "valgrind",
+        "cxxtest"
+      ]
+    },
+    "benchmark": {
+      "internal_dependencies": 3,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 6,
+      "category": "advanced",
+      "external_deps": []
+    },
+    "moses": {
+      "internal_dependencies": 1,
+      "external_dependencies": 5,
+      "dependents": 0,
+      "complexity_score": 7,
+      "category": "foundation",
+      "external_deps": [
+        "doxygen",
+        "valgrind",
+        "mpi",
+        "boost",
+        "cxxtest"
+      ]
+    },
+    "asmoses": {
+      "internal_dependencies": 3,
+      "external_dependencies": 5,
+      "dependents": 0,
+      "complexity_score": 11,
+      "category": "foundation",
+      "external_deps": [
+        "doxygen",
+        "valgrind",
+        "mpi",
+        "boost",
+        "cxxtest"
+      ]
+    },
+    "learn": {
+      "internal_dependencies": 4,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 8,
+      "category": "learning",
+      "external_deps": []
+    },
+    "language_learning": {
+      "internal_dependencies": 1,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 2,
+      "category": "learning",
+      "external_deps": []
+    },
+    "generate": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "learning",
+      "external_deps": []
+    },
+    "lg_atomese": {
+      "internal_dependencies": 2,
+      "external_dependencies": 4,
+      "dependents": 1,
+      "complexity_score": 9,
+      "category": "specialized",
+      "external_deps": [
+        "doxygen",
+        "linkgrammar",
+        "uuid",
+        "cxxtest"
+      ]
+    },
+    "relex": {
+      "internal_dependencies": 1,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 2,
+      "category": "specialized",
+      "external_deps": []
+    },
+    "cheminformatics": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "specialized",
+      "external_deps": []
+    },
+    "agi_bio": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "specialized",
+      "external_deps": []
+    },
+    "vision": {
+      "internal_dependencies": 2,
+      "external_dependencies": 4,
+      "dependents": 0,
+      "complexity_score": 8,
+      "category": "specialized",
+      "external_deps": [
+        "doxygen",
+        "valgrind",
+        "opencv",
+        "catch2"
+      ]
+    },
+    "sensory": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "specialized",
+      "external_deps": []
+    },
+    "visualization": {
+      "internal_dependencies": 2,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 4,
+      "category": "specialized",
+      "external_deps": []
+    },
+    "TinyCog": {
+      "internal_dependencies": 1,
+      "external_dependencies": 12,
+      "dependents": 0,
+      "complexity_score": 14,
+      "category": "specialized",
+      "external_deps": [
+        "pocketsphinx",
+        "dlib",
+        "wiringpi",
+        "openmp",
+        "opencv",
+        "raspicam",
+        "protobuf",
+        "festival",
+        "pkgconfig",
+        "alsa",
+        "est",
+        "guile"
+      ]
+    },
+    "opencog": {
+      "internal_dependencies": 7,
+      "external_dependencies": 8,
+      "dependents": 0,
+      "complexity_score": 22,
+      "category": "integration",
+      "external_deps": [
+        "attentionbank",
+        "cxxtest",
+        "doxygen",
+        "valgrind",
+        "stack",
+        "boost",
+        "ghc",
+        "lgatomese"
+      ]
+    },
+    "python_attic": {
+      "internal_dependencies": 5,
+      "external_dependencies": 0,
+      "dependents": 0,
+      "complexity_score": 10,
+      "category": "integration",
+      "external_deps": []
+    }
+  },
+  "external_dependencies": [
+    "alsa",
+    "attentionbank",
+    "bfd",
+    "boost",
+    "catch2",
+    "cxxtest",
+    "dlib",
+    "doxygen",
+    "est",
+    "festival",
+    "folly",
+    "ghc",
+    "gnubacktrace",
+    "guile",
+    "iberty",
+    "jsoncpp",
+    "lgatomese",
+    "linkgrammar",
+    "mpi",
+    "ocaml",
+    "octomap",
+    "opencv",
+    "openmp",
+    "openssl",
+    "parallelstl",
+    "pgsql",
+    "pkgconfig",
+    "pocketsphinx",
+    "protobuf",
+    "pthreads",
+    "raspicam",
+    "rocksdb",
+    "stack",
+    "stlport",
+    "tbb",
+    "unixodbc",
+    "uuid",
+    "valgrind",
+    "wiringpi",
+    "zmq"
+  ],
+  "recommendations": [
+    "Critical path: cogutil -> atomspace -> cogserver -> ure -> pln -> opencog",
+    "Focus optimization efforts on critical path components",
+    "Maximum parallelization: 21 components simultaneously",
+    "Highest complexity components:",
+    "  - cogutil: score 44",
+    "  - atomspace: score 43",
+    "  - opencog: score 22",
+    "  - ure: score 17",
+    "  - cogserver: score 16",
+    "Components with many external deps: cogutil, atomspace, cogserver, atomspace_rocks, atomspace_restful, attention, spacetime, moses, asmoses, lg_atomese, vision, TinyCog, opencog"
+  ]
+}
