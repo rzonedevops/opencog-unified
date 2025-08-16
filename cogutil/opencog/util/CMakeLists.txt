@@ -71,7 +71,10 @@ IF (HAVE_BFD AND HAVE_IBERTY)
 	check_symbol_exists(bfd_section_vma "bfd.h" HAVE_DECL_BFD_SECTION_VMA)
 
 	if(HAVE_DECL_BFD_GET_SECTION_FLAGS)
-		# Use add_compile_definitions for CMake 3.12+, fallback to add_definitions for older versions
+		# This should be
+		# add_compile_definitions(HAVE_DECL_BFD_GET_SECTION_FLAGS)
+		# except that requires CMake version 3.12 which is not available
+		# in Ubuntu 18.04 LTS -- FIXME someday...
 		if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.12")
 			add_compile_definitions(HAVE_DECL_BFD_GET_SECTION_FLAGS=1)
 		else()

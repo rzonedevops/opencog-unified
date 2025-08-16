@@ -191,7 +191,7 @@ template<typename FloatT> bool is_approx_eq(FloatT x, FloatT y, FloatT epsilon)
     return diff <= epsilon * amp;
 }
 
-// Note: This could be replaced with C++17 std::clamp when available
+// TODO: replace the following by C++17 std::clamp
 /**
  * Return x clamped to [l, u], that is it returns max(l, min(u, x))
  */
@@ -409,7 +409,7 @@ Float angular_distance(const Vec& a, const Vec& b, bool pos_n_neg = true)
                a.size(), b.size());
 
 #ifdef HAVE_BOOST
-    // XXX Note: writing out the explicit loop will almost
+    // XXX FIXME writing out the explicit loop will almost
     // surely be faster than calling boost. Why? Because a single
     // loop allows the compiler to insert instructions into the
     // pipeline bubbles; whereas three different loops will be more

@@ -55,8 +55,9 @@ class Counter : public std::map<T, CT, CMP>
 
 {
 protected:
-	// Initialize counter from iterator range
-	// Note: This could be replaced with C++11 constructor delegation in the future
+	/** @todo this will be replaced by C++11 constructor
+	 * delegation instead of init
+	 */
 	template<typename IT>
 	void init(IT from, IT to) {
 		while(from != to) {

@@ -88,7 +88,7 @@
 #   Because of dependency reasons, the OCaml code is also generated at the
 # first configuration time.
 #
-# Note: Investigate if it is possible to call the dependency generator at compile time
+# TODO : see if it is possible to call the dependency generator at compile time
 # before compiling source files but after generating some source files.
 #
 # Copyright (c) 2010, Judica�l Bedouet, j dot bedouet at infonie dot fr.

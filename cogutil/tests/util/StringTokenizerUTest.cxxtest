@@ -37,11 +37,11 @@ class StringTokenizerUTest : public CxxTest::TestSuite
 
 public:
     void setUp() {
-        // Setup function - currently no setup needed for these tests
+        // TODO: Implement setUp() function.
     }
 
     void tearDown() {
-        // Teardown function - currently no cleanup needed for these tests
+        // TODO: Implement tearDown() function.
     }
 
     void testNextToken() {
