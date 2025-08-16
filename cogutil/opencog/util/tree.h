@@ -875,9 +875,9 @@ typename tree<T, tree_node_allocator>::fixed_depth_iterator tree<T, tree_node_al
 template <class T, class tree_node_allocator>
 typename tree<T, tree_node_allocator>::fixed_depth_iterator tree<T, tree_node_allocator>::end_fixed(const iterator_base& pos, unsigned int dp) const
 {
-    tree_assert(1==0); // Note: This implementation is not yet correct
+    // Find the rightmost node at the specified depth
     tree_node *tmp=pos.node;
-    unsigned int curdepth=1;
+    unsigned int curdepth=0;
     while(curdepth<dp) { // go down one level
         while(tmp->first_child==0) {
             tmp=tmp->next_sibling;
@@ -887,7 +887,16 @@ typename tree<T, tree_node_allocator>::fixed_depth_iterator tree<T, tree_node_al
         tmp=tmp->first_child;
         ++curdepth;
     }
-    return tmp;
+    
+    // Now find the rightmost sibling at this depth
+    while(tmp->next_sibling && tmp->next_sibling != feet) {
+        tmp=tmp->next_sibling;
+    }
+    
+    // Return an iterator pointing to the position after the last node at this depth
+    fixed_depth_iterator ret(tmp);
+    ++ret;
+    return ret;
 }
 
 template <class T, class tree_node_allocator>

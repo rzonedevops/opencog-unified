@@ -26,6 +26,8 @@
 #include <queue>
 #include <vector>
 #include <set>
+#include <random>
+#include <algorithm>
 #include <opencog/util/algorithm.h>
 #include <opencog/util/exceptions.h>
 #include <opencog/util/oc_assert.h>
@@ -94,7 +96,7 @@ Out randomized_topological_sort(digraph g, Out out)
               boost::make_counting_iterator(g.n_nodes()));
     // Note: std::random_shuffle is deprecated in C++14 and removed in C++17
     // Consider replacing with OpenCog's RandGen or std::shuffle with a proper RNG
-    std::random_shuffle(nodes.begin(), nodes.end());
+    std::shuffle(nodes.begin(), nodes.end(), std::default_random_engine());
     std::queue<value_t> q;
 
     for (value_t node : nodes)

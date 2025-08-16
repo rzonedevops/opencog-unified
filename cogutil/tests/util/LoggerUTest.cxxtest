@@ -282,13 +282,13 @@ public:
 
     // Define a second logger, enable stdout in one logger, and check
     // whether the stdout in the other logger is left unchanged.
-    //
-    // Note: This test was disabled due to interaction issues between loggers
-    // Consider re-enabling once the stdout flag interaction is properly implemented
     void testLoggerStdoutFlagInteraction()
     {
         Logger my_logger;
 
+        // Store original flags
+        bool original_stdout_flag = logger().get_print_to_stdout_flag();
+        
         // Set different stdout flags for my_logger and the default logger
         logger().set_print_to_stdout_flag(false);
         my_logger.set_print_to_stdout_flag(true);
@@ -296,6 +296,14 @@ public:
         // Make sure their flags differ
         TS_ASSERT_DIFFERS(logger().get_print_to_stdout_flag(),
                           my_logger.get_print_to_stdout_flag());
+        
+        // Test that changing one logger doesn't affect the other
+        my_logger.set_print_to_stdout_flag(false);
+        TS_ASSERT_EQUALS(logger().get_print_to_stdout_flag(), false);
+        TS_ASSERT_EQUALS(my_logger.get_print_to_stdout_flag(), false);
+        
+        // Restore original flag
+        logger().set_print_to_stdout_flag(original_stdout_flag);
     }
 
 }; // class
