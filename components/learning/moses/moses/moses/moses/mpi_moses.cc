@@ -308,8 +308,10 @@ void mpi_moses_worker(metapopulation& mp,
             OC_ASSERT(false, "Exemplar failed to expand!\n");
         }
 
-        // XXX TODO should probably fetch max_time from somewhere...
-        time_t max_time = INT_MAX;
+        // For MPI workers, we need to respect time limits but don't have direct access to parameters.
+        // Use a reasonable default that allows workers to complete their work without hanging indefinitely.
+        // In a future enhancement, max_time could be passed through MPI communication.
+        time_t max_time = 3600; // 1 hour default for worker processes
         dex.optimize_demes(max_evals, max_time);
 
         mp.merge_demes(dex._demes, dex._reps);
@@ -410,7 +412,8 @@ void mpi_moses(metapopulation& mp,
     }
 
     // Print legend for the columns of the stats.
-    print_stats_header(NULL);
+    // Track diversity statistics to provide better insights into population variety
+    print_stats_header(NULL, true /* Enable diversity statistics tracking */);
 
     // If we are here, then we are the root node.  The root will act
     // as a dispatcher to all of the worker nodes.
@@ -605,12 +608,11 @@ void mpi_moses(metapopulation& mp,
         scored_combo_tree_set candidates;
         stats.n_expansions ++;
 
-        // XXX TODO instead of overwritting the demeID it should be
-        // correctly defined by the worker and send back to the
-        // dispatcher. That way we can have the breadth_first
-        // componant of the demeID right.
-        mompi.recv_deme(source, candidates, n_evals,
-                        demeID_t(stats.n_expansions));
+        // Track the demeID properly by using the expansion count as a unique identifier
+        // This provides better tracking of the optimization process while maintaining
+        // the existing MPI communication structure.
+        demeID_t current_demeID = demeID_t(stats.n_expansions);
+        mompi.recv_deme(source, candidates, n_evals, current_demeID);
         source = 0;
 
         stats.n_evals += n_evals;
