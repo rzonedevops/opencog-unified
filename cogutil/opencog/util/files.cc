@@ -89,6 +89,12 @@ static const std::vector<std::string> paths = []() {
     result.push_back("/usr/share/");
     result.push_back("/opt/");
     result.push_back("/");
+    
+    // Note: Removed searching current path and relative paths for security reasons.
+    // These paths pose a security risk as they could allow loading of
+    // untrusted libraries or modules from the current working directory.
+    // If these paths are needed for unit tests, they should be explicitly
+    // added via the OPENCOG_MODULE_PATHS environment variable.
 #endif // !WIN32
     return result;
 }();

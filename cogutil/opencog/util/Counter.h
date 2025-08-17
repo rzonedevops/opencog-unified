@@ -65,7 +65,8 @@ public:
 	Counter() {}
 
 	template<typename IT>
-	Counter(IT from, IT to) : Counter() {
+	Counter(IT from, IT to) : Counter()
+	{
 		// C++11 CONSTRUCTOR DELEGATION: Replaced init method with direct initialization
 		while(from != to) {
 			//we don't use ++ to put the least assumption on on CT
@@ -75,9 +76,11 @@ public:
 	}
 
 	template<typename Container>
-	Counter(const Container& c) : Counter(c.begin(), c.end()) {}
+	Counter(const Container& c) : Counter(c.begin(), c.end())
+	{
+	}
 
-	Counter(const std::initializer_list<value_type>& il)
+	Counter(const std::initializer_list<value_type>& il) : Counter()
 	{
 		for(const auto& v : il)
 			this->operator[](v.first) = v.second;

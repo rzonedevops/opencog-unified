@@ -2797,7 +2797,7 @@ typename tree<T, tree_node_allocator>::fixed_depth_iterator& tree<T, tree_node_a
         tree_node *par=this->node->parent;
         do {
             par=par->prev_sibling;
-            if(par==0) { // IMPLEMENTATION: Proper boundary checking
+            if(par==0) { // Note: parent tracking limitation - returns null when no previous sibling with children
                 this->node=0;
                 return *this;
             }

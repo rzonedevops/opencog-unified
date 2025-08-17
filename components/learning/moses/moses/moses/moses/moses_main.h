@@ -94,14 +94,18 @@ struct metapop_printer
                     deme_expander& dex,
                     moses_statistics& stats) const
     {
-        // We expect the mpi worker processes to have an empty
-        // metapop at this point.  So don't print alarming output
-        // messages.  In fact, the mpi workers should not even have
-        // a printer at all, or use a null_printer.  Unfortunately,
-        // the current code structure makes this hard to implement.
-        // XXX TODO this should be fixed, someday...
-        if (is_mpi && metapop.size() == 0)
+        // For MPI worker processes, we expect an empty metapop at this point.
+        // MPI workers should not print output or use a null_printer.
+        if (is_mpi && metapop.size() == 0) {
+            // MPI workers should not print anything - they just return silently
             return;
+        }
+
+        // For non-MPI processes or when metapop has content, proceed with printing
+        if (metapop.size() == 0) {
+            // Even for non-MPI processes, if metapop is empty, don't print anything
+            return;
+        }
 
         stringstream ss;
         // A number of external tools read the printed results, and

@@ -107,7 +107,7 @@ static const char* DEFAULT_CONFIG_PATHS[] =
     "/usr/local/share/",
     "/etc/",
     "/usr/share/",
-    NULL
+    nullptr
 };
 
 const std::vector<std::string> Config::search_paths() const
@@ -151,9 +151,24 @@ void Config::check_for_file(std::ifstream& fin,
     fin.open(configPath.string().c_str());
     if (fin and fin.good() and fin.is_open())
     {
-        // SECURITY FIX: All paths are now absolute or safely expanded user paths
-        // No more relative path searching that could lead to security issues
-        _path_where_found = configPath.string();
+        // Security fix: reject relative paths to prevent loading
+        // configuration from untrusted locations
+        if ('/' != configPath.string()[0])
+        {
+            fin.close();
+            logger().warn("Config file path '%s' is relative. "
+                         "Only absolute paths are allowed for security reasons.",
+                         configPath.string().c_str());
+            return;
+        }
+        
+        char buff[PATH_MAX+1];
+        char *p = getcwd(buff, PATH_MAX);
+        if (p) {
+            _path_where_found = buff;
+            _path_where_found += '/';
+        }
+        _path_where_found += configPath.string();
     }
 }
 

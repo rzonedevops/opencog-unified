@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <set>
+#include <functional>
 
 #include <opencog/util/numeric.h>
 #include <opencog/util/exceptions.h>
@@ -387,6 +388,25 @@ void clear_by_swap(C& c)
 {
 	C empty;
 	c.swap(empty);
+}
+
+/**
+ * Check if container contains an element.
+ * When C++20 is widely adopted, this can be replaced with the
+ * standard container contains() method where available.
+ */
+template<typename Set>
+bool contains(const Set& s, const typename Set::key_type& e) {
+#if __cplusplus >= 202002L
+	// Use C++20 contains method if available
+	if constexpr (requires { s.contains(e); }) {
+		return s.contains(e);
+	} else {
+		return s.find(e) != s.cend();
+	}
+#else
+	return s.find(e) != s.cend();
+#endif
 }
 
 /** @}*/

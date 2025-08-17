@@ -257,55 +257,57 @@ public:
         super::remove(x);
     }
 
-    // IMPLEMENTATION: Thread-safe operator with proper locking
-    // This replaces the buggy implementation with a robust, thread-safe version
+    // Thread-safe operator() implementation
     result_type operator()(const argument_type& x) const {
         unique_lock lock(mutex);
         
-        // Check if cache is empty or full
         if (super::empty()) {
             if (super::full()) {
                 // a size-0 cache never needs hashing
-                return if_f(x);
+                lock.unlock();
+                return super::if_f(x);
             }
-            
-            // Add to cache
-            lru_push_front(x);
-            result_type r = ifx_f(x);
-            
+            super::_lru.push_front(x);
+            lock.unlock();
+            result_type r = super::ifx_f(x);
+            lock.lock();
             map_iter it = super::_map.insert(make_pair(super::_lru.begin(), r)).first;
             return it->second;
         }
-        
-        // Search for existing entry
+
+        // Search for it
         super::_lru.push_front(x);
         map_iter it = super::_map.find(super::_lru.begin());
-        super::_lru.pop_front();
-        
-        // If found, update LRU and return
+
+        // If we've found it, update lru and return
         if (it != super::_map.end()) {
+            super::_lru.pop_front();
             super::_lru.splice(super::_lru.begin(), super::_lru, it->first);
-            super::_hits++;
+            ++super::_hits;
             return it->second;
         }
-        
-        // Otherwise, call function and insert result
-        result_type r = ifail_f(x);
+
+        // Otherwise, call _f and do an insertion
+        super::_lru.pop_front();
+        lock.unlock();
+        result_type r = super::if_f(x);
+        lock.lock();
         
         super::_lru.push_front(x);
         it = super::_map.insert(make_pair(super::_lru.begin(), r)).first;
-        
+
         // If full, remove least-recently-used
         if (super::_map.size() > super::_n) {
             super::_map.erase(--super::_lru.end());
             super::_lru.pop_back();
         }
-        
+
         OC_ASSERT(super::_map.size() <= super::_n,
                   "lru_cache - _map size greater than _n (%d).", super::_n);
         OC_ASSERT(super::_lru.size() == super::_map.size(),
                   "lru_cache - _lru size different from _map size.");
-        
+
+        // Return the result
         return it->second;
     }
 
@@ -611,10 +613,6 @@ private:
     float _ufrac;
 };
 
-
-    // IMPROVED IMPLEMENTATION: Enhanced version of the deprecated cache
-    // This provides better error handling and performance while maintaining compatibility
-    // with existing embodiment code
 
 // Enhanced version of the deprecated cache with better error handling
 template<typename ARG, typename RESULT>
