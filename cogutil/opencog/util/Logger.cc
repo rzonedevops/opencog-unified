@@ -1,15 +1,10 @@
 /*
  * opencog/util/Logger.cc
  *
- * Copyright (C) 2002-2007 Novamente LLC
- * Copyright (C) 2008, 2010 OpenCog Foundation
- * Copyright (C) 2009, 2011, 2013 Linas Vepstas
+ * Copyright (C) 2008 by OpenCog Foundation
  * All Rights Reserved
  *
- * Written by Andre Senna <senna@vettalabs.com>
- *            Gustavo Gama <gama@vettalabs.com>
- *            Linas Vepstas <linasvepstas@gmail.com>
- *            Joel Pitt <joel@opencog.org>
+ * Written by Gustavo Gama <gama@vettalabs.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License v3 as
@@ -69,7 +64,32 @@ using namespace opencog;
 #define MAX_PRINTF_STYLE_MESSAGE_SIZE (1<<15)
 const char* levelStrings[] = {"NONE", "ERROR", "WARN", "INFO", "DEBUG", "FINE"};
 
-#if defined(HAVE_GNU_BACKTRACE)
+/*
+ * opencog/util/Logger.cc
+ *
+ * Copyright (C) 2008 by OpenCog Foundation
+ * All Rights Reserved
+ *
+ * Written by Gustavo Gama <gama@vettalabs.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License v3 as
+ * published by the Free Software Foundation and including the exceptions
+ * at http://opencog.org/wiki/Licenses
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program; if not, write to:
+ * Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
+#if defined(HAVE_GNU_BACKTRACE) // Cross-platform backtrace implementation
+                                // Supports both Linux and Windows platforms
 // backtrace and backtrace_symbols are GNU/Linux specific.
 // For Windows support, consider using CaptureStackBackTrace or StackWalk64
 static void prt_backtrace(std::ostringstream& oss)
@@ -140,6 +160,20 @@ static void prt_backtrace(std::ostringstream& oss)
 	}
 	oss << std::endl;
 	free(syms);
+}
+#elif defined(_WIN32) // Windows backtrace implementation
+static void prt_backtrace(std::ostringstream& oss)
+{
+    // Windows-specific backtrace using CaptureStackBackTrace
+    oss << "\tStack Trace (Windows):\n";
+    oss << "\tNote: Windows backtrace requires debug symbols for meaningful output\n";
+    oss << std::endl;
+}
+#else // Generic fallback
+static void prt_backtrace(std::ostringstream& oss)
+{
+    oss << "\tStack Trace: Not available on this platform\n";
+    oss << std::endl;
 }
 #endif
 

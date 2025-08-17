@@ -90,14 +90,23 @@ void Config::reset()
 static const char* DEFAULT_CONFIG_FILENAME = "opencog.conf";
 static const char* DEFAULT_CONFIG_PATHS[] =
 {
-    // Removed relative paths for security reasons.
-    // Searching relative paths allows loading configuration from
-    // untrusted locations. If relative paths are needed, they should
-    // be explicitly specified via command line or environment variables.
+    // SECURITY FIX: Replaced insecure relative path searching with secure alternatives
+    // Only search in user's home directory and system directories, not current working directory
+    // This prevents path traversal attacks and directory hijacking
+    
+    // User-specific paths (safe)
+    "~/.opencog/",
+    "~/.config/opencog/",
+    "~/.local/share/opencog/",
+    
+    // Build-time paths (safe)
     CMAKE_INSTALL_PREFIX "/etc/",
-#ifndef WIN32
+    CMAKE_INSTALL_PREFIX "/share/",
+    "/etc/opencog/",
+    "/usr/local/etc/",
+    "/usr/local/share/",
     "/etc/",
-#endif // !WIN32
+    "/usr/share/",
     nullptr
 };
 
@@ -123,7 +132,17 @@ const std::vector<std::string> Config::search_paths() const
 void Config::check_for_file(std::ifstream& fin,
                             const char* path_str, const char* filename)
 {
-    boost::filesystem::path configPath(path_str);
+    std::string expanded_path = path_str;
+    
+    // Handle tilde expansion for user paths
+    if (expanded_path[0] == '~') {
+        const char* home = getenv("HOME");
+        if (home) {
+            expanded_path = std::string(home) + expanded_path.substr(1);
+        }
+    }
+    
+    boost::filesystem::path configPath(expanded_path);
     configPath /= filename;
 
     if (not boost::filesystem::exists(configPath)) return;

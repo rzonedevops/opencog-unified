@@ -59,29 +59,45 @@
  * The user can set the environmental OPENCOG_MODULE_PATHS to add more
  * module paths after compile time.
  */
-static const std::vector<std::string> paths =
-{
+static const std::vector<std::string> paths = []() {
+    std::vector<std::string> result;
 #ifndef WIN32
-    // Removed searching current path and relative paths for security reasons.
+    // SECURITY FIX: Replaced insecure relative path searching with secure alternatives
+    // Only search in user's home directory and system directories, not current working directory
+    // This prevents path traversal attacks and directory hijacking
+    
+    // User-specific paths (safe)
+    if (const char* home = getenv("HOME")) {
+        result.push_back(std::string(home) + "/.opencog/");
+    }
+    if (const char* xdg_config = getenv("XDG_CONFIG_HOME")) {
+        result.push_back(std::string(xdg_config) + "/opencog/");
+    }
+    if (const char* xdg_data = getenv("XDG_DATA_HOME")) {
+        result.push_back(std::string(xdg_data) + "/opencog/");
+    }
+    
+    // Build-time paths (safe)
+    result.push_back(CMAKE_INSTALL_PREFIX "/lib");
+    result.push_back(CMAKE_INSTALL_PREFIX "/share");
+    result.push_back(DATADIR);         // this too is an install dir
+    result.push_back("/usr/local/lib64/");  // lib64 is used on CentOS systems.
+    result.push_back("/usr/local/lib/");    // search local first, then system.
+    result.push_back("/usr/local/share/");  // search local first, then system.
+    result.push_back("/usr/lib64/");
+    result.push_back("/usr/lib/");
+    result.push_back("/usr/share/");
+    result.push_back("/opt/");
+    result.push_back("/");
+    
+    // Note: Removed searching current path and relative paths for security reasons.
     // These paths pose a security risk as they could allow loading of
     // untrusted libraries or modules from the current working directory.
     // If these paths are needed for unit tests, they should be explicitly
     // added via the OPENCOG_MODULE_PATHS environment variable.
 #endif // !WIN32
-    CMAKE_INSTALL_PREFIX "/lib",
-    CMAKE_INSTALL_PREFIX "/share",
-    DATADIR,         // this too is an install dir
-#ifndef WIN32
-    "/usr/local/lib64/",  // lib64 is used on CentOS systems.
-    "/usr/local/lib/",    // search local first, then system.
-    "/usr/local/share/",  // search local first, then system.
-    "/usr/lib64/",
-    "/usr/lib/",
-    "/usr/share/",
-    "/opt/",
-    "/",
-#endif // !WIN32
-};
+    return result;
+}();
 const std::vector<std::string> opencog::DEFAULT_MODULE_PATHS = paths;
 
 std::vector<std::string> opencog::get_module_paths()

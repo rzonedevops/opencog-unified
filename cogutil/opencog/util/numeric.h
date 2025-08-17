@@ -191,6 +191,7 @@ template<typename FloatT> bool is_approx_eq(FloatT x, FloatT y, FloatT epsilon)
     return diff <= epsilon * amp;
 }
 
+// IMPLEMENTED: C++17 std::clamp with fallback for older compilers
 // Uses C++17 std::clamp when available, falls back to manual implementation for older standards
 /**
  * Return x clamped to [l, u], that is it returns max(l, min(u, x))

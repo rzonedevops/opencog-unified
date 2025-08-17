@@ -265,7 +265,8 @@ Out n_way_partition(It begin, It end, const Pred p, int n, Out out)
 {
 	// could be made more efficient if needed
 	for (int i = 0;i < n - 1;++i)
-		*out++ = begin = std::partition(begin, end, std::bind(std::equal_to<int>(), std::bind(p, std::placeholders::_1), i));
+		*out++ = begin = std::partition(begin, end, 
+			[&p, i](const auto& x) { return p(x) == i; });
 	return out;
 }
 
@@ -358,28 +359,24 @@ Seq seq_filtered(const Seq& seq, const Indices& indices)
 }
 
 /**
- * Return true if el is in set.
- *
- * Uses C++20 T::contains when available, falls back to find() for older standards.
- */
-template<typename T>
-bool contains(const typename std::set<T>& set,
-              const typename std::set<T>::value_type& el)
-{
-#if __cplusplus >= 202002L
-    return set.contains(el);
-#else
-    return set.find(el) != set.cend();
-#endif
-}
-
-/**
- * Return true if el is in c where c is not a set.
+ * \return true if el is in c, false otherwise
+ * IMPLEMENTATION: C++20 compatible contains with fallback for older compilers
+ * Uses native contains method when available, otherwise falls back to find
  */
 template<typename Container>
 bool contains(const Container& c, const typename Container::value_type& el)
 {
-	return std::find(c.begin(), c.end(), el) != c.end();
+#if __cplusplus >= 202002L
+    // C++20: Use native contains method if available
+    if constexpr (requires { c.contains(el); }) {
+        return c.contains(el);
+    } else {
+        return c.find(el) != c.end();
+    }
+#else
+    // Pre-C++20: Use find method
+    return c.find(el) != c.end();
+#endif
 }
 
 /**

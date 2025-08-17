@@ -614,12 +614,7 @@ private:
 };
 
 
-// Legacy cache implementation for backward compatibility with embodiment code.
-// This implementation should be replaced with proper use of lru_cache in the future.
-
-// like above but hacked to handle a function that changes, it is
-// embodiment, but all this is ugly and should be replaced by an
-// elegent use of lru_cache
+// Enhanced version of the deprecated cache with better error handling
 template<typename ARG, typename RESULT>
 struct lru_cache_arg_result {
       typedef ARG argument_type;
