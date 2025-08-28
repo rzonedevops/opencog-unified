@@ -1,5 +1,7 @@
 # OpenCog Unified - Optimal Build Sequence
 
+**!!! ADD BUILD DEPENDENCY SEQUENCE: cogutil > atomspace > atomspace-storage > atomspace-rocks > cogserver > ...
+
 **Generated for 26 available components**
 
 ## Summary
