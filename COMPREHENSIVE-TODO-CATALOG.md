@@ -1798,7 +1798,7 @@ A section for emergent TODOs.
   - `// TODO: this step could be simplified by using final_variables`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/atomspace/opencog/atoms/core/PrenexLink.cc#L207)
 
-- [ ] **atomspace/opencog/atoms/core/PutLink.cc:375** (MEDIUM, Feature Completion)
+- [x] **atomspace/opencog/atoms/core/PutLink.cc:375** (MEDIUM, Feature Completion)
   - `// XXX TODO we should perform a type-check on the function.`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/atomspace/opencog/atoms/core/PutLink.cc#L375)
 
@@ -3677,6 +3677,19 @@ A section for emergent TODOs.
 **TODOs Resolved:** 43  
 **TODOs In Progress:** 75  
 **Total Remaining:** 730
+
+*Use `python scripts/recursive_todo_resolver.py --next-batch` to continue resolution*
+
+---
+
+
+## 🔄 Recursive Resolution Progress
+
+**Current Iteration:** 25  
+**Last Run:** 2025-09-30T05:58:07.850947  
+**TODOs Resolved:** 44  
+**TODOs In Progress:** 78  
+**Total Remaining:** 726
 
 *Use `python scripts/recursive_todo_resolver.py --next-batch` to continue resolution*
 
