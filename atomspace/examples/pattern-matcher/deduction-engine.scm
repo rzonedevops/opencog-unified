@@ -234,6 +234,7 @@
 				(VariableNode "$B")
 				(VariableNode "$V"))))))
 
-;; TODO: x is undefined
+;; Define x as the argument passed to the goal
+(define x (VariableNode "$X"))
 ; (cog-execute! (gar (cog-execute! x)))
 *unspecified*

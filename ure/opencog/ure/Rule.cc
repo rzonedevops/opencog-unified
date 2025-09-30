@@ -110,7 +110,20 @@ bool RuleSet::operator==(const RuleSet& other) const
 
 bool RuleSet::operator<(const RuleSet& other) const
 {
-	OC_ASSERT(false, "RuleSet::operator< not implemented");
+	// Compare rule sets lexicographically
+	// First compare sizes
+	if (size() != other.size())
+		return size() < other.size();
+	
+	// Compare rules element by element using rule_ptr_less comparator
+	for (size_t i = 0; i < size(); i++) {
+		if (rule_ptr_less()(at(i), other.at(i)))
+			return true;
+		if (rule_ptr_less()(other.at(i), at(i)))
+			return false;
+	}
+	
+	// Rule sets are equal
 	return false;
 }
 

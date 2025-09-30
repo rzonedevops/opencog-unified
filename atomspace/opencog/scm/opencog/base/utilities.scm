@@ -1077,15 +1077,14 @@
 		(fluid-set! rand-state-fluid
 			(seed->random-state (get-internal-real-time))))
 
-	; XXX FIXME -- this is a stunningly slow and sloppy random-string
-	; generator. But whatever.  I don't have the hours in the day to fix
-	; everything.
-	(while (> str-length 0)
-		(set! str (string-append str (string (string-ref alphanumeric
-			(random alphlen (fluid-ref rand-state-fluid))))))
-		(set! str-length (- str-length 1))
-	)
-	str
+	; Optimized random-string generator using list->string for efficiency
+	(let ((chars (make-list str-length #f))
+	      (rstate (fluid-ref rand-state-fluid)))
+		(do ((i 0 (+ i 1)))
+		    ((>= i str-length))
+			(list-set! chars i 
+				(string-ref alphanumeric (random alphlen rstate))))
+		(string-append str (list->string chars)))
 )
 
 ; ---------------------------------------------------------------------

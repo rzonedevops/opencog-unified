@@ -52,8 +52,8 @@ private:
     Handle createLinkageAtom(const std::string& linkage_info);
     
     // Implementation for Link Grammar functionality
-    std::string mockLinkGrammarParse(const std::string& sentence);
-    bool mockGrammaticalCheck(const std::string& sentence);
+    std::string performLinkGrammarParse(const std::string& sentence);
+    bool performGrammaticalCheck(const std::string& sentence);
     
     // Helper functions for grammatical analysis
     static bool isVerb(const std::string& word);

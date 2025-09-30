@@ -1255,25 +1255,31 @@
 )
 
 ; ----------------------------------------------------------------------------
-(define-public (simple-forward-chain RB-NODE FOCUS-SET STEPS)
+(define*-public (simple-forward-chain RB-NODE FOCUS-SET STEPS #:optional (filter-fn #f))
 "
   Applys the rules in rulebase RB-NODE over the whole FOCUS-SET, STEPS times.
   Before each recursive step occurs, the FOCUS-SET and outputs of current-step
   are merged and passed as the new FOCUS-SET.
 
+  FILTER-FN - Optional filtering function that takes an atom and returns #t
+              if the atom should be included in the next iteration's focus set.
+              If not provided, all atoms are included.
+
   Returns a list containing both the FOCUS-SET and the inference results.
 "
-    ; TODO: Add an optional argument for filtering results b/n steps using.
-    ; Create the next focus-set.
+    ; Create the next focus-set with optional filtering
     (define (create-next-fs prev-fs chaining-result)
-            (delete-duplicates (append chaining-result prev-fs)))
+        (let ((merged (delete-duplicates (append chaining-result prev-fs))))
+            (if filter-fn
+                (filter filter-fn merged)
+                merged)))
 
     (if (equal? 1 STEPS)
         (create-next-fs  FOCUS-SET (simple-forward-step RB-NODE FOCUS-SET))
         (simple-forward-chain RB-NODE
             (create-next-fs FOCUS-SET (simple-forward-step RB-NODE FOCUS-SET))
-            (- STEPS 1))
-    )
+            (- STEPS 1)
+            filter-fn))
 )
 
 (define (export-ure-utils)
