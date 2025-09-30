@@ -375,8 +375,16 @@ void MonoStorage::loadValue(const Handle& h, const Handle& key)
 	std::string kid = findAtom(key);
 	if (0 == kid.size()) return;
 	ValuePtr vp = getValue("k@" + sid + ":" + kid);
+	
+	// If value not found in storage, remove it from the atom
+	// to comply with BackingStore specification
+	if (nullptr == vp) {
+		h->setValue(key, nullptr);
+		return;
+	}
+	
 	AtomSpace* as = h->getAtomSpace();
-	if (as and vp) vp = as->add_atoms(vp);
+	if (as) vp = as->add_atoms(vp);
 	h->setValue(key, vp);
 }
 
@@ -916,10 +924,62 @@ void MonoStorage::loadAtoms(AtomSpace* as, const std::string& pfx)
 void MonoStorage::loadAtomSpace(AtomSpace* table)
 {
 	CHECK_OPEN;
-	// First, load all the nodes ... then the links.
-	// XXX TODO - maybe load links depth-order...
+	// First, load all the nodes
 	loadAtoms(table, "n@");
-	loadAtoms(table, "l@");
+	
+	// Then load links in depth order to ensure dependencies are satisfied
+	// This avoids issues where a link references atoms not yet loaded
+	loadLinksDepthOrder(table);
+}
+
+/// Load links in depth order to ensure all referenced atoms exist
+void MonoStorage::loadLinksDepthOrder(AtomSpace* as)
+{
+	// Map to store links by their depth/height
+	std::map<size_t, std::vector<std::pair<std::string, std::string>>> depth_map;
+	size_t max_depth = 0;
+	
+	// First pass: collect all links and compute their depths
+	std::string pfx = "l@";
+	auto it = _rfile->NewIterator(rocksdb::ReadOptions());
+	for (it->Seek(pfx); it->Valid() and it->key().starts_with(pfx); it->Next())
+	{
+		const std::string& key = it->key().ToString();
+		const std::string& sid = it->value().ToString();
+		
+		// Decode the link to get its depth
+		Handle h = Sexpr::decode_atom(key.substr(2));
+		size_t depth = compute_depth(h);
+		max_depth = std::max(max_depth, depth);
+		
+		depth_map[depth].push_back({key, sid});
+	}
+	delete it;
+	
+	// Second pass: load links in order of increasing depth
+	for (size_t d = 0; d <= max_depth; d++)
+	{
+		for (const auto& link_pair : depth_map[d])
+		{
+			Handle h = Sexpr::decode_atom(link_pair.first.substr(2));
+			getKeys(as, link_pair.second, h);
+			as->storage_add_nocheck(h);
+		}
+	}
+}
+
+/// Compute the depth of a link (maximum depth of its outgoing atoms + 1)
+size_t MonoStorage::compute_depth(const Handle& h)
+{
+	if (h->is_node())
+		return 0;
+	
+	size_t max_depth = 0;
+	for (const Handle& out : h->getOutgoingSet())
+	{
+		max_depth = std::max(max_depth, compute_depth(out));
+	}
+	return max_depth + 1;
 }
 
 void MonoStorage::loadType(AtomSpace* as, Type t)

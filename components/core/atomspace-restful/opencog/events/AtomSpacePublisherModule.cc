@@ -41,6 +41,13 @@
 #include <opencog/atoms/truthvalue/FuzzyTruthValue.h>
 #include <opencog/atoms/truthvalue/IndefiniteTruthValue.h>
 
+#include <opencog/atoms/value/StringValue.h>
+#include <opencog/atoms/value/FloatValue.h>
+#include <opencog/atoms/value/LinkValue.h>
+#include <opencog/atoms/value/BoolValue.h>
+#include <opencog/atoms/value/VoidValue.h>
+#include <opencog/atoms/base/NumberNode.h>
+
 #include <opencog/atomspace/AtomSpace.h>
 #include <opencog/atoms/base/Link.h>
 #include <opencog/cogserver/server/CogServer.h>
@@ -288,6 +295,67 @@ Json::Value AtomSpacePublisherModule::tvToJSON(TruthValuePtr tvp)
 			"Invalid TruthValue Type parameter.");
 	}
 
+	return json;
+}
+
+Json::Value AtomSpacePublisherModule::protoatomToJSON(const ValuePtr& value)
+{
+	Json::Value json;
+	
+	if (!value) {
+		json["type"] = "null";
+		return json;
+	}
+	
+	Type vtype = value->get_type();
+	
+	if (vtype == TRUTH_VALUE) {
+		return tvToJSON(TruthValueCast(value));
+	}
+	else if (vtype == ATTENTION_VALUE) {
+		return avToJSON(AttentionValueCast(value));
+	}
+	else if (vtype == STRING_VALUE) {
+		json["type"] = "string";
+		json["value"] = StringValueCast(value)->value();
+	}
+	else if (vtype == NUMBER_NODE) {
+		json["type"] = "number";
+		json["value"] = NumberNodeCast(value)->get_value();
+	}
+	else if (vtype == FLOAT_VALUE) {
+		json["type"] = "float_list";
+		Json::Value values(Json::arrayValue);
+		for (double d : FloatValueCast(value)->value()) {
+			values.append(d);
+		}
+		json["value"] = values;
+	}
+	else if (vtype == LINK_VALUE) {
+		json["type"] = "link_value";
+		Json::Value values(Json::arrayValue);
+		for (const Handle& h : LinkValueCast(value)->value()) {
+			values.append(atomToJSON(h));
+		}
+		json["value"] = values;
+	}
+	else if (vtype == BOOL_VALUE) {
+		json["type"] = "bool_list";
+		Json::Value values(Json::arrayValue);
+		for (bool b : BoolValueCast(value)->value()) {
+			values.append(b);
+		}
+		json["value"] = values;
+	}
+	else if (vtype == VOID_VALUE) {
+		json["type"] = "void";
+	}
+	else {
+		// Generic protoatom
+		json["type"] = nameserver().getTypeName(vtype);
+		json["value"] = value->to_string();
+	}
+	
 	return json;
 }
 

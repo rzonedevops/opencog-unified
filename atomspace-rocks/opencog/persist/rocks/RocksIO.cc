@@ -502,13 +502,8 @@ ValuePtr RocksStorage::getValue(const std::string& skid)
 }
 
 /// Backend callback
-// XXX FIXME (and in MonoSpace, too). According to the BackingStore
-// docs, it says if the Value is absent, i.e. not in storage, that
-// means it has been deleted, and that it should be deleted in the
-// userspace, also. Clearly, we don't do that here. Equally clearly,
-// there is no unit test that tests for this. And there does not seem
-// to be any existing code that expects this behavior. So, technically,
-// we're out of spec here ... but no one has noticed or complained.
+/// According to the BackingStore docs, if the Value is absent from storage,
+/// that means it has been deleted, and it should be deleted in userspace also.
 void RocksStorage::loadValue(const Handle& h, const Handle& key)
 {
 	CHECK_OPEN;
@@ -522,8 +517,16 @@ void RocksStorage::loadValue(const Handle& h, const Handle& key)
 		fid = ":" + writeFrame(as);
 
 	ValuePtr vp = getValue("k@" + sid + fid + ":" + kid);
-// XXX this is adding to wrong atomspace!?
-	if (as and vp) vp = as->add_atoms(vp);
+	
+	// If value not found in storage, remove it from the atom
+	// to comply with BackingStore specification
+	if (nullptr == vp) {
+		h->setValue(key, nullptr);
+		return;
+	}
+	
+	// Add the value atoms to the correct atomspace
+	if (as) vp = as->add_atoms(vp);
 	h->setValue(key, vp);
 }
 
@@ -693,11 +696,40 @@ void RocksStorage::getAtom(const Handle& h)
 }
 
 /// Backend callback - find the Link. This is used ONLY to implement
-/// the backend Query call, and is not otherwised used.
-/// Note: currently broken for multi-space usage, XXX FIXME.
+/// the backend Query call, and is not otherwise used.
+/// Multi-space support: searches across all frames for the link.
 Handle RocksStorage::getLink(Type t, const HandleSeq& hs)
 {
 	CHECK_OPEN;
+	
+	// If multi-space is enabled, we need to search all frames
+	if (_multi_space) {
+		// Start with the current atomspace's frame
+		AtomSpace* as = nullptr;
+		if (!hs.empty() && hs[0]) {
+			as = hs[0]->getAtomSpace();
+		}
+		
+		// Build ordered list of frames to search
+		std::map<uint64_t, Handle> order;
+		if (as) {
+			makeOrder(HandleCast(as), order);
+		}
+		
+		// Search each frame in order
+		for (const auto& pr : order) {
+			Handle found = getLink_frame(t, hs, pr.second);
+			if (found) return found;
+		}
+		
+		// Also search the base frame (no specific atomspace)
+		Handle found = getLink_frame(t, hs, Handle::UNDEFINED);
+		if (found) return found;
+		
+		return Handle::UNDEFINED;
+	}
+	
+	// Single-space implementation (original code)
 	// If it's alpha-convertible, then look for equivalents.
 	bool convertible = nameserver().isA(t, ALPHA_CONVERTIBLE_LINK);
 	if (convertible)
@@ -722,6 +754,59 @@ Handle RocksStorage::getLink(Type t, const HandleSeq& hs)
 
 	Handle h = createLink(hs, t);
 	getKeysMonospace(nullptr, sid, h);
+	return h;
+}
+
+/// Helper for getLink - searches for a link in a specific frame
+Handle RocksStorage::getLink_frame(Type t, const HandleSeq& hs, const Handle& frame)
+{
+	// If it's alpha-convertible, then look for equivalents.
+	bool convertible = nameserver().isA(t, ALPHA_CONVERTIBLE_LINK);
+	if (convertible)
+	{
+		Handle h = createLink(hs, t);
+		std::string shash = "h@" + aidtostr(h->get_hash());
+		std::string sid;
+		h = findAlpha(h, shash, sid);
+		if (nullptr == h) return h;
+		
+		// Check if this atom exists in the specified frame
+		if (frame) {
+			std::string fid = writeFrame(frame);
+			std::string key = "o@" + fid + ":" + sid;
+			std::string dummy;
+			rocksdb::Status s = _rfile->Get(rocksdb::ReadOptions(), key, &dummy);
+			if (!s.ok()) return Handle::UNDEFINED;
+		}
+		
+		AtomSpace* as = frame ? (AtomSpace*)frame.get() : nullptr;
+		getKeysMulti(as, sid, h);
+		return h;
+	}
+
+	std::string satom = "l@(" + nameserver().getTypeName(t) + " ";
+	for (const Handle& ho: hs)
+		satom += Sexpr::encode_atom(ho);
+	satom += ")";
+
+	std::string sid;
+	_rfile->Get(rocksdb::ReadOptions(), satom, &sid);
+	if (0 == sid.size()) return Handle::UNDEFINED;
+
+	// Check if this atom exists in the specified frame
+	if (frame) {
+		std::string fid = writeFrame(frame);
+		std::string key = "o@" + fid + ":" + sid;
+		std::string dummy;
+		rocksdb::Status s = _rfile->Get(rocksdb::ReadOptions(), key, &dummy);
+		if (!s.ok()) return Handle::UNDEFINED;
+	}
+
+	Handle h = getAtom("a@" + sid);
+	if (nullptr == h) return Handle::UNDEFINED;
+	
+	AtomSpace* as = frame ? (AtomSpace*)frame.get() : nullptr;
+	getKeysMulti(as, sid, h);
 	return h;
 }
 

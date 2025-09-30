@@ -40,8 +40,7 @@ using namespace opencog;
 /// atoms, if the frame contains Atoms that do not appear in any
 /// other frame. These will remain behind in the DB, orphaned.
 /// These can be easily found, by searching for sids that have
-/// no k@ on them.  A DB scrub routine (not implemented) could
-/// "easily" remove them.
+/// no k@ on them.  Use the scrubOrphans() method to remove them.
 void RocksStorage::deleteFrame(AtomSpace* frame)
 {
 	CHECK_OPEN;
@@ -288,6 +287,97 @@ void RocksStorage::scrubFrames(void)
 	}
 
 	printf("Deleted %zu orphaned Atoms.\n", cnt);
+}
+
+// ======================================================================
+
+/// Remove orphaned atoms that have no k@ keys (no values/keys attached).
+/// These are atoms that were part of deleted frames but don't appear
+/// in any other frame.
+void RocksStorage::scrubOrphans(void)
+{
+	CHECK_OPEN;
+	if (not _multi_space)
+		throw IOException(TRACE_INFO, "Scrubbing only applies to multi-frame DBs!");
+
+	size_t num_scrubbed = 0;
+	size_t num_checked = 0;
+
+	// Iterate through all atoms (a@ prefix)
+	std::string pfx = "a@";
+	auto it = _rfile->NewIterator(rocksdb::ReadOptions());
+	for (it->Seek(pfx); it->Valid() and it->key().starts_with(pfx); it->Next())
+	{
+		const std::string& akey = it->key().ToString();
+		const std::string& sid = akey.substr(2); // Remove "a@" prefix
+		num_checked++;
+
+		// Check if this atom has any k@ keys
+		std::string kpfx = "k@" + sid + ":";
+		auto kt = _rfile->NewIterator(rocksdb::ReadOptions());
+		kt->Seek(kpfx);
+		bool has_keys = kt->Valid() and kt->key().starts_with(kpfx);
+		delete kt;
+
+		// If no k@ keys found, this atom is orphaned
+		if (not has_keys)
+		{
+			// Get the atom s-expression to determine its type
+			const std::string& satom = it->value().ToString();
+			
+			// Remove the atom record
+			_rfile->Delete(rocksdb::WriteOptions(), akey);
+
+			// Remove from n@ or l@ index
+			if (satom[1] != '(') // It's a Node
+			{
+				std::string nkey = "n@" + satom;
+				_rfile->Delete(rocksdb::WriteOptions(), nkey);
+			}
+			else // It's a Link
+			{
+				std::string lkey = "l@" + satom;
+				_rfile->Delete(rocksdb::WriteOptions(), lkey);
+			}
+
+			// Remove any incoming set entries (i@ prefix)
+			std::string ipfx = "i@" + sid + ":";
+			auto iit = _rfile->NewIterator(rocksdb::ReadOptions());
+			for (iit->Seek(ipfx); iit->Valid() and iit->key().starts_with(ipfx); iit->Next())
+			{
+				_rfile->Delete(rocksdb::WriteOptions(), iit->key());
+			}
+			delete iit;
+
+			// Remove any z@ height entries for links
+			if (satom[1] == '(')
+			{
+				std::string zpfx = "z";
+				auto zit = _rfile->NewIterator(rocksdb::ReadOptions());
+				for (zit->Seek(zpfx); zit->Valid() and zit->key().starts_with(zpfx); zit->Next())
+				{
+					const std::string& zkey = zit->key().ToString();
+					// Check if this z@ entry is for our sid
+					size_t pos = zkey.find('@');
+					if (pos != std::string::npos)
+					{
+						std::string zsid = zkey.substr(pos + 1);
+						if (zsid == sid)
+						{
+							_rfile->Delete(rocksdb::WriteOptions(), zkey);
+						}
+					}
+				}
+				delete zit;
+			}
+
+			num_scrubbed++;
+		}
+	}
+	delete it;
+
+	logger().info("Scrubbed %zu orphaned atoms out of %zu checked", 
+	              num_scrubbed, num_checked);
 }
 
 // ======================== THE END ======================

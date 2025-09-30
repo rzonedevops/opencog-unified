@@ -237,12 +237,22 @@ void RocksStorage::storeFrameDAG(AtomSpace* top)
 void RocksStorage::makeOrder(Handle hasp,
                              std::map<uint64_t, Handle>& order)
 {
-// XXX TODO: we should probably cache the results, instead of
-// recomputing every time!?
+	// Check the cache first
+	static thread_local std::map<Handle, std::map<uint64_t, Handle>> order_cache;
+	auto cache_it = order_cache.find(hasp);
+	if (cache_it != order_cache.end()) {
+		order.insert(cache_it->second.begin(), cache_it->second.end());
+		return;
+	}
+	
+	// Build the order and cache it
+	std::map<uint64_t, Handle> local_order;
+	
 	// As long as there's a stack of Frames, just loop.
+	Handle current = hasp;
 	while (true)
 	{
-		const auto& pr = _frame_map.find(hasp);
+		const auto& pr = _frame_map.find(current);
 		if (_frame_map.end() == pr)
 
 			// Maybe it's safe to auto-load here, i.e. to call
@@ -253,16 +263,21 @@ void RocksStorage::makeOrder(Handle hasp,
 				"Cannot use an AtomSpace DAG inconsistent with stored DAG!\n"
 				"Did you forget to call `(load-frames)`?");
 
-		order.insert({strtoaid(pr->second), hasp});
-		size_t nas = hasp->get_arity();
-		if (0 == nas) return;
-		if (1 < nas) break;
-		hasp = hasp->getOutgoingAtom(0);
+		local_order.insert({strtoaid(pr->second), current});
+		size_t nas = current->get_arity();
+		if (0 == nas) break;
+		if (1 < nas) {
+			// Recurse if there are more than one.
+			for (const Handle& ho: current->getOutgoingSet())
+				makeOrder(ho, local_order);
+			break;
+		}
+		current = current->getOutgoingAtom(0);
 	}
 
-	// Recurse if there are more than one.
-	for (const Handle& ho: hasp->getOutgoingSet())
-		makeOrder(ho, order);
+	// Cache the result and return it
+	order_cache[hasp] = local_order;
+	order.insert(local_order.begin(), local_order.end());
 }
 
 // =========================================================

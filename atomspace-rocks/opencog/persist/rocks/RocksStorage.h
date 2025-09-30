@@ -134,15 +134,27 @@ class RocksStorage : public StorageNode
 		bool connected(void); // connection to DB is alive
 
 		void create(void) {}
-		void destroy(void) { kill_data(); /* TODO also delete the db */ }
+		void destroy(void) { 
+			kill_data(); 
+			if (_rfile) {
+				// Delete the database directory
+				rocksdb::Status s = rocksdb::DestroyDB(_uri, rocksdb::Options());
+				if (!s.ok()) {
+					logger().warn("Failed to destroy database at %s: %s", 
+					             _uri.c_str(), s.ToString().c_str());
+				}
+			}
+		}
 		void erase(void) { kill_data(); }
 
 		void kill_data(void); // destroy DB contents
 		void print_range(const std::string&); // Debugging utility
+		void scrubOrphans(void); // Remove orphaned atoms with no k@ keys
 
 		// AtomStorage interface
 		void getAtom(const Handle&);
 		Handle getLink(Type, const HandleSeq&);
+		Handle getLink_frame(Type, const HandleSeq&, const Handle&);
 		void fetchIncomingSet(AtomSpace*, const Handle&);
 		void fetchIncomingByType(AtomSpace*, const Handle&, Type t);
 		void storeAtom(const Handle&, bool synchronous = false);
