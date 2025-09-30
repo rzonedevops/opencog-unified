@@ -1,0 +1,147 @@
+{
+  "tensor_field": {
+    "enterprise": "cosmos",
+    "timestamp": "2025-09-30T06:11:58.237189",
+    "organizations": {
+      "cogpilot": {
+        "prime": 2,
+        "repositories": {
+          "cognitive-cities": {
+            "shape": [
+              5,
+              3,
+              2
+            ],
+            "cognitive_fragments": {
+              "neural_transport": [
+                3,
+                3,
+                3
+              ],
+              "knowledge_base": [
+                5,
+                2,
+                1
+              ]
+            },
+            "membrane_permeability": "bidirectional"
+          },
+          "plan9-cogcities-kernel": {
+            "shape": [
+              2,
+              2,
+              2
+            ],
+            "cognitive_fragments": {
+              "governance": [
+                2,
+                2,
+                2
+              ]
+            },
+            "membrane_permeability": "bidirectional"
+          }
+        },
+        "cognitive_weight": 0.14817995615487478
+      },
+      "OzCog": {
+        "prime": 3,
+        "repositories": {
+          "opencog-unified": {
+            "shape": [
+              7,
+              2,
+              1
+            ],
+            "cognitive_fragments": {
+              "knowledge_base": [
+                5,
+                2,
+                1
+              ],
+              "protocol_design": [
+                7,
+                1,
+                1
+              ]
+            },
+            "membrane_permeability": "bidirectional"
+          },
+          "opencog-bridge": {
+            "shape": [
+              7,
+              2,
+              1
+            ],
+            "cognitive_fragments": {
+              "knowledge_base": [
+                5,
+                2,
+                1
+              ],
+              "protocol_design": [
+                7,
+                1,
+                1
+              ]
+            },
+            "membrane_permeability": "bidirectional"
+          }
+        },
+        "cognitive_weight": 0.8277831698197262
+      },
+      "cosmos": {
+        "prime": 5,
+        "repositories": {
+          "membrane-sync": {
+            "shape": [
+              3,
+              3,
+              3
+            ],
+            "cognitive_fragments": {
+              "governance": [
+                2,
+                2,
+                2
+              ]
+            },
+            "membrane_permeability": "bidirectional"
+          },
+          "cognitive-grammar": {
+            "shape": [
+              5,
+              3,
+              2
+            ],
+            "cognitive_fragments": {
+              "neural_transport": [
+                3,
+                3,
+                3
+              ],
+              "knowledge_base": [
+                5,
+                2,
+                1
+              ]
+            },
+            "membrane_permeability": "bidirectional"
+          }
+        },
+        "cognitive_weight": 0.09389684858049885
+      }
+    },
+    "tensor_dimensions": [
+      7,
+      3,
+      10,
+      50,
+      100
+    ],
+    "cognitive_state": "scanning"
+  },
+  "shape_optimization": "prime_factorization",
+  "memory_layout": "cognitive_hierarchy",
+  "attention_weights": {}
+}
