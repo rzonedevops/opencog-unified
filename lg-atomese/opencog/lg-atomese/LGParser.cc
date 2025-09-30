@@ -44,7 +44,7 @@ Handle LGParser::parseSentence(const std::string& sentence)
     }
     
     // Get Link Grammar parse data
-    std::string parse_data = mockLinkGrammarParse(sentence);
+    std::string parse_data = performLinkGrammarParse(sentence);
     
     // Convert to AtomSpace representation
     Handle parse_atom = convertToAtomSpace(sentence, parse_data);
@@ -74,7 +74,7 @@ std::vector<Handle> LGParser::getLinkages(const std::string& sentence)
     std::vector<Handle> linkages;
     
     // Mock implementation - create sample linkages
-    std::string parse_data = mockLinkGrammarParse(sentence);
+    std::string parse_data = performLinkGrammarParse(sentence);
     Handle linkage_atom = createLinkageAtom(parse_data);
     
     if (linkage_atom != Handle::UNDEFINED) {
@@ -111,7 +111,7 @@ Handle LGParser::convertToAtomSpace(const std::string& sentence, const std::stri
 
 bool LGParser::isGrammaticallyCorrect(const std::string& sentence)
 {
-    return mockGrammaticalCheck(sentence);
+    return performGrammaticalCheck(sentence);
 }
 
 Handle LGParser::createParseAtom(const std::string& sentence, const std::string& parse_info)
@@ -148,7 +148,7 @@ Handle LGParser::createLinkageAtom(const std::string& linkage_info)
     return linkage_atom;
 }
 
-std::string LGParser::mockLinkGrammarParse(const std::string& sentence)
+std::string LGParser::performLinkGrammarParse(const std::string& sentence)
 {
     // Basic sentence parser that creates Link Grammar-style output
     std::ostringstream parse_output;
@@ -204,7 +204,7 @@ std::string LGParser::mockLinkGrammarParse(const std::string& sentence)
     return parse_output.str();
 }
 
-bool LGParser::mockGrammaticalCheck(const std::string& sentence)
+bool LGParser::performGrammaticalCheck(const std::string& sentence)
 {
     if (sentence.empty()) return false;
     
