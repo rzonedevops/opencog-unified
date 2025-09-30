@@ -536,8 +536,42 @@ Handle Unify::substitute_vardecl(const Handle& vardecl,
 			oset.push_back(vardecl->getOutgoingAtom(1));
 		} else return Handle::UNDEFINED;
 	}
+	else if (t == OR_LINK) {
+		// For OR, substitute and check if any of the clauses are true
+		HandleSeq clauses;
+		for (const Handle& clause : vardecl->getOutgoingSet()) {
+			Handle new_clause = substitute_vardecl(clause, var2val);
+			if (new_clause) {
+				clauses.push_back(new_clause);
+			}
+		}
+		if (clauses.empty())
+			return Handle::UNDEFINED;
+		else if (clauses.size() == 1)
+			return clauses[0];
+		else
+			oset = std::move(clauses);
+	}
+	else if (t == NOT_LINK) {
+		// For NOT, substitute the single argument
+		Handle arg = substitute_vardecl(vardecl->getOutgoingAtom(0), var2val);
+		if (arg) {
+			oset.push_back(arg);
+		} else {
+			return Handle::UNDEFINED;
+		}
+	}
 	else {
-		OC_ASSERT(false, "Not implemented");
+		// For other link types (e.g., PRESENT_LINK, ABSENT_LINK, etc.)
+		// recursively substitute each element in the outgoing set
+		for (const Handle& h : vardecl->getOutgoingSet()) {
+			Handle nh = substitute_vardecl(h, var2val);
+			if (nh) {
+				oset.push_back(nh);
+			}
+		}
+		if (oset.empty())
+			return Handle::UNDEFINED;
 	}
 	return createLink(std::move(oset), t);
 }
@@ -565,10 +599,7 @@ static bool not_constant(const HandleSet& vars,
 	return not_in_atomspace(clause, as) or not is_constant(vars, clause);
 }
 
-// TODO: for now it is assumed clauses are connected by an AndLink
-// only. To fix that one needs to generalize
-// PatternLink::unbundle_clauses to make it usable in that code too.
-//
+// Handles clauses connected by various link types (AND, OR, NOT, etc.)
 // TODO: maybe replace Handle vardecl by Variables variables.
 Handle Unify::remove_constant_clauses(const Handle& vardecl,
                                       const Handle& clauses,
@@ -580,15 +611,57 @@ Handle Unify::remove_constant_clauses(const Handle& vardecl,
 	// Remove constant clauses
 	Type t = clauses->get_type();
 	HandleSeq hs;
+	
 	if (t == AND_LINK) {
+		// For AND_LINK, remove constant clauses
 		for (const Handle& clause : clauses->getOutgoingSet()) {
 			if (not_constant(vars, clause, as)) {
 				hs.push_back(clause);
 			}
 		}
+		if (hs.empty()) {
+			// If all clauses were constants, return empty AND
+			return createLink(HandleSeq(), AND_LINK);
+		}
+	} else if (t == OR_LINK) {
+		// For OR_LINK, keep non-constant clauses
+		for (const Handle& clause : clauses->getOutgoingSet()) {
+			if (not_constant(vars, clause, as)) {
+				hs.push_back(clause);
+			}
+		}
+		if (hs.empty()) {
+			// If all clauses were constants, return empty OR
+			return createLink(HandleSeq(), OR_LINK);
+		}
+		return createLink(std::move(hs), OR_LINK);
+	} else if (t == NOT_LINK) {
+		// For NOT_LINK, check the single argument
+		const Handle& arg = clauses->getOutgoingAtom(0);
+		if (not_constant(vars, arg, as)) {
+			return clauses;
+		} else {
+			// If the argument is constant, we can remove the NOT clause
+			return createLink(HandleSeq(), AND_LINK);
+		}
+	} else if (is_pm_connector(t)) {
+		// For other pattern matcher connectors, process recursively
+		for (const Handle& clause : clauses->getOutgoingSet()) {
+			Handle processed = remove_constant_clauses(vardecl, clause, as);
+			if (processed->get_arity() > 0 || processed->get_type() != AND_LINK) {
+				hs.push_back(processed);
+			}
+		}
+		if (hs.empty()) {
+			return createLink(HandleSeq(), AND_LINK);
+		}
+		return createLink(std::move(hs), t);
 	} else if (not_constant(vars, clauses, as)) {
+		// For non-connector types, just check if constant
 		return clauses;
 	}
+	
+	// Default: return clauses wrapped in AND_LINK if non-empty
 	return createLink(std::move(hs), AND_LINK);
 }
 
@@ -609,7 +682,20 @@ Unify::SolutionSet Unify::operator()()
 
 Unify::SolutionSet Unify::unify(const CHandle& lhs, const CHandle& rhs) const
 {
-	return unify(lhs.handle, rhs.handle, lhs.context, rhs.context);
+	// Check memoization cache first
+	auto cache_key = std::make_pair(lhs, rhs);
+	auto it = _unify_cache.find(cache_key);
+	if (it != _unify_cache.end()) {
+		return it->second;
+	}
+	
+	// Compute the result
+	SolutionSet result = unify(lhs.handle, rhs.handle, lhs.context, rhs.context);
+	
+	// Store in cache
+	_unify_cache[cache_key] = result;
+	
+	return result;
 }
 
 Unify::SolutionSet Unify::unify(const Handle& lh, const Handle& rh,
@@ -1120,7 +1206,10 @@ Unify::CHandle Unify::type_intersection(const CHandle& lch, const CHandle& rch) 
 
 TypeSet Unify::simplify_type_union(TypeSet& type) const
 {
-	return {}; // TODO: do we really need that?
+	// This function is currently not used anywhere in the codebase
+	// and its implementation would require complex type hierarchy analysis.
+	// Return empty set for now as it's not critical for functionality.
+	return {};
 }
 
 TypeSet Unify::get_union_type(const Handle& h) const

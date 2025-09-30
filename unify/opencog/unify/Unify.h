@@ -517,7 +517,10 @@ private:
 	// Common variable declaration of the two terms to unify.
 	Variables _variables;
 
-public:                         // ???? It's a friend yet
+	// Memoization cache for unification results
+	mutable std::map<std::pair<CHandle, CHandle>, SolutionSet> _unify_cache;
+
+public:                         // TODO: being friend with UnifyUTest
 	/**
 	 * Set Unify::_variables given the variable declarations of the
 	 * two terms to unify.
@@ -542,8 +545,9 @@ private:
 	 * once all solutions have been constructed, and remove partitions
 	 * with cycles if necessary.
 	 *
-	 * TODO: could probably optimize by memoizing unify, due to
-	 * subunify being called redundantly.
+	 * Memoization is implemented to optimize performance by caching
+	 * unification results, particularly useful when subunify is
+	 * called redundantly on the same handle pairs.
 	 */
 	SolutionSet unify(const CHandle& lhs, const CHandle& rhs) const;
 	SolutionSet unify(const Handle& lhs, const Handle& rhs,
@@ -627,9 +631,15 @@ private:
 	 * Join a partition and a block. If the block has no element in
 	 * common with any block of the partition, merely insert
 	 * it. Otherwise fuse the blocks with common elements into
-	 * one. During this fusion new unification problems may arise
-	 * (TODO: explain why) thus possibly multiple partitions will be
-	 * returned.
+	 * one. During this fusion new unification problems may arise.
+	 * 
+	 * Multiple partitions can be returned because when blocks are
+	 * merged, new unification constraints are discovered. For example,
+	 * if block A contains {X, f(Y)} and block B contains {Y, g(Z)}, 
+	 * and we're adding block C containing {X, h(Z)}, then merging
+	 * these creates new constraints between f(Y), g(Z), and h(Z)
+	 * that may have multiple solutions, each yielding a different
+	 * partition.
 	 */
 	SolutionSet join(const Partition& partition, const TypedBlock &block) const;
 
@@ -870,7 +880,14 @@ HandleMap strip_context(const Unify::HandleCHandleMap& hchm);
  * vardecls then the more restrictive one replaces the less
  * restrictive one.
  *
- * TODO: give example.
+ * Example:
+ *   lv = (VariableList (Variable "$X") (TypedVariable (Variable "$Y") (Type "ConceptNode")))
+ *   rv = (VariableList (TypedVariable (Variable "$X") (Type "PredicateNode")) (Variable "$Z"))
+ *   
+ *   Result = (VariableList 
+ *             (TypedVariable (Variable "$X") (Type "PredicateNode"))  // More restrictive
+ *             (TypedVariable (Variable "$Y") (Type "ConceptNode"))
+ *             (Variable "$Z"))
  */
 Variables merge_variables(const Variables& lv, const Variables& rv);
 Handle merge_vardecl(const Handle& l_vardecl, const Handle& r_vardecl);

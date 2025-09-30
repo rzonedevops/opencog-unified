@@ -167,7 +167,7 @@ private:
 		Json::Value atomToJSON(Handle h);
 		Json::Value tvToJSON(TruthValuePtr tv);
 		Json::Value avToJSON(AttentionValuePtr av);
-		// TODO: add protoatom to JSON functionality
+		Json::Value protoatomToJSON(const ValuePtr& value);
 
 		DECLARE_CMD_REQUEST(AtomSpacePublisherModule, "publisher-enable-signals",
 		                    do_publisherEnableSignals,

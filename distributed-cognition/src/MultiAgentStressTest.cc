@@ -397,7 +397,7 @@ void MultiAgentStressTest::generate_hierarchical_topology() {
     }
 }
 
-// Stub implementations for other complex methods
+// Implementation of test scenario management
 void MultiAgentStressTest::add_test_scenario(std::function<void(const std::string&)> scenario) {
     test_scenarios_.push_back(scenario);
 }
@@ -438,12 +438,218 @@ MultiAgentStressTest::EmergentProperties MultiAgentStressTest::analyze_emergent_
     return props;
 }
 
-// Additional method implementations
-void MultiAgentStressTest::inject_failures(double failure_rate, double duration_seconds) {}
-MultiAgentStressTest::PerformanceDashboard MultiAgentStressTest::get_performance_dashboard() { return PerformanceDashboard(); }
-void MultiAgentStressTest::generate_test_report(const std::string& output_file) {}
-std::map<std::string, SystemPerformanceMetrics> MultiAgentStressTest::benchmark_configurations(const std::vector<StressTestConfig>& configs) { return {}; }
-MultiAgentStressTest::ScalabilityAnalysis MultiAgentStressTest::test_scalability(size_t min_agents, size_t max_agents, size_t step_size) { return ScalabilityAnalysis(); }
-MultiAgentStressTest::StressValidation MultiAgentStressTest::validate_stress_resilience() { return StressValidation(); }
+// Failure injection implementation
+void MultiAgentStressTest::inject_failures(double failure_rate, double duration_seconds) {
+    std::thread failure_thread([this, failure_rate, duration_seconds]() {
+        auto end_time = std::chrono::steady_clock::now() + 
+                       std::chrono::duration<double>(duration_seconds);
+        
+        while (std::chrono::steady_clock::now() < end_time && test_running_) {
+            if (uniform_dist_(rng_) < failure_rate) {
+                // Randomly select an agent to fail
+                if (!active_agents_.empty()) {
+                    size_t idx = rng_() % active_agents_.size();
+                    const std::string& agent_id = active_agents_[idx];
+                    
+                    // Simulate failure by disconnecting the agent
+                    communication_protocol_->disconnect_agent(agent_id);
+                    atomspace_sync_->disconnect_agent(agent_id);
+                    
+                    // Mark agent as failed
+                    std::lock_guard<std::mutex> lock(metrics_mutex_);
+                    agent_metrics_[agent_id].error_rate += 100.0; // Major failure
+                }
+            }
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+    });
+    failure_thread.detach();
+}
+
+// Performance dashboard implementation
+MultiAgentStressTest::PerformanceDashboard MultiAgentStressTest::get_performance_dashboard() {
+    PerformanceDashboard dashboard;
+    
+    // Collect current metrics
+    collect_performance_metrics();
+    
+    // System metrics
+    dashboard.overall_metrics = system_metrics_;
+    
+    // Agent metrics
+    {
+        std::lock_guard<std::mutex> lock(metrics_mutex_);
+        dashboard.agent_metrics = agent_metrics_;
+    }
+    
+    // Component statistics
+    dashboard.ecan_stats = ecan_manager_->get_economic_statistics();
+    dashboard.communication_stats = communication_protocol_->get_protocol_statistics();
+    dashboard.sync_stats = atomspace_sync_->get_sync_statistics();
+    
+    // Emergent properties
+    dashboard.emergent_properties = analyze_emergent_properties();
+    
+    // Synchronization metrics
+    dashboard.sync_metrics = measure_synchronization_performance();
+    
+    // Fairness metrics
+    dashboard.fairness_metrics = measure_fairness();
+    
+    return dashboard;
+}
+
+// Test report generation
+void MultiAgentStressTest::generate_test_report(const std::string& output_file) {
+    std::ofstream report(output_file);
+    if (!report.is_open()) {
+        std::cerr << "Failed to open report file: " << output_file << std::endl;
+        return;
+    }
+    
+    auto dashboard = get_performance_dashboard();
+    
+    report << "Multi-Agent Stress Test Report\n";
+    report << "==============================\n\n";
+    
+    report << "Test Configuration:\n";
+    report << "- Number of agents: " << config_.num_agents << "\n";
+    report << "- Test duration: " << config_.test_duration_seconds << " seconds\n";
+    report << "- Network topology: " << static_cast<int>(config_.topology) << "\n\n";
+    
+    report << "System Performance Metrics:\n";
+    report << "- Total agents: " << dashboard.overall_metrics.total_agents << "\n";
+    report << "- Overall throughput: " << dashboard.overall_metrics.overall_throughput << "\n";
+    report << "- Average latency: " << dashboard.overall_metrics.average_latency << " ms\n";
+    report << "- Resource utilization: " << dashboard.overall_metrics.resource_utilization << "\n";
+    report << "- Synchronization efficiency: " << dashboard.overall_metrics.synchronization_efficiency << "\n\n";
+    
+    report << "Emergent Properties:\n";
+    report << "- Collective intelligence score: " << dashboard.emergent_properties.collective_intelligence_score << "\n";
+    report << "- Self-organization index: " << dashboard.emergent_properties.self_organization_index << "\n";
+    report << "- Adaptation capability: " << dashboard.emergent_properties.adaptation_capability << "\n";
+    report << "- Robustness score: " << dashboard.emergent_properties.robustness_score << "\n";
+    report << "- Scalability factor: " << dashboard.emergent_properties.scalability_factor << "\n\n";
+    
+    report << "Agent Performance Summary:\n";
+    for (const auto& [agent_id, metrics] : dashboard.agent_metrics) {
+        report << "- " << agent_id << ": throughput=" << metrics.cognitive_throughput 
+               << ", efficiency=" << metrics.resource_efficiency 
+               << ", errors=" << metrics.error_rate << "\n";
+    }
+    
+    report.close();
+}
+
+// Benchmark multiple configurations
+std::map<std::string, SystemPerformanceMetrics> MultiAgentStressTest::benchmark_configurations(
+    const std::vector<StressTestConfig>& configs) {
+    
+    std::map<std::string, SystemPerformanceMetrics> results;
+    
+    for (const auto& config : configs) {
+        configure_test(config);
+        
+        // Run the test
+        SystemPerformanceMetrics metrics = run_stress_test(config.num_agents, 
+                                                         config.test_duration_seconds);
+        
+        // Create configuration key
+        std::string config_key = "agents_" + std::to_string(config.num_agents) + 
+                               "_topology_" + std::to_string(static_cast<int>(config.topology));
+        
+        results[config_key] = metrics;
+        
+        // Reset for next test
+        test_running_ = false;
+        agent_threads_.clear();
+        active_agents_.clear();
+        
+        // Wait between tests
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+    }
+    
+    return results;
+}
+
+// Scalability analysis
+MultiAgentStressTest::ScalabilityAnalysis MultiAgentStressTest::test_scalability(
+    size_t min_agents, size_t max_agents, size_t step_size) {
+    
+    ScalabilityAnalysis analysis;
+    
+    for (size_t num_agents = min_agents; num_agents <= max_agents; num_agents += step_size) {
+        // Run test with current agent count
+        SystemPerformanceMetrics metrics = run_stress_test(num_agents, 60.0); // 1 minute per test
+        
+        analysis.agent_counts.push_back(num_agents);
+        analysis.throughputs.push_back(metrics.overall_throughput);
+        analysis.latencies.push_back(metrics.average_latency);
+        analysis.resource_utilizations.push_back(metrics.resource_utilization);
+        
+        // Calculate scalability metrics
+        if (num_agents > min_agents) {
+            size_t prev_idx = analysis.agent_counts.size() - 2;
+            double throughput_ratio = analysis.throughputs.back() / analysis.throughputs[prev_idx];
+            double agent_ratio = static_cast<double>(num_agents) / analysis.agent_counts[prev_idx];
+            analysis.scalability_indices.push_back(throughput_ratio / agent_ratio);
+        }
+        
+        // Reset for next test
+        test_running_ = false;
+        agent_threads_.clear();
+        active_agents_.clear();
+        
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+    }
+    
+    // Calculate overall scalability score
+    if (!analysis.scalability_indices.empty()) {
+        double sum = std::accumulate(analysis.scalability_indices.begin(), 
+                                   analysis.scalability_indices.end(), 0.0);
+        analysis.overall_scalability_score = sum / analysis.scalability_indices.size();
+    }
+    
+    return analysis;
+}
+
+// Stress validation
+MultiAgentStressTest::StressValidation MultiAgentStressTest::validate_stress_resilience() {
+    StressValidation validation;
+    
+    // Test under normal load
+    validation.baseline_metrics = run_stress_test(10, 30.0);
+    
+    // Test under high load
+    validation.high_load_metrics = run_stress_test(50, 30.0);
+    
+    // Test with failures
+    test_running_ = true;
+    create_agents(20);
+    establish_network_topology();
+    inject_failures(0.1, 30.0); // 10% failure rate
+    
+    std::this_thread::sleep_for(std::chrono::seconds(30));
+    collect_performance_metrics();
+    validation.failure_metrics = system_metrics_;
+    test_running_ = false;
+    
+    // Calculate resilience scores
+    validation.throughput_degradation = 
+        (validation.baseline_metrics.overall_throughput - validation.failure_metrics.overall_throughput) /
+        validation.baseline_metrics.overall_throughput;
+    
+    validation.latency_increase = 
+        (validation.failure_metrics.average_latency - validation.baseline_metrics.average_latency) /
+        validation.baseline_metrics.average_latency;
+    
+    validation.recovery_capability = 1.0 - validation.throughput_degradation;
+    
+    validation.stress_test_passed = 
+        validation.recovery_capability > 0.7 && // 70% throughput maintained
+        validation.latency_increase < 0.5;       // Less than 50% latency increase
+    
+    return validation;
+}
 
 } // namespace opencog

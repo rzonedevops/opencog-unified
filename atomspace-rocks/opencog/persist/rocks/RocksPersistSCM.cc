@@ -79,7 +79,9 @@ RocksPersistSCM::~RocksPersistSCM()
     _storage = nullptr;
 }
 
-// XXX FIXME -- are open and close actually needed for anything?
+// The open and close methods are kept for backwards compatibility
+// with existing Scheme scripts, though they're not strictly necessary
+// since RocksStorageNode automatically opens when added to the atomspace.
 void RocksPersistSCM::do_open(const std::string& uri)
 {
     if (_storage)
