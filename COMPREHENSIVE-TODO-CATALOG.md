@@ -3,8 +3,8 @@
 **Problem Identification**
 The OpenCog Unified codebase contains distributed TODOs, FIXMEs, stubs, and "not implemented" fragments that block full cognitive realization. These are detected by CI and halt verification (see job: https://github.com/OzCog/opencog-unified/actions/runs/16539657246/job/46779076096, ref: 25d11bfe332cd501a967d9ab3a6957a22504249f).
 
-**Generated**: 2025-10-13 03:51:47 UTC  
-**Total Items**: 1892  
+**Generated**: 2025-10-13 09:14:36 UTC  
+**Total Items**: 1887  
 **Commit Reference**: 25d11bfe332cd501a967d9ab3a6957a22504249f
 
 ---
@@ -1789,7 +1789,7 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/cogutil/opencog/util/getopt_long.c#L518)
 
 ### MOSES Representation/Scoring
-*Total items: 288*
+*Total items: 287*
 
 - [ ] **components/learning/moses/moses/comboreduct/table/table.h:1287** (HIGH, Performance)
   - `// XXX TODO remove this print, for better performance.`
@@ -2438,10 +2438,6 @@ A section for emergent TODOs.
 - [ ] **components/learning/moses/moses/moses/representation/build_knobs.cc:1283** (LOW, Feature Completion)
   - `// XXX TODO this below is clearly unfinished, broken, etc.`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/learning/moses/moses/moses/representation/build_knobs.cc#L1283)
-
-- [ ] **components/learning/moses/moses/moses/representation/knobs.h:208** (LOW, Feature Completion)
-  - `idx = 0;  // interpreted as "absent", as used below. XXX`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/learning/moses/moses/moses/representation/knobs.h#L208)
 
 - [ ] **components/learning/moses/moses/moses/representation/representation.cc:51** (LOW, Feature Completion)
   - `// XXX TODO: One might think that varying the stepsize, i.e. shrinking`
@@ -3379,7 +3375,7 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/atomspace/tests/scm/typedefs.scm#L5)
 
 ### Other
-*Total items: 872*
+*Total items: 868*
 
 - [ ] **analyze_issue_examples.py:14** (HIGH, Performance)
   - `"./atomspace/opencog/atomspace/Transient.cc:/// XXX FIXME. Performance has not been recently measure...`
@@ -4072,6 +4068,10 @@ A section for emergent TODOs.
 - [ ] **analyze_issue_examples.py:195** (LOW, Testing)
   - `print("Focused analysis of specific FIXME instances from the issue")`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_issue_examples.py#L195)
+
+- [ ] **attention/src/ECANAgent.cc:340** (LOW, Feature Completion)
+  - `metrics.attention_distribution_fairness = 0.7; // Placeholder Gini coefficient`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/attention/src/ECANAgent.cc#L340)
 
 - [ ] **cmake/FindHyperTable.cmake:54** (LOW, Feature Completion)
   - `# XXX Unclear -- do we need to find *all* of these?`
@@ -6205,26 +6205,6 @@ A section for emergent TODOs.
   - `# 190221 tweak temp_dir, tmpath for Grammar Learner tutorial - FIXME line 56...`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/language-learning/src/grammar_learner/learner.py#L232)
 
-- [ ] **language-learning/src/grammar_learner/pparser.py:88** (LOW, Feature Completion)
-  - `try:  # FIXME: overkill? already checked by .isdigit lin3 85`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/language-learning/src/grammar_learner/pparser.py#L88)
-
-- [ ] **language-learning/src/grammar_learner/pparser.py:175** (LOW, Feature Completion)
-  - `terms = 'words'  # legacy, not used  # FIXME:DEL?`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/language-learning/src/grammar_learner/pparser.py#L175)
-
-- [ ] **language-learning/src/grammar_learner/pparser.py:177** (LOW, Feature Completion)
-  - `if group:  # Always True?  # FIXME:DEL?`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/language-learning/src/grammar_learner/pparser.py#L177)
-
-- [ ] **language-learning/src/grammar_learner/pparser.py:235** (LOW, Feature Completion)
-  - `group = True  # always? » kwa(True, 'group', **kwargs)? FIXME:DEL?`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/language-learning/src/grammar_learner/pparser.py#L235)
-
-- [ ] **language-learning/src/grammar_learner/pparser.py:291** (LOW, Feature Completion)
-  - `if group:  # Always True?  # FIXME:DEL?`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/language-learning/src/grammar_learner/pparser.py#L291)
-
 - [ ] **language-learning/src/grammar_learner/pqa_table.py:5** (LOW, Feature Completion)
   - `# TODO: refactor 81217 wide_rows (archived) and ppln.py (make independent)`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/language-learning/src/grammar_learner/pqa_table.py#L5)
@@ -7639,9 +7619,9 @@ A section for emergent TODOs.
 - **AI System**: 38 items
 - **Build System**: 379 items
 - **Core Utilities**: 19 items
-- **MOSES Representation/Scoring**: 288 items
+- **MOSES Representation/Scoring**: 287 items
 - **Memory System**: 108 items
-- **Other**: 872 items
+- **Other**: 868 items
 - **Persistence Subsystem**: 144 items
 - **Task System**: 4 items
 - **Testing Framework**: 40 items
@@ -7650,7 +7630,7 @@ A section for emergent TODOs.
 - **Distributed Systems**: 3 items
 - **Documentation**: 24 items
 - **Error Handling**: 70 items
-- **Feature Completion**: 1493 items
+- **Feature Completion**: 1488 items
 - **Pattern Matching**: 35 items
 - **Performance**: 26 items
 - **Testing**: 223 items
@@ -7660,7 +7640,7 @@ A section for emergent TODOs.
 - **CRITICAL**: 6 items
 - **HIGH**: 30 items
 - **MEDIUM**: 166 items
-- **LOW**: 1690 items
+- **LOW**: 1685 items
 
 ---
 
@@ -7702,4 +7682,4 @@ The enumeration above represents our cognitive debt, but also our potential. Eac
 
 ---
 
-*This document is automatically generated and should be updated regularly as the codebase evolves. Last updated: 2025-10-13 03:51:47 UTC*
+*This document is automatically generated and should be updated regularly as the codebase evolves. Last updated: 2025-10-13 09:14:36 UTC*
