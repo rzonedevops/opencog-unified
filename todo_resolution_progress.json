@@ -1,5 +1,5 @@
 {
-  "current_iteration": 25,
+  "current_iteration": 26,
   "completed_todos": [
     "atomspace-storage/opencog/persist/sexpr/ValueSexpr.cc:82",
     "atomspace/opencog/atoms/parallel/ExecuteThreadedLink.cc:59",
@@ -124,9 +124,13 @@
     "atomspace/opencog/atoms/value/ContainerValue.h:51",
     "atomspace/opencog/atomspace/AtomSpace.cc:138",
     "atomspace/opencog/query/InitiateSearchMixin.cc:169",
-    "moses/moses/moses/moses/types.h:210"
+    "moses/moses/moses/moses/types.h:210",
+    "atomspace/opencog/query/PatternMatchEngine.cc:1158",
+    "atomspace/opencog/query/PatternMatchEngine.cc:1501",
+    "atomspace/opencog/query/TermMatchMixin.cc:539",
+    "moses/moses/moses/optimization/star-anneal.cc:42"
   ],
-  "last_run": "2025-09-30T05:58:07.850947",
+  "last_run": "2025-10-13T03:29:41.019000",
   "total_resolved": 41,
   "session_summary": {
     "todos_completed_this_session": 22,
