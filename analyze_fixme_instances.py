@@ -91,10 +91,47 @@ class FIXMEAnalyzer:
             
     def _is_fixme_line(self, line: str) -> bool:
         """Check if a line contains a FIXME comment."""
-        line_lower = line.lower()
-        return ('fixme' in line_lower or 
-                'xxx fixme' in line_lower or
-                'todo fixme' in line_lower)
+        line_stripped = line.strip()
+        line_lower = line_stripped.lower()
+        
+        # Skip string literals and regex patterns
+        if (line_stripped.startswith('"') and line_stripped.endswith('"')) or \
+           (line_stripped.startswith("'") and line_stripped.endswith("'")) or \
+           ("r'" in line_stripped) or ('r"' in line_stripped):
+            return False
+            
+        # Skip meta-comments about FIXME processing
+        if ('fixme instances' in line_lower) or \
+           ('fixme text' in line_lower) or \
+           ('todo/fixme' in line_lower and ('pattern' in line_lower or 'report' in line_lower or 'verification' in line_lower or 'marker' in line_lower)) or \
+           ('analyze' in line_lower and 'fixme' in line_lower) or \
+           ('catalog' in line_lower and 'fixme' in line_lower) or \
+           ('contain' in line_lower and 'todo/fixme' in line_lower) or \
+           ('check' in line_lower and 'todo/fixme' in line_lower) or \
+           ('{' in line_stripped and '}' in line_stripped):  # template variables
+            return False
+            
+        # Must start with comment syntax (not just contain it)
+        comment_starts = line_stripped.startswith('//') or \
+                        line_stripped.startswith('#') or \
+                        line_stripped.startswith(';') or \
+                        line_stripped.startswith('/*') or \
+                        line_stripped.startswith('*')  # for multi-line comments
+                        
+        if not comment_starts:
+            return False
+            
+        # Must not be metadata about FIXME processing
+        if ('clean up' in line_lower and 'fixme' in line_lower) or \
+           ('issue:' in line_lower) or \
+           ('markdown' in line_lower) or \
+           ('metadata about fixme' in line_lower):
+            return False
+            
+        # Look for actual FIXME patterns in comments
+        return (('fixme' in line_lower) or 
+                ('xxx' in line_lower and ('fix' in line_lower or 'todo' in line_lower)) or
+                ('todo' in line_lower and 'fixme' in line_lower))
     
     def categorize_instances(self):
         """Categorize each FIXME instance by difficulty."""
