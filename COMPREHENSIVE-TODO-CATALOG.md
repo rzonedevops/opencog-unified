@@ -3,8 +3,8 @@
 **Problem Identification**
 The OpenCog Unified codebase contains distributed TODOs, FIXMEs, stubs, and "not implemented" fragments that block full cognitive realization. These are detected by CI and halt verification (see job: https://github.com/OzCog/opencog-unified/actions/runs/16539657246/job/46779076096, ref: 25d11bfe332cd501a967d9ab3a6957a22504249f).
 
-**Generated**: 2025-10-14 15:06:36 UTC  
-**Total Items**: 1825  
+**Generated**: 2025-10-14 16:17:12 UTC  
+**Total Items**: 1838  
 **Commit Reference**: 25d11bfe332cd501a967d9ab3a6957a22504249f
 
 ---
@@ -3375,7 +3375,7 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/atomspace/tests/scm/typedefs.scm#L5)
 
 ### Other
-*Total items: 806*
+*Total items: 819*
 
 - [ ] **analyze_issue_examples.py:14** (HIGH, Performance)
   - `"./atomspace/opencog/atomspace/Transient.cc:/// XXX FIXME. Performance has not been recently measure...`
@@ -3837,101 +3837,153 @@ A section for emergent TODOs.
   - `"""Check if a line contains a FIXME comment."""`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L93)
 
-- [ ] **analyze_fixme_instances.py:95** (LOW, Feature Completion)
-  - `return ('fixme' in line_lower or`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L95)
-
-- [ ] **analyze_fixme_instances.py:96** (LOW, Feature Completion)
-  - `'xxx fixme' in line_lower or`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L96)
-
-- [ ] **analyze_fixme_instances.py:97** (LOW, Feature Completion)
-  - `'todo fixme' in line_lower)`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L97)
-
-- [ ] **analyze_fixme_instances.py:100** (LOW, Feature Completion)
-  - `"""Categorize each FIXME instance by difficulty."""`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L100)
-
-- [ ] **analyze_fixme_instances.py:101** (LOW, Feature Completion)
-  - `for instance in self.fixme_instances:`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L101)
+- [ ] **analyze_fixme_instances.py:103** (LOW, Documentation)
+  - `# Skip meta-comments about FIXME processing`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L103)
 
 - [ ] **analyze_fixme_instances.py:104** (LOW, Feature Completion)
-  - `def _analyze_instance(self, instance: FIXMEInstance):`
+  - `if ('fixme instances' in line_lower) or \`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L104)
 
 - [ ] **analyze_fixme_instances.py:105** (LOW, Feature Completion)
-  - `"""Analyze a single FIXME instance to determine difficulty."""`
+  - `('fixme text' in line_lower) or \`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L105)
 
-- [ ] **analyze_fixme_instances.py:106** (LOW, Feature Completion)
-  - `full_text = (instance.fixme_text + ' ' + ' '.join(instance.context_lines)).lower()`
+- [ ] **analyze_fixme_instances.py:106** (LOW, Pattern Matching)
+  - `('todo/fixme' in line_lower and ('pattern' in line_lower or 'report' in line_lower or 'verification'...`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L106)
 
-- [ ] **analyze_fixme_instances.py:125** (LOW, Pattern Matching)
-  - `def _classify_difficulty(self, instance: FIXMEInstance, patterns: Dict, full_text: str):`
+- [ ] **analyze_fixme_instances.py:107** (LOW, Feature Completion)
+  - `('analyze' in line_lower and 'fixme' in line_lower) or \`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L107)
+
+- [ ] **analyze_fixme_instances.py:108** (LOW, Feature Completion)
+  - `('catalog' in line_lower and 'fixme' in line_lower) or \`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L108)
+
+- [ ] **analyze_fixme_instances.py:109** (LOW, Feature Completion)
+  - `('contain' in line_lower and 'todo/fixme' in line_lower) or \`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L109)
+
+- [ ] **analyze_fixme_instances.py:110** (LOW, Feature Completion)
+  - `('check' in line_lower and 'todo/fixme' in line_lower) or \`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L110)
+
+- [ ] **analyze_fixme_instances.py:124** (LOW, Feature Completion)
+  - `# Must not be metadata about FIXME processing`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L124)
+
+- [ ] **analyze_fixme_instances.py:125** (LOW, Feature Completion)
+  - `if ('clean up' in line_lower and 'fixme' in line_lower) or \`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L125)
 
-- [ ] **analyze_fixme_instances.py:126** (LOW, Feature Completion)
-  - `"""Classify the difficulty of implementing the FIXME."""`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L126)
+- [ ] **analyze_fixme_instances.py:128** (LOW, Feature Completion)
+  - `('metadata about fixme' in line_lower):`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L128)
 
-- [ ] **analyze_fixme_instances.py:152** (LOW, Feature Completion)
-  - `'not implemented' in full_text or`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L152)
+- [ ] **analyze_fixme_instances.py:131** (LOW, Pattern Matching)
+  - `# Look for actual FIXME patterns in comments`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L131)
 
-- [ ] **analyze_fixme_instances.py:159** (LOW, Pattern Matching)
-  - `patterns.get('simple_todo', 0) >= 1 or`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L159)
+- [ ] **analyze_fixme_instances.py:132** (LOW, Feature Completion)
+  - `return (('fixme' in line_lower) or`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L132)
 
-- [ ] **analyze_fixme_instances.py:172** (LOW, Feature Completion)
-  - `if 'stub' in full_text or 'placeholder' in full_text or 'mock' in full_text:`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L172)
+- [ ] **analyze_fixme_instances.py:133** (LOW, Documentation)
+  - `('xxx' in line_lower and (line_lower.strip().startswith('#') or line_lower.strip().startswith('//'))...`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L133)
 
-- [ ] **analyze_fixme_instances.py:173** (LOW, Feature Completion)
-  - `return "MEDIUM", "Stub Implementation", "1-3 weeks", \`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L173)
+- [ ] **analyze_fixme_instances.py:134** (LOW, Feature Completion)
+  - `('xxx' in line_lower and ('fix' in line_lower or 'todo' in line_lower)) or`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L134)
 
-- [ ] **analyze_fixme_instances.py:174** (LOW, Feature Completion)
-  - `"Replace stub/placeholder with real implementation"`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L174)
+- [ ] **analyze_fixme_instances.py:135** (LOW, Feature Completion)
+  - `('todo' in line_lower and 'fixme' in line_lower))`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L135)
 
-- [ ] **analyze_fixme_instances.py:180** (LOW, Feature Completion)
-  - `"""Generate a comprehensive report of FIXME instances."""`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L180)
+- [ ] **analyze_fixme_instances.py:138** (LOW, Feature Completion)
+  - `"""Categorize each FIXME instance by difficulty."""`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L138)
 
-- [ ] **analyze_fixme_instances.py:186** (LOW, Feature Completion)
+- [ ] **analyze_fixme_instances.py:139** (LOW, Feature Completion)
   - `for instance in self.fixme_instances:`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L186)
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L139)
 
-- [ ] **analyze_fixme_instances.py:193** (LOW, Feature Completion)
-  - `'total_instances': len(self.fixme_instances),`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L193)
+- [ ] **analyze_fixme_instances.py:142** (LOW, Feature Completion)
+  - `def _analyze_instance(self, instance: FIXMEInstance):`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L142)
+
+- [ ] **analyze_fixme_instances.py:143** (LOW, Feature Completion)
+  - `"""Analyze a single FIXME instance to determine difficulty."""`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L143)
+
+- [ ] **analyze_fixme_instances.py:144** (LOW, Feature Completion)
+  - `full_text = (instance.fixme_text + ' ' + ' '.join(instance.context_lines)).lower()`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L144)
+
+- [ ] **analyze_fixme_instances.py:163** (LOW, Pattern Matching)
+  - `def _classify_difficulty(self, instance: FIXMEInstance, patterns: Dict, full_text: str):`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L163)
+
+- [ ] **analyze_fixme_instances.py:164** (LOW, Feature Completion)
+  - `"""Classify the difficulty of implementing the FIXME."""`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L164)
+
+- [ ] **analyze_fixme_instances.py:190** (LOW, Feature Completion)
+  - `'not implemented' in full_text or`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L190)
+
+- [ ] **analyze_fixme_instances.py:197** (LOW, Pattern Matching)
+  - `patterns.get('simple_todo', 0) >= 1 or`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L197)
+
+- [ ] **analyze_fixme_instances.py:210** (LOW, Feature Completion)
+  - `if 'stub' in full_text or 'placeholder' in full_text or 'mock' in full_text:`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L210)
+
+- [ ] **analyze_fixme_instances.py:211** (LOW, Feature Completion)
+  - `return "MEDIUM", "Stub Implementation", "1-3 weeks", \`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L211)
+
+- [ ] **analyze_fixme_instances.py:212** (LOW, Feature Completion)
+  - `"Replace stub/placeholder with real implementation"`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L212)
 
 - [ ] **analyze_fixme_instances.py:218** (LOW, Feature Completion)
-  - `analyzer = FIXMEAnalyzer(repo_root)`
+  - `"""Generate a comprehensive report of FIXME instances."""`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L218)
 
-- [ ] **analyze_fixme_instances.py:220** (LOW, Feature Completion)
-  - `print("Extracting FIXME instances...")`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L220)
-
-- [ ] **analyze_fixme_instances.py:221** (LOW, Feature Completion)
-  - `analyzer.extract_fixme_instances()`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L221)
-
-- [ ] **analyze_fixme_instances.py:227** (LOW, Feature Completion)
-  - `report = analyzer.save_report("fixme_analysis_report.json")`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L227)
+- [ ] **analyze_fixme_instances.py:224** (LOW, Feature Completion)
+  - `for instance in self.fixme_instances:`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L224)
 
 - [ ] **analyze_fixme_instances.py:231** (LOW, Feature Completion)
-  - `print("FIXME ANALYSIS SUMMARY")`
+  - `'total_instances': len(self.fixme_instances),`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L231)
 
-- [ ] **analyze_fixme_instances.py:233** (LOW, Feature Completion)
+- [ ] **analyze_fixme_instances.py:256** (LOW, Feature Completion)
+  - `analyzer = FIXMEAnalyzer(repo_root)`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L256)
+
+- [ ] **analyze_fixme_instances.py:258** (LOW, Feature Completion)
+  - `print("Extracting FIXME instances...")`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L258)
+
+- [ ] **analyze_fixme_instances.py:259** (LOW, Feature Completion)
+  - `analyzer.extract_fixme_instances()`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L259)
+
+- [ ] **analyze_fixme_instances.py:265** (LOW, Feature Completion)
+  - `report = analyzer.save_report("fixme_analysis_report.json")`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L265)
+
+- [ ] **analyze_fixme_instances.py:269** (LOW, Feature Completion)
+  - `print("FIXME ANALYSIS SUMMARY")`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L269)
+
+- [ ] **analyze_fixme_instances.py:271** (LOW, Feature Completion)
   - `print(f"Total FIXME instances found: {report['summary']['total_instances']}")`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L233)
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/analyze_fixme_instances.py#L271)
 
 - [ ] **analyze_issue_examples.py:3** (LOW, Testing)
   - `Process the specific FIXME instances mentioned in the issue description`
@@ -7373,17 +7425,17 @@ A section for emergent TODOs.
 - **Core Utilities**: 19 items
 - **MOSES Representation/Scoring**: 287 items
 - **Memory System**: 108 items
-- **Other**: 806 items
+- **Other**: 819 items
 - **Persistence Subsystem**: 144 items
 - **Task System**: 4 items
 - **Testing Framework**: 40 items
 
 ### By Category
 - **Distributed Systems**: 3 items
-- **Documentation**: 24 items
+- **Documentation**: 26 items
 - **Error Handling**: 65 items
-- **Feature Completion**: 1431 items
-- **Pattern Matching**: 35 items
+- **Feature Completion**: 1440 items
+- **Pattern Matching**: 37 items
 - **Performance**: 26 items
 - **Testing**: 223 items
 - **Thread Safety**: 18 items
@@ -7392,7 +7444,7 @@ A section for emergent TODOs.
 - **CRITICAL**: 6 items
 - **HIGH**: 30 items
 - **MEDIUM**: 166 items
-- **LOW**: 1623 items
+- **LOW**: 1636 items
 
 ---
 
@@ -7434,4 +7486,4 @@ The enumeration above represents our cognitive debt, but also our potential. Eac
 
 ---
 
-*This document is automatically generated and should be updated regularly as the codebase evolves. Last updated: 2025-10-14 15:06:36 UTC*
+*This document is automatically generated and should be updated regularly as the codebase evolves. Last updated: 2025-10-14 16:17:12 UTC*
