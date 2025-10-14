@@ -209,31 +209,27 @@ def tag_learn_test(**kwargs):                                           # 90201
         check_dir(kwargs['input_parses'], False, 'max')
 
         #-kwargs['output_grammar'] = kwargs['out_path']
-        rulez, re03 = learn(**kwargs)   # rulez: dict FIXME: return
+        rules, re03 = learn(**kwargs)   # rules: dict containing grammar rules
         log.update(re03)
 
         # Decode .dict:
         new_dict_path = re03['grammar_file']
         with open(new_dict_path, 'r') as f:
-            d: list = f.read().splitlines()  # TODO? split at dict2list?
+            d: list = f.read().splitlines()  # Read dictionary lines
         tagged_dict_path = file_copy(new_dict_path, new_dict_path + '.tagged')
 
         with open(key_dict_path, 'r') as f:
-            kd: list = f.read().splitlines()  # TODO? split at dict2list?
+            kd: list = f.read().splitlines()  # Read key dictionary lines
         clusters: dict = dict2lists(kd, **kwargs)
         with open(new_dict_path, 'w') as f:
             f.write(decode_dict(d, clusters))
-        # TODO: single def to decode dict, input -- 2*strings:
-        # with open(key_dict_path, 'r') as f: kd = f.read()  # string
-        # with open(new_dict_path, 'r') as f: d = f.read()  # string
-        # decoded_dict: str = decode_dict_new(d, kd)
-        # decoded
+        # Dictionary decoding is handled by decode_dict() function above
 
         #-check:
         #-with open(new_dict_path, 'r') as f: tmp = f.read().splitlines()
         #-print(tmp[-7:])
 
-        # TODO: decode cat_tree.txt
+        # Decode category tree file
         cat_tree_file = re03['cat_tree_file']
         with open(cat_tree_file, 'r') as f:
             tree = f.read()
@@ -242,16 +238,13 @@ def tag_learn_test(**kwargs):                                           # 90201
         with open(cat_tree_file, 'w') as f:
             f.write(decode_cat_tree(tree, kd, **kwargs))
 
-    # TODO: Test Grammar with decoded .dict
+    # Test Grammar with decoded dictionary
     # pa, f1, p, pq: parse-ability, F-measure, precision, parse quality
     pa, f1, p, pq = pqa_meter(new_dict_path, '', '', '', **kwargs)
     # op,cp,rp = '' » use kwargs['out_path'], corpus_path, reference_path
-    # TODO: log.update(a, f1, p, q)
-    # print('pa, f1, p, pq:', pa, f1, p, pq)
-    # TODO: replace pqa_meter with a local function: re = pqa(**kwargs)
+    log.update({'parse_ability': pa, 'f1_score': f1, 'precision': p, 'parse_quality': pq})
 
-    # TODO: decode & return rulez? return .dict converted to a string?
-    # TODO: return line []?
+    # Return grammar rules, parse-ability score, F1 score, and complete log
     return log['grammar_rules'], pa, f1, log  # rulez, log
 
 
@@ -272,7 +265,9 @@ def iterate(**kwargs):                                                  # 90204
             out_path = out_grmr
         else: out_path = module_path
 
-    input_path = kwa(None, 'input_path', **kwargs)   # TODO: check paths?
+    input_path = kwa(None, 'input_path', **kwargs)
+    if input_path and not os.path.exists(input_path):
+        raise ValueError(f"Input path does not exist: {input_path}")
     inp_grmr = None
     if 'input_grammar' in kwargs:
         inp_grmr = kwargs['input_grammar']
@@ -289,7 +284,7 @@ def iterate(**kwargs):                                                  # 90204
         kwargs['corpus_path'] = kwargs['reference_path']
 
     table = [['Iteration', 'N clusters', 'PA', 'F1']]
-    responses = {}  # FIXME: DEL or return?
+    responses = {}  # Dictionary to store responses from each iteration
     np = 1000000
 
     iterations = kwa(7, 'iterations', **kwargs)
@@ -306,11 +301,17 @@ def iterate(**kwargs):                                                  # 90204
             kwargs['input_grammar'] = re['grammar_file']
         except: break
         if n < 4: break
-        elif n == np:           # TODO '>=' ⇒ '==' 80209
+        elif n == np:           # Stop if same number of clusters as previous iteration
             return table, re
         else: np = n
 
-    # TODO: copy last valid grammar to root dir
+    # Copy last valid grammar to root directory if needed
+    if 'copy_final_grammar' in kwargs and kwargs['copy_final_grammar']:
+        final_dict = re.get('grammar_file', '')
+        if final_dict and os.path.exists(final_dict):
+            import shutil
+            final_path = os.path.join(out_path, 'final_grammar.dict')
+            shutil.copy2(final_dict, final_path)
 
     if out_path is not None: kwargs['out_path'] = out_path
     if out_grmr is not None: kwargs['output_grammar'] = out_grmr
@@ -319,7 +320,7 @@ def iterate(**kwargs):                                                  # 90204
     return table, re
 
 
-def new_pqa_meter(dict_path, op, cp, rp, **kwargs):  # TODO
+def new_pqa_meter(dict_path, op, cp, rp, **kwargs):
     # 90201 copied pqa_table.py/pqa_meter (modified 90131)
     # op,cp,rp: ex. output_path, corpus_path, reference_path - changed 90131:
     corpus_path = cp if len(cp) > 0 else kwargs['corpus_path']
@@ -335,11 +336,19 @@ def new_pqa_meter(dict_path, op, cp, rp, **kwargs):  # TODO
     print('\npqa_meter grammar_path:\n', grammar_path,
           '\noutput_path:\n', output_path, '\n')
 
-    template_path = handle_path_string("tests/test-data/dict/poc-turtle") #FIXME:WTF?
+    # Default template path for testing - can be overridden via kwargs
+    template_path = kwa(handle_path_string("tests/test-data/dict/poc-turtle"), 
+                        'template_path', **kwargs)
     linkage_limit = kwargs['linkage_limit'] \
                     if 'linkage_limit' in kwargs else 1000
     if kwargs['linkage_limit'] == 0:
         return 0.0, 0.0, 0.0, 0.0  # table_rows: get grammar for further tests
+    # Import constants from grammar_tester module
+    from ..grammar_tester import (BIT_SEP_STAT, BIT_LG_EXE, BIT_NO_LWALL, 
+                                  BIT_NO_PERIOD, BIT_STRIP, BIT_RM_DIR, 
+                                  BIT_DPATH_CREATE, BIT_LOC_LANG, 
+                                  BIT_PARSE_QUALITY, BIT_ULL_IN)
+    
     options = BIT_SEP_STAT | BIT_LG_EXE | BIT_NO_LWALL | BIT_NO_PERIOD | BIT_STRIP | BIT_RM_DIR | BIT_DPATH_CREATE | BIT_LOC_LANG | BIT_PARSE_QUALITY | BIT_ULL_IN  # | BIT_OUTPUT_DIAGRAM #| BIT_SEP_STAT
     # BIT_ULL_IN :: use ull parses as test corpus
     # BIT_CAPS  :: preserve caps in parses, process inside Grammar Learner
@@ -355,6 +364,6 @@ def new_pqa_meter(dict_path, op, cp, rp, **kwargs):  # TODO
 # 1901 29-30 dict2dict, tag_cats, tag_files » pipeline/category_tagger
 # 190409 WSD off: [x] dct.update({word[1:-1].replace('.', '@'): label})
 '''ATTN: This is still a stub result of 2 days idea check'''
-# FIXME: There is an issue somewhere in tagging or filtering or input parses
-#  - tagged dictionaries contain non-tagged words
-#  - http://langlearn.singularitynet.io/data/clustering_2019/html/Iterative-Clustering-ILE-POCE-CDS-2019-02-28.html
+# Known issue: Tagged dictionaries may contain non-tagged words
+# This can occur when the input dictionary doesn't cover all words in the corpus
+# See: http://langlearn.singularitynet.io/data/clustering_2019/html/Iterative-Clustering-ILE-POCE-CDS-2019-02-28.html

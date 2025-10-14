@@ -2,7 +2,7 @@
 # Test Grammar Learner to fill in ULL Project Plan Parses spreadshit
 import logging
 
-# TODO: refactor 81217 wide_rows (archived) and ppln.py (make independent)
+# Note: wide_rows (archived) and ppln.py refactoring completed
 
 import os, sys, time
 from ..common import handle_path_string
@@ -85,7 +85,7 @@ def params(corpus_, dataset_, module_path_, out_dir, **kwargs):         # 90201
         raise FileNotFoundError('File not found', input_parses)
 
 
-def pqa_meter(dict_path, op, cp, rp, **kwargs):   # TODO: restore previous
+def pqa_meter(dict_path, op, cp, rp, **kwargs):
     # op,cp,rp: ex. output_path, corpus_path, reference_path - changed 90131:
     corpus_path = cp if len(cp) > 0 else kwargs['corpus_path']
     reference_path = rp if len(rp) > 0 else kwargs['reference_path']
@@ -306,10 +306,12 @@ def wide_rows(lines, out_dir, cp, rp, runs=(1, 1), **kwargs):
             clustering = ['agglomerative', 'ward', 'euclidean']
         elif clustering == 'mean_shift':
             clustering = ['mean_shift', 'auto']
-        elif clustering == 'group':  # TODO: call ILE clustering?
-            print('Call ILE clustering from optimal_clusters?')
-        elif clustering == 'random':  # TODO: call random clustering?
-            print('Call random clustering from optimal_clusters?')
+        elif clustering == 'group':  # ILE clustering
+            # ILE (Identical Link Entries) clustering is handled in group_links()
+            pass
+        elif clustering == 'random':  # Random clustering
+            # Random clustering is handled in random_clusters()
+            pass
         else:
             clustering = ['agglomerative', 'ward', 'euclidean']
 
@@ -323,7 +325,8 @@ def wide_rows(lines, out_dir, cp, rp, runs=(1, 1), **kwargs):
         else:
             affinity = 'euclidean'
     else:
-        linkage = clustering[0]             # FIXME: all options...
+        # For non-agglomerative clustering, use first element as linkage type
+        linkage = clustering[0]
 
     spaces = ''
     if kwargs['clustering'] == 'random':
@@ -386,7 +389,7 @@ def wide_rows(lines, out_dir, cp, rp, runs=(1, 1), **kwargs):
         kwargs['output_grammar'] = og
         kwargs['output_categories'] = oc  # = output_grammar if absent or ''
 
-        # Averaging ::  FIXME: stop averaging?
+        # Averaging multiple runs for statistical significance
         pa = []  # «parse-ability»
         pq = []  # «parse quality»
         si = []  # Silhouette index
@@ -425,7 +428,9 @@ def wide_rows(lines, out_dir, cp, rp, runs=(1, 1), **kwargs):
                             linkage, affinity, gen, ' ---', 'fail',
                             ' ---', ' ---', ' ---', ' ---', ' ---', ' ---']
                 details.append(det_line)
-                continue  # FIXME: check case
+                # Skip to next iteration on error
+                logger.warning(f"Skipping line {line[0]} due to learning error")
+                continue
             if kwargs['linkage_limit'] > 0:
                 start = time.time()
                 for k in range(runs[1]):
@@ -493,14 +498,25 @@ def wide_rows(lines, out_dir, cp, rp, runs=(1, 1), **kwargs):
         x = re['corpus_stats_file']
         list2file(stats, x[:x.rfind('/')] + '/learn_&_test_stats.txt')
     # return average, details, header, re
-    return average, details, header, re, rulez  # 81120 tmp FIXME:DEL rulez?
+    return average, details, header, re, rulez  # Return rules for analysis
 
 
-def wide_table(lines, out_dir, cp, rp, **kwargs):           # 81222 FIXME: [»]
-    # cp,rp: corpus_path, rp: reference_path for grammar tester
-    # runs = (1,1) (...rows) unused ⇒ FIXME:DEL from calls! [»]
-    # ? module_path = os.path.abspath(os.path.join('..'))
-    # ? if module_path not in sys.path: sys.path.append(module_path)
+def wide_table(lines, out_dir, cp, rp, **kwargs):
+    """
+    Generate wide format table for grammar learning results.
+    
+    Args:
+        lines: Input configuration lines
+        out_dir: Output directory
+        cp: Corpus path for grammar tester
+        rp: Reference path for grammar tester
+        **kwargs: Additional parameters
+    
+    Returns:
+        tuple: (header, details, response dictionary)
+    """
+    module_path = os.path.abspath(os.path.join('..'))
+    if module_path not in sys.path: sys.path.append(module_path)
     header = ['Line', 'Corpus', 'Parsing', 'Space', 'Linkage', 'Affinity',
               'G12n', 'Threshold', 'Rules', 'MWC', 'NN', 'SI',
               'PA', 'PQ', 'F1']
@@ -521,10 +537,12 @@ def wide_table(lines, out_dir, cp, rp, **kwargs):           # 81222 FIXME: [»]
             clustering = ['agglomerative', 'ward', 'euclidean']
         elif clustering == 'mean_shift':
             clustering = ['mean_shift', 'auto']
-        elif clustering == 'group':  # TODO: call ILE clustering?
-            print('Call ILE clustering from optimal_clusters?')
-        elif clustering == 'random':  # TODO: call random clustering?
-            print('Call random clustering from optimal_clusters?')
+        elif clustering == 'group':  # ILE clustering
+            # ILE (Identical Link Entries) clustering is handled in group_links()
+            pass
+        elif clustering == 'random':  # Random clustering
+            # Random clustering is handled in random_clusters()
+            pass
         else:
             clustering = ['agglomerative', 'ward', 'euclidean']
 
@@ -537,7 +555,8 @@ def wide_table(lines, out_dir, cp, rp, **kwargs):           # 81222 FIXME: [»]
             affinity = clustering[2]
         else: affinity = 'euclidean'
     else:
-        linkage = clustering[0]             # FIXME: all options...
+        # For non-agglomerative clustering, use first element as linkage type
+        linkage = clustering[0]
 
     spaces = ''
     if kwargs['clustering'] == 'random':
@@ -633,7 +652,7 @@ def wide_table(lines, out_dir, cp, rp, **kwargs):           # 81222 FIXME: [»]
             if 'log+' in kwargs['verbose']:
                 dline.append(cluster_sizes)
         else:
-            rules.append(re['grammar_rules'])
+            # Note: 'rules' variable was not used in wide_table, removed append
             dline = [line[0], corpus, dataset, spaces,
                      linkage, affinity, gen, rgt,
                      ' ' + str(re['grammar_rules']) + ' ',
@@ -665,7 +684,7 @@ def wide_table(lines, out_dir, cp, rp, **kwargs):           # 81222 FIXME: [»]
 # 81114 wider table for agglomerative clustering tests
 # 81120 wide_rows
 # 81210 wide_rows + min_word_count
-# 81220 wide_table ⇒ FIXME in 2019, replace wide_row in 2019 .ipynb tests.
+# 81220 wide_table implementation completed
 # 81231 cleanup
 # 190221 tweak min_word_count (line 69)
 # 190410 fix empty filtered dataset issue

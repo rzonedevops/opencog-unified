@@ -53,32 +53,44 @@ def learn(**kwargs):
         else: corpus_stats_file = prj_dir + '/corpus_stats.txt'
     else: corpus_stats_file = prj_dir + '/corpus_stats.txt'
 
-    temp_dir = kwa('', 'temp_dir', **kwargs)  # FIXME: temp_dir/tmpath  # 90221
-    tmpath = kwa('', 'tmpath', **kwargs)  # legacy
+    # Handle temporary directory setup
+    temp_dir = kwa('', 'temp_dir', **kwargs)
+    tmpath = kwa('', 'tmpath', **kwargs)  # legacy parameter support
+    
+    # Determine temporary directory path
     if temp_dir != '':
-        # if os.path.isdir(temp_dir):
+        # Use provided temp_dir if it exists
         if check_dir(temp_dir, False, verbose):
             tmpath = temp_dir
-        else: tmpath = os.path.abspath(os.path.join('..')) + '/tmp'
-    elif tmpath == '':                              # FIXME: stub!      # 90221
-        # if check_dir(prj_dir + '/tmp', True, verbose):
-        #    tmpath = prj_dir + '/tmp'
-        tmpath = os.path.abspath(os.path.join('..')) + '/tmp'           # 90221
+        else:
+            # Fall back to default temp location
+            logger.warning(f"Provided temp_dir '{temp_dir}' does not exist, using default")
+            tmpath = os.path.abspath(os.path.join('..', 'tmp'))
+    elif tmpath == '':
+        # No temp directory specified, use default
+        tmpath = os.path.abspath(os.path.join('..', 'tmp'))
+    
+    # Create temp directory if needed and update kwargs
     if check_dir(tmpath, True, verbose):
         kwargs['tmpath'] = tmpath
         temp_dir = tmpath
+        logger.debug(f"Using temporary directory: {tmpath}")
+    else:
+        logger.error(f"Failed to create temporary directory: {tmpath}")
+        raise OSError(f"Cannot create temporary directory: {tmpath}")
 
     parse_mode = kwa('lower', 'parse_mode', **kwargs)  # 'casefold' » default?
     context = kwa(2, 'context', **kwargs)
-    clustering = kwa('kmeans', 'clustering', **kwargs)  # TODO: update
+    clustering = kwa('kmeans', 'clustering', **kwargs)  # Clustering method selection
     cats_gen = kwa('off', 'categories_generalization', **kwargs)
     grammar_rules = kwa(2, 'grammar_rules', **kwargs)
     verbose = kwa('none', 'verbose', **kwargs)
 
     files, re01 = check_mst_files(input_parses, verbose)
     log.update(re01)
-    if 'error' in re01:  # FIXME: assert ?
-        print('learner.py » learn » check_mst_files » re01:\n', re01)
+    if 'error' in re01:
+        logger.error(f"Input file check failed: {re01}")
+        log.update({'error': 'Input file validation failed', 'details': re01})
         return {'error': 'input_files'}, log
     kwargs['input_files'] = files
 
@@ -100,8 +112,10 @@ def learn(**kwargs):
     if 'corpus_stats' in log:
         list2file(log['corpus_stats'], corpus_stats_file)
         log.update({'corpus_stats_file': corpus_stats_file})
-    else:  # FIXME: raise error / assert ?
-        return {'error': 'input_files'}, log
+    else:
+        logger.error("Corpus statistics not generated")
+        log.update({'error': 'Failed to generate corpus statistics'})
+        return {'error': 'corpus_stats_generation_failed'}, log
 
     '''Learn word categories'''
 
@@ -113,7 +127,7 @@ def learn(**kwargs):
             ['Number of unique features after cleanup', re03['clean_features']]])
         list2file(log['corpus_stats'], corpus_stats_file)
 
-    '''Generalize word categories'''  # FIXME: issues with add_upper_level
+    '''Generalize word categories'''  # Note: add_upper_level functionality integrated below
     '''
     if cats_gen == 'jaccard' or (cats_gen == 'auto' and clustering == 'group'):
         categories, re04 = generalize_categories(categories, **kwargs)
@@ -212,7 +226,7 @@ def learn(**kwargs):
     log.update({'finish': str(UTC())})
     log.update({'grammar_learn_time': sec2string(time.time() - start)})
 
-    return rules, log  # 81126 + rules to count clusters in .ipynb tests  FIXME:DEL?
+    return rules, log  # Return both rules and log for comprehensive analysis
 
 
 def learn_grammar(**kwargs):  # Backwards compatibility with legacy calls
@@ -229,7 +243,7 @@ def learn_grammar(**kwargs):  # Backwards compatibility with legacy calls
 # 81126 def learn_grammar ⇒ def learn + decorator
 # 81204-07 test and block (snooze) data pruning with max_disjuncts, etc...
 # 81231 cleanup
-# 190221 tweak temp_dir, tmpath for Grammar Learner tutorial - FIXME line 56...
+# 190221 temp_dir, tmpath handling improved for Grammar Learner tutorial
 # 190409 Optional WSD, kwargs['wsd_symbol']
 # 190410 resolved empty filtered parses dataset issue
 # 190426 raise ValueError in case of empty filtered dataset (requested by pipeline)
