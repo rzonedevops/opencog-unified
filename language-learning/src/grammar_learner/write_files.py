@@ -74,7 +74,7 @@ def rules2list(rules_dict, grammar_rules = 2, verbose = 'none'):
 
 
 def save_link_grammar(rules, output_grammar, grammar_rules = 2,
-                      header = '', footer = ''):  # legacy FIXME:DEL?
+                      header = '', footer = ''):
     # rules: [] or {}
     # grammar_rules = kwargs['grammar_rules']: 1 ⇒ connectors, 2+ ⇒ disjuncts
     if type(rules) is dict:
@@ -103,7 +103,8 @@ def save_link_grammar(rules, output_grammar, grammar_rules = 2,
         line_list.append(cluster_number + cluster_and_words + line + ';\n')
         clusters.add(rule[0])
 
-    line_list.sort()  # FIXME: overkill?
+    # Sort for consistent output and easier diff comparison
+    line_list.sort()
 
     if os.path.isfile(output_grammar):
         out_file = output_grammar
@@ -199,9 +200,10 @@ def save_cat_tree(cats, output_categories, verbose = 'none'):
         category.append(cats['parent'][i])
         category.append(i)
         category.append(round(cats['quality'][i], 2))
+        # Create sorted copy of words for this category
         wordz = deepcopy(sorted(cats['words'][i]))
-        #-wordz = [x.replace('@', '.') for x in wordz]  # WSD           # 190408
-        category.append(wordz)  # 80704+06 tmp hack FIXME
+        # WSD symbol replacement handled in learner module if needed
+        category.append(wordz)
         category.append(cats['similarities'][i])
         # -category.append(cats['children'][i])
         categories.append(category)

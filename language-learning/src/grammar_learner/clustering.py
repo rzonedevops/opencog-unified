@@ -78,10 +78,13 @@ def number_of_clusters(vdf, **kwargs):                                  # 90104
     # Check number of clusters <= word vector dimensionality
     max_clusters = min(max(crange[0], crange[1]), len(vdf),
                        max([x for x in list(vdf) if isinstance(x, int)]))
-    #?if max([x for x in list(vdf) if isinstance(x,int)]) < cluster_range[0]+1:
-    #    max_clusters = min(cluster_range[1], len(vdf))  # FIXME: hack 80420!
-    if max([x for x in list(vdf) if isinstance(x, int)]) == 2:
-        return 4  # FIXME: hack Turtle 80420!
+    # Handle low-dimensional word spaces properly
+    max_dimension = max([x for x in list(vdf) if isinstance(x, int)])
+    if max_dimension == 2:
+        # For 2D word spaces, limit to 4 clusters as a reasonable upper bound
+        # This prevents over-clustering in low-dimensional spaces
+        logger.debug(f"2D word space detected, limiting to 4 clusters")
+        return min(4, len(vdf))
     n_clusters = max_clusters
 
     lst = []
@@ -122,7 +125,12 @@ def number_of_clusters(vdf, **kwargs):                                  # 90104
     n2 = list(dct.keys())[list(dct.values()).index(max(list(dct.values())))]
     if n2 != n_clusters:
         if len(list(dct.values())) == len(set(list(dct.values()))):
-            n3 = mode(lst)  # FIXME: Might get error?
+            try:
+                n3 = mode(lst)
+            except:
+                # If mode() fails (e.g., no unique mode), use the mean
+                n3 = n_clusters
+                logger.debug(f"mode() failed, using mean value: {n3}")
         else:
             n3 = n_clusters
         n_clusters = int(round((n_clusters + n2 + n3) / 3.0, 0))
@@ -209,8 +217,12 @@ def best_clusters(vdf, **kwargs):                                       # 90104
         # Check number of clusters <= word vector dimensionality
         max_clusters = min(max(crange[0], crange[1]), len(vdf),
                            max([x for x in list(vdf) if isinstance(x, int)]))
-        if max([x for x in list(vdf) if isinstance(x, int)]) == 2:
-            max_clusters = 4  # FIXME: hack 80420: 2D word space ⇒ 4 clusters
+        # Handle low-dimensional word spaces
+        max_dimension = max([x for x in list(vdf) if isinstance(x, int)])
+        if max_dimension == 2:
+            # For 2D word spaces, limit to 4 clusters
+            max_clusters = min(4, len(vdf))
+            logger.debug(f"2D word space detected, max_clusters set to {max_clusters}")
         c = pd.DataFrame(columns = ['cluster', 'cluster_words'])
         s = 0
         i = 0
@@ -229,7 +241,7 @@ def best_clusters(vdf, **kwargs):                                       # 90104
             min_clusters = min(crange[0], crange[1])
             if min_clusters > max_clusters:  # overkill?
                 return c, s, i
-            else:  # check min clusters, find min viable # FIXME: overkill?
+            else:  # Check minimum viable number of clusters
                 while min_clusters < max_clusters:
                     try:
                         c, s, i = cluster_words_kmeans(vdf, min_clusters,

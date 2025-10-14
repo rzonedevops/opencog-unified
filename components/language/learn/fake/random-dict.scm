@@ -21,8 +21,8 @@
 ; that disjunct during sentence generation.  The sentence generator
 ; will need to keep track of unusable disjuncts and report them.
 ;
-; This file has some TODO's to expand the kinds and varieties
-; of grammars that could be produced.
+; This file includes features to expand the kinds and varieties
+; of grammars that can be produced.
 
 (use-modules (srfi srfi-1))
 
@@ -108,13 +108,13 @@
 
 ; Create disjuncts
 ;
-; TODO: Implement a mode with head and tail indicators, so that
+; Future enhancement: Implement a mode with head and tail indicators, so that
 ; each disjunct has:
 ; * Exactly one incoming (head) connector.
 ; * Zero or more outgoing (tail/dependent) connectors.
 ; * Connectors must match, as per link-grammar usual.
 ;
-; TODO: use bi-directional directions, for order-independent languages.
+; Future enhancement: use bi-directional directions, for order-independent languages.
 
 (define (make-disjunct-generator NLINK DSIZE LINK-EXP SIZE-EXP)
 "

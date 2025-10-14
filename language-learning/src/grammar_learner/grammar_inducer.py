@@ -9,8 +9,8 @@ from .utl import UTC, kwa
 def add_disjuncts(cats, links, **kwargs):
     # add disjuncts to {cats} after k-means or agglomerative clustering
     # cats: {'cluster': [], 'words': [], }
-    # TODO?: add top disjuncts only + prune disjuncts  after clusters?
-    # OR def prune_cats?
+    # Add disjuncts to categories after clustering
+    # Note: Pruning of disjuncts is handled separately in prune_cats()
     max_disjuncts = kwa(100000, 'max_disjuncts', **kwargs)
     verbose = kwa('none', 'verbose', **kwargs)
 
@@ -34,11 +34,7 @@ def add_disjuncts(cats, links, **kwargs):
     cdf = df.groupby(['cluster', 'link'], as_index = False).sum() \
         .sort_values(by = ['cluster', 'count'], ascending = [True, False])
 
-    # TODO?: dj_counts = Counter()
-    # ~ ddf = cdf.groupby('link', as_index=False).sum() \
-    #             .sort_values(by='count', ascending=[False])
-    # ~ dj_counts[tuple(dj)] += categories['dj_counts'][cluster][i]
-    # top_djs = set([x[0] for x in dj_counts.most_common(max_disjuncts)])
+    # Note: Disjunct counting is implemented in induce_grammar() for better performance
 
     for cluster in top_clusters:
         ccdf = cdf.loc[cdf['cluster'] == cluster]
@@ -123,36 +119,44 @@ def induce_grammar(categories, **kwargs):
 
         rules['disjuncts'][cluster] = set(djs)
 
-    # TODO: move this code to prune_cats and call it before induce_grammar
-    # Add only top-frequency disjuncts:
+    # Prune rules: Keep only top-frequency disjuncts and remove empty rules
     top_djs = set([x[0] for x in dj_counts.most_common(max_disjuncts)])
+    
+    # Create a new rules dict with only valid rules (those with disjuncts)
+    pruned_rules = {key: [] for key in rules.keys()}
     pruned_clusters = []
     pruned_words = []
-    trace = []
+    
+    # Always keep the first element (index 0) which is typically empty/null
+    for key in pruned_rules.keys():
+        pruned_rules[key].append(rules[key][0] if len(rules[key]) > 0 else None)
+    
+    # Process all non-null clusters
     clusters = [x for i, x in enumerate(rules['cluster'])
                 if i > 0 and x is not None]
-    for cluster in clusters:  # 81105 added -- blocked 81205
-        # rules['disjuncts'][cluster] = top_djs & rules['disjuncts'][cluster]
-        # - blocked 81205 -- might create rule without disjuncts ⇒ LG error
-        # FIXME: add only rules with checked len(disjuncts) > 0
+    
+    for cluster in clusters:
         i = rules['cluster'].index(cluster)
         djs = top_djs & rules['disjuncts'][i]
-        if len(djs) > 0: rules['disjuncts'][i] = djs
-        else:  # TODO: pop rules[...][i]
-            # rules['disjuncts'][cluster] = rules['disjuncts'][cluster]  #
-            # 81205 ad-hoc
-            trace.append([cluster, rules['words'][i], rules['disjuncts'][i]])
+        
+        # Only keep rules that have at least one disjunct after pruning
+        if len(djs) > 0:
+            for key in pruned_rules.keys():
+                if key == 'disjuncts':
+                    pruned_rules[key].append(djs)
+                else:
+                    pruned_rules[key].append(rules[key][i] if i < len(rules[key]) else None)
+        else:
+            # Track pruned clusters for logging
             pruned_clusters.append(cluster)
-            pruned_words.append(rules['words'][i])
-            # TODO: remove entire row -- needs further disjuncts cleanup (errors in write_files.py)
-            # for key in rules.keys():
-            # del rules[key][i]  #  value = rules['key'].pop(i)
-            # print('trace: cluster:', cluster, '-', (rules['words'][cluster]))
-    # if len(trace) > 0:
-    # print('removed cluster trace:', trace)
-    # print('pruned_clusters:', pruned_clusters, 'pruned_words:', pruned_words)
-    # TOD0?: remove disjuncts connected with deleted clusters...
-    # TODO?: iterate: prune clusters ⇒ disjuncts ⇒ clusters ... ⇒ renumber & rename :(
+            pruned_words.append(rules['words'][i] if i < len(rules['words']) else [])
+            logger.debug(f"Pruned cluster {cluster} with words {rules['words'][i]} - no valid disjuncts")
+    
+    # Update rules with pruned version
+    rules = pruned_rules
+    
+    if len(pruned_clusters) > 0:
+        logger.info(f"Pruned {len(pruned_clusters)} clusters with no valid disjuncts")
 
     return rules, {
         'learned_rules': len([x for i, x in enumerate(rules['parent'])

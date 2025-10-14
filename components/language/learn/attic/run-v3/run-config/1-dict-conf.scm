@@ -94,9 +94,10 @@
 ; Must be floating point between zero and one.
 (define sense-frac 0.3)
 
-; XXX FIXME: The LG dictionary complains about multiply defined words.
-; We should modify LG to either allow this, or we should change the
-; code here to not do this.
+; Note: Link Grammar (LG) currently does not support multiply defined words
+; in the same dictionary entry. To avoid errors, we set sense-frac to 0.0.
+; Future enhancement: Modify LG to support multiple word senses or update
+; the generator to create distinct entries for different senses.
 (define sense-frac 0.0)
 
 ; Maximum number of distinct word-senses each word may have.

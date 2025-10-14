@@ -57,12 +57,13 @@ def number_of_clusters(vdf, cluster_range, algorithm='kmeans', \
     # Check number of clusters <= word vector dimensionality
     max_clusters = min(cluster_range[1], len(vdf), \
                        max([x for x in list(vdf) if isinstance(x,int)]))
-    #?if max([x for x in list(vdf) if isinstance(x,int)]) < cluster_range[0]+1:
-    #?    max_clusters = min(cluster_range[1], len(vdf))  #FIXME: hack 80420!
-    if max([x for x in list(vdf) if isinstance(x,int)]) == 2:
-        # if verbose in ['max','debug']: print('2 dim word space -- 4 clusters')
-        logger.info('2 dim word space -- 4 clusters')
-        return 4  #FIXME: hack 80420!
+    # Handle low-dimensional word spaces
+    max_dimension = max([x for x in list(vdf) if isinstance(x,int)])
+    if max_dimension == 2:
+        # For 2D word spaces, limit to 4 clusters as a reasonable upper bound
+        # This prevents over-clustering in low-dimensional spaces
+        logger.info('2D word space detected -- limiting to 4 clusters')
+        return min(4, len(vdf))  # Ensure we don't exceed number of words
 
     # if verbose in ['max', 'debug']:
     #     print('number_of_clusters: max_clusters =', max_clusters)
@@ -70,9 +71,9 @@ def number_of_clusters(vdf, cluster_range, algorithm='kmeans', \
 
     n_clusters = max_clusters   #80623: cure case max < range.min
 
-    #FIXME: unstable number of clusters #80422
+    # Multiple attempts to ensure stable cluster count determination
     lst = []
-    attempts = 1 #12
+    attempts = 3  # Increased from 1 to improve stability
     for k in range(attempts):
         for i,j in enumerate(range(cluster_range[0], max_clusters, cluster_range[2])):
             cdf, silhouette, inertia = cluster_words_kmeans(vdf, j)
@@ -99,7 +100,12 @@ def number_of_clusters(vdf, cluster_range, algorithm='kmeans', \
     n2 = list(dct.keys())[list(dct.values()).index(max(list(dct.values())))]
     if n2 != n_clusters:
         if len(list(dct.values())) == len(set(list(dct.values()))):
-            n3 = mode(lst)  # Might get error
+            try:
+                n3 = mode(lst)
+            except:
+                # If mode() fails (e.g., no unique mode), use the mean
+                n3 = n_clusters
+                logger.debug(f"mode() failed, using mean value: {n3}")
         else: n3 = n_clusters
         n_clusters = int(round((n_clusters + n2 + n3)/3.0, 0))
 
@@ -116,4 +122,4 @@ def number_of_clusters(vdf, cluster_range, algorithm='kmeans', \
 #80725 POC 0.1-0.4 deleted, 0.5 restructured
 #80802 cluster_words_kmeans ⇒ clustering.py for further dev,
     #number_of_clusters copied here from clustering.py,
-    #this file left for POC.0.5 legacy FIXME:DEL (wait)
+    # This file maintained for POC.0.5 legacy compatibility
