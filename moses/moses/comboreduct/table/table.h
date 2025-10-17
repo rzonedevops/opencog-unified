@@ -339,12 +339,62 @@ struct interpreter_visitor : public boost::static_visitor<vertex>
         return mixed_interpreter(inputs)(_it);
     }
     vertex operator()(const string_seq& inputs) {
-        OC_ASSERT(false, "Not implemented");
-        return vertex();
+        // Convert string sequence to vertex sequence for interpretation
+        std::vector<vertex> vertex_inputs;
+        vertex_inputs.reserve(inputs.size());
+        
+        for (const std::string& str : inputs) {
+            // Parse string as appropriate vertex type
+            if (str.empty()) {
+                vertex_inputs.push_back(id::null_vertex);
+            } else if (str == "true" || str == "TRUE" || str == "1") {
+                vertex_inputs.push_back(id::logical_true);
+            } else if (str == "false" || str == "FALSE" || str == "0") {
+                vertex_inputs.push_back(id::logical_false);
+            } else {
+                // Try to parse as number
+                try {
+                    double val = std::stod(str);
+                    vertex_inputs.push_back(val);
+                } catch (...) {
+                    // Default to enum/string vertex
+                    vertex_inputs.push_back(enum_t(str));
+                }
+            }
+        }
+        
+        // Use the existing vertex interpreter
+        return operator()(vertex_inputs);
     }
     vertex operator()(const std::vector<combo_tree>& inputs) {
-        OC_ASSERT(false, "Not implemented");
-        return vertex();
+        // Convert combo_tree vector to vertex sequence for interpretation
+        std::vector<vertex> vertex_inputs;
+        vertex_inputs.reserve(inputs.size());
+        
+        for (const combo_tree& tree : inputs) {
+            if (tree.empty()) {
+                vertex_inputs.push_back(id::null_vertex);
+            } else {
+                // Evaluate the combo tree to get its vertex value
+                combo_tree::iterator it = tree.begin();
+                
+                // Simple evaluation - if it's a constant, use it directly
+                if (is_argument(*it)) {
+                    // For variables, we need context - use mixed interpreter with empty inputs
+                    vertex_inputs.push_back(mixed_interpreter(std::vector<vertex>())(it));
+                } else if (get_type_node(get_type(*it)) == id::boolean_type) {
+                    vertex_inputs.push_back(boolean_interpreter(std::vector<builtin>())(it));
+                } else if (is_contin(*it)) {
+                    vertex_inputs.push_back(contin_interpreter(std::vector<contin_t>())(it));
+                } else {
+                    // Use mixed interpreter for complex expressions
+                    vertex_inputs.push_back(mixed_interpreter(std::vector<vertex>())(it));
+                }
+            }
+        }
+        
+        // Use the existing vertex interpreter
+        return operator()(vertex_inputs);
     }
     combo_tree::iterator _it;
     bool mixed;
