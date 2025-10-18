@@ -67,7 +67,7 @@ ValuePtr SplitLink::rewrap_h(AtomSpace* as, const Handle& base)
 			while (true) {
 				size_t prev = pos;
 				pos = link_str.find_first_of(_sep, pos);
-				if (0 < pos-prev)
+				if (pos > prev)
 				{
 					const std::string& subby(link_str.substr(prev, pos-prev));
 					if (0 < subby.length())
@@ -95,7 +95,7 @@ ValuePtr SplitLink::rewrap_h(AtomSpace* as, const Handle& base)
 	while (true) {
 		size_t prev = pos;
 		pos = name.find_first_of(_sep, pos);
-		if (0 < pos-prev)
+		if (pos > prev)
 		{
 			const std::string& subby(name.substr(prev, pos-prev));
 			if (0 < subby.length())
