@@ -1,0 +1,33 @@
+Loaded 605 tracked FIXME items
+
+🚀 35 Easy Wins Available:
+  - analyze_fixme_instances.py:103
+    Skip meta-comments about FIXME processing...
+
+  - analyze_fixme_instances.py:131
+    Look for actual FIXME patterns in comments...
+
+  - atomspace/opencog/query/NextSearchMixin.cc:267
+    this simpler code is good enough. XXX FIXME someday?...
+
+  - atomspace/opencog/query/Satisfier.cc:41
+    XXX Temp hack alert. When Continuations finally terminate, they...
+
+  - atomspace/opencog/atomspace/AtomTable.cc:623
+    XXX Also, a minor bug, not sure if it matters: if parent is set...
+
+  - atomspace/opencog/atoms/flow/CollectionOfLink.cc:69
+    FIXME: _outoging[0] could be executable, in which case...
+
+  - components/language/learn/scm/attic/cluster/cset-class.scm:148
+    XXX FIXME this might be pointless and useless?...
+
+  - components/language/lg-atomese/opencog/nlp/scm/attic/nlp-utils.scm:134
+    XXX TODO (1) this could be converted into a simple GetLink...
+
+  - components/core/atomspace-rocks/opencog/persist/rocks/RocksIO.cc:505
+    XXX FIXME (and in MonoSpace, too). According to the BackingStore...
+
+  - components/learning/moses/examples/example-progs/continmax.cc:67
+    XXX todo -- finish documentation to make it look more like the...
+

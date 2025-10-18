@@ -208,7 +208,8 @@ class TestGrammarLearner(unittest.TestCase):
             'verbose'       :   'min'
         }
         re = learn_grammar(**kwargs)
-        # 81019 changes:    # FIXME: DEL comments
+        # NOTE: Legacy test code commented out for historical reference.
+        # TODO: Remove these commented lines in next cleanup cycle.
         # a, q, qa = pqa_meter(re['grammar_file'], outpath, cp, rp, **kwargs)
         # print('parse-ability, parse-quality:', a, q)
         # assert a*q > 0.99

@@ -131,11 +131,9 @@
   one of DeclarativeSpeechAct, InterrogativeSpeechAct,
   TruthQuerySpeechAct, etc...
 "
-	; XXX TODO (1) this could be converted into a simple GetLink
-	; and probably should be. (2) There should be a syntax for GetLink
-	; that is lest verbose, and closer in style to what is written
-	; below. Viz, it should be possible to write GetLink's as a sequence
-	; of chases.
+	; TODO: Consider refactoring this pattern to use GetLink syntax.
+	; A more concise GetLink syntax would improve readability and
+	; allow writing link chases as sequences rather than nested calls.
 
 	; parse will be (ParseNode "sentence@a6_parse_0")
 	(define parse (car (cog-chase-link 'ParseLink 'ParseNode sent)))

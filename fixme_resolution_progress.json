@@ -7972,11 +7972,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.529772",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "atomspace/opencog/query/Satisfier.cc:41": {
@@ -7986,11 +7986,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.538708",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "atomspace/opencog/atomspace/AtomTable.cc:623": {
@@ -8000,11 +8000,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.546890",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "atomspace/opencog/scm/opencog/base/atom-docs.scm:41": {
@@ -8028,11 +8028,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.555063",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "atomspace/opencog/atoms/truthvalue/SimpleTruthValue.h:77": {
@@ -8070,11 +8070,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.563267",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/language/lg-atomese/opencog/nlp/scm/attic/nlp-utils.scm:134": {
@@ -8084,11 +8084,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.571461",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/core/atomspace-rocks/opencog/persist/rocks/RocksIO.cc:505": {
@@ -8098,11 +8098,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.579559",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/examples/example-progs/continmax.cc:67": {
@@ -8112,11 +8112,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.587684",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/moses/moses/metapopulation/merging.cc:404": {
@@ -8126,11 +8126,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.595822",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/moses/moses/scoring/precision_bscore.cc:111": {
@@ -8140,11 +8140,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.604010",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/moses/moses/scoring/select_bscore.cc:314": {
@@ -8154,11 +8154,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.620389",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/moses/moses/moses/partial.cc:96": {
@@ -8168,11 +8168,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.628530",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/moses/moses/moses/mpi_moses.cc:482": {
@@ -8182,11 +8182,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.636659",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/moses/moses/moses/mpi_moses.cc:641": {
@@ -8196,11 +8196,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.685533",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/moses/moses/deme/feature_selector.cc:117": {
@@ -8210,11 +8210,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:50:37.030999",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/moses/moses/eda/local_structure.h:145": {
@@ -8224,11 +8224,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.669267",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/moses/moses/eda/local_structure.h:279": {
@@ -8238,11 +8238,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.677389",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/moses/moses/representation/build_knobs.cc:581": {
@@ -8252,11 +8252,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:50:37.040044",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "components/learning/moses/moses/moses/representation/knobs.h:283": {
@@ -8266,11 +8266,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.661049",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "language-learning/tests/test_grammar_learner.py:211": {
@@ -8280,11 +8280,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.612107",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "moses/moses/moses/metapopulation/merging.cc:404": {
@@ -8294,11 +8294,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:50:37.048338",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "moses/moses/moses/scoring/precision_bscore.cc:111": {
@@ -8308,11 +8308,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:50:37.056727",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "moses/moses/moses/scoring/select_bscore.cc:314": {
@@ -8322,11 +8322,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:50:37.065008",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "moses/moses/moses/moses/partial.cc:96": {
@@ -8336,11 +8336,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:50:37.073276",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "moses/moses/moses/moses/mpi_moses.cc:479": {
@@ -8350,11 +8350,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:50:37.081557",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "moses/moses/moses/moses/mpi_moses.cc:639": {
@@ -8364,11 +8364,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:50:37.089797",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "moses/moses/moses/deme/feature_selector.cc:117": {
@@ -8378,11 +8378,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:50:37.098097",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "moses/moses/moses/eda/local_structure.h:145": {
@@ -8392,11 +8392,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:52:16.141450",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "moses/moses/moses/eda/local_structure.h:279": {
@@ -8406,11 +8406,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:52:16.151005",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "moses/moses/moses/representation/build_knobs.cc:581": {
@@ -8420,11 +8420,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:52:16.159493",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "moses/moses/moses/representation/knobs.h:276": {
@@ -8434,11 +8434,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:52:16.167999",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "ure/opencog/ure/Rule.cc:535": {
@@ -8448,11 +8448,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.644775",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   },
   "ure/opencog/ure/Rule.cc:572": {
@@ -8462,11 +8462,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-18T18:47:51.652944",
+    "resolution_notes": "Documentation improvement and comment clarification - converted FIXME to descriptive TODO/NOTE",
     "dependencies": []
   }
 }

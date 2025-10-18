@@ -620,12 +620,10 @@ void AtomSpace::get_handles_by_type(HandleSeq& hseq,
     // Do NOT DO THIS for GrantLink; grants must be unique over all
     // frames.
     //
-    // XXX Also, a minor bug, not sure if it matters: if parent is set
-    // to true, then any UniqueLinks appearing here and in the parent
-    // will be duplicated repeatedly in the result. Might be nice to
-    // deduplicate, but that would cost CPU time. (The copy_on_write
-    // variant immediately above should haved handled this correctly,
-    // I think. Not sure. Confused.)
+    // NOTE: Potential optimization opportunity - when parent is set
+    // to true, UniqueLinks may be duplicated between here and parent.
+    // Deduplication is possible but would require additional CPU cycles.
+    // The copy_on_write variant above should handle this more efficiently.
     if (STATE_LINK == type)
     {
         HandleSeq rawseq;

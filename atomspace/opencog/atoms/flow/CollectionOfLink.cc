@@ -66,10 +66,9 @@ void CollectionOfLink::check_typespec(void)
 
 	_have_typespec = true;
 
-	// FIXME: _outoging[0] could be executable, in which case
-	// is should be executed, first. But I'm lazy. Also:
-	// instead of being a simple type, the output could be
-	// a complicated signature. Again, I'm lazy.
+	// TODO: Handle executable _outgoing[0] by executing it first.
+	// TODO: Support complex type signatures beyond simple TYPE_NODE.
+	// Current implementation assumes simple type specification.
 	if (not _outgoing[0]->is_type(TYPE_NODE))
 		throw InvalidParamException(TRACE_INFO,
 			"Expecting first arg to be a type, got %s",

@@ -106,9 +106,9 @@ using namespace combo;
 /// where "val" is the contin-value of the table row, and AC is the
 /// total number of activated rows.
 ///
-/// The above only descirbes the "precision_full_bscore" (default)
+/// The above only describes the "precision_full_bscore" (default)
 /// scoring; something else is done when precision_full_bscore is
-/// set to false.  TBD XXX document that someday.
+/// set to false. TODO: Document alternative scoring behavior.
 
 
 precision_bscore::precision_bscore(const CTable& ctable_,
