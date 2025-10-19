@@ -280,7 +280,7 @@ private:
 #define MAX_PERM_ACTIONS 128
 
 // Note - children aren't canonized when parents are called.
-// XXX what does the above comment mean ???
+// TODO: Clarify the canonization behavior for parent-child relationships.
 struct action_subtree_knob : public discrete_knob<MAX_PERM_ACTIONS>
 {
     typedef combo_tree::pre_order_iterator pre_it;

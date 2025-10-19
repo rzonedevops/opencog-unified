@@ -64,8 +64,8 @@ using boost::lexical_cast;
 // -- the number that is -log_2(epsilon) where epsilon is the smallest
 //    distinction between continuous variables what will be drawn.
 //
-// XXX todo -- finish documentation to make it look more like the
-// onemax/nmax example programs.
+// TODO: Expand documentation to match style of onemax/nmax examples.
+// Add parameter descriptions, usage examples, and expected output.
 
 int main(int argc, char** argv)
 {

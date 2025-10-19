@@ -483,7 +483,8 @@ cout<<"duuude master "<<getpid() <<" from="<<worker.rank << " got evals="<<n_eva
                 thread_count--;
                 });
 
-// XXX should print stats less often...
+// TODO: Optimize statistics printing frequency to reduce output volume.
+        // Consider printing detailed stats every N iterations instead of every iteration.
         // Print stats in a way that makes them easy to graph.
         // (columns of tab-seprated numbers)
         if (logger().isInfoEnabled()) {
@@ -642,9 +643,9 @@ void mpi_moses(metapopulation& mp,
         }
 
         // Print stats in a way that makes them easy to graph.
-        // (columns of tab-seprated numbers)
-        // XXX this is kind-of buggy, since the following data is not
-        // updated and collected atomically... other threads may be
+        // (columns of tab-separated numbers)
+        // NOTE: Statistics printing has potential race conditions since
+        // other threads may be updating data concurrently during print operations.
         // merging and updating as this print happens. Yuck. Oh well.
         if (logger().is_info_enabled()) {
             std::stringstream ss;

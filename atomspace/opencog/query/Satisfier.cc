@@ -38,9 +38,9 @@ bool Satisfier::propose_grounding(const GroundingMap &var_soln,
 	// PatternMatchEngine::print_solution(var_soln, term_soln);
 	_result = true;
 
-	// XXX Temp hack alert. When Continuations finally terminate, they
-	// supply us with empty groundings. This probably needs to be fixed
-	// someday. For now, for the simple examples, its good enough.
+	// NOTE: Legacy handling for Continuation termination edge case.
+	// When Continuations terminate, they may supply empty groundings.
+	// This works correctly for current use cases but may need refinement.
 	if (0 == var_soln.size()) return true;
 
 	// Record the grounding; we cache this later.

@@ -401,11 +401,9 @@ void metapopulation::resize_metapop()
     // formula was arrived at via some ad-hoc experimentation.  A default
     // value of _params.cap_coef=50 seems to work well.
     //
-    // XXX TODO fix the cap so its more sensitive to the size of
-    // each exemplar, right!? So if the exemplars are huges, then the
-    // population size has to be smaller.  ... On the other hand, if
-    // the exemplars are huge, then MOSES has probably wandered into
-    // a bad corner, and is failing to explore a big enough space.
+    // TODO: Make population cap size-sensitive to exemplar complexity.
+    // Large exemplars should result in smaller population sizes to maintain
+    // efficiency. Consider implementing adaptive sizing based on exemplar metrics.
     //
     // size_t nbelts = get_bscore(*begin()).size();
     // double cap = 1.0e6 / double(nbelts);

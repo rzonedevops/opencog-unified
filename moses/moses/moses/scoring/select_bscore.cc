@@ -311,9 +311,9 @@ score_t select_bscore::get_error(const behavioral_score& bs) const
     return - sum_bscore(bs) / _ctable_weight;
 }
 
-// XXX This is not quite right, for weighted rows.  A row with a small
-// weight could result in a much smaller min-improv.
-// (But I think boosting should not affect min-improv, right?)
+// NOTE: min_improv calculation may not be optimal for weighted rows.
+// Small row weights could lead to very small min-improv values.
+// Consider whether boosting should affect min-improv calculation.
 score_t select_bscore::min_improv() const
 {
     return 1.0 / _ctable_weight;

@@ -264,7 +264,7 @@ bool InitiateSearchMixin::get_next_thinnest_clause(const GroundingMap& var_groun
 	// Grounded variables ordered by the size of their grounding
 	// incoming set. Ideally, we should look only at the incoming
 	// set that matches the type of the parent term. But for now,
-	// this simpler code is good enough. XXX FIXME someday?
+	// this simpler code is good enough. TODO: Optimize to filter by parent type.
 	std::multimap<std::size_t, Handle> thick_vars;
 
 	for (const Handle &v : _variables->varset)

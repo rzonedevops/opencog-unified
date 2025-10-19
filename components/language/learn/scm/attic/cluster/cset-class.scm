@@ -145,7 +145,8 @@
 ; a disjunct with a connector that belongs to an existing WordClass.
 ; The goal is to trim the list of sections to something smaller.
 ;
-; XXX FIXME this might be pointless and useless?
+; TODO: Evaluate if this function provides meaningful functionality.
+; Consider refactoring or removing if performance impact is minimal.
 (define (get-all-sections-in-classes WCL)
 
 	; Return not-#f if the connector is in any class.

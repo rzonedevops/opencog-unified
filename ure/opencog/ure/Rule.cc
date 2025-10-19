@@ -532,9 +532,9 @@ RuleTypedSubstitutionMap Rule::unify_source(const Handle& source,
 		return {};
 
 	// To guarantee that the rule variable does not have the same name
-	// as any variable in the source. XXX This is only a stochastic
-	// guarantee, there is a small chance that the new random name
-	// will still collide.
+	// as any variable in the source. NOTE: This is a probabilistic
+	// guarantee - there is a small chance that the random name could
+	// still collide with existing variables.
 	Rule alpha_rule = rand_alpha_converted();
 
 	RuleTypedSubstitutionMap unified_rules;
@@ -569,9 +569,9 @@ RuleTypedSubstitutionMap Rule::unify_target(const Handle& target,
 		return {};
 
 	// To guarantee that the rule variable does not have the same name
-	// as any variable in the target. XXX This is only a stochastic
-	// guarantee, there is a small chance that the new random name
-	// will still collide.
+	// as any variable in the target. NOTE: This is a probabilistic
+	// guarantee - there is a small chance that the random name could
+	// still collide with existing variables.
 	Rule alpha_rule = rand_alpha_converted();
 
 	RuleTypedSubstitutionMap unified_rules;

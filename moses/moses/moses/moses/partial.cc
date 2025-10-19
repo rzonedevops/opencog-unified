@@ -93,9 +93,9 @@ void partial_solver::solve()
 
         _moses_params.max_evals -= _num_evals;
 
-        // XXX TODO: we need to get the actual number of gens run, back
-        // from moses, and subtract it here.  But there's no easy way
-        // to get this number ...
+        // TODO: Improve generation tracking by getting actual number
+        // of generations run from MOSES and subtracting it here.
+        // Currently no easy API exists to retrieve this information.
         _moses_params.max_gens -= _num_gens;
 
         logger().info() << "well-enough start loop " << loop_count++

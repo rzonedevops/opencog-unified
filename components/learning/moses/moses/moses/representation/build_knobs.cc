@@ -578,7 +578,7 @@ void build_knobs::add_logical_knobs(pre_it subtree,
     // The number of 30K is a wild guesstimate, based on recent
     // measurements of relatively simple exemplars; its maybe even
     // too low.  For large exemplars, it might be too big !?
-    // XXX TODO clarify actual breakeven on range of problems...
+    // TODO: Benchmark and clarify optimal breakeven point across different problem sizes.
 #define BREAKEVEN 30000
     size_t np = perms.size();
     int nthr = 1 + np / BREAKEVEN;
