@@ -1,21 +1,19 @@
 {
   "summary": {
-    "total_instances": 578,
+    "total_instances": 567,
     "by_difficulty": {
-      "MEDIUM": 486,
-      "EASY": 5,
+      "MEDIUM": 480,
       "VERY_HARD": 32,
       "HARD": 55
     },
     "by_category": {
-      "General Implementation": 335,
-      "Documentation/Simple Fix": 5,
-      "Feature Implementation/Algorithm": 52,
+      "General Implementation": 331,
+      "Feature Implementation/Algorithm": 50,
       "Distributed Systems/Research": 32,
       "Performance/Threading/Complex Algorithm": 55,
       "Scheme/Logic Implementation": 99
     },
-    "files_affected": 276
+    "files_affected": 272
   },
   "by_difficulty": {
     "MEDIUM": [
@@ -731,24 +729,7 @@
       },
       {
         "file_path": "atomspace/opencog/ocaml/CamlWrap.cc",
-        "line_number": 57,
-        "fixme_text": "// XXX FIXME",
-        "context_lines": [
-          "opstbl.finalize = finalize;",
-          "",
-          "// XXX FIXME",
-          "opstbl.compare = custom_compare_default;",
-          "opstbl.hash = custom_hash_default;"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "atomspace/opencog/ocaml/CamlWrap.cc",
-        "line_number": 206,
+        "line_number": 207,
         "fixme_text": "// XXX FIXME",
         "context_lines": [
           "if (vp->is_atom()) return oc_to_caml_str(HandleCast(vp), indent);",
@@ -1385,40 +1366,6 @@
           "// XXX This is fairly tacky/broken, and needs a better fix.",
           "for (auto p : default_paths) {",
           "search_paths.push_back(p);"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "atomspace/opencog/atoms/flow/StringOfLink.cc",
-        "line_number": 118,
-        "fixme_text": "// a stream or something dynamic ... XXX ???",
-        "context_lines": [
-          "// Recase to an explicit (concrete) StringValue,",
-          "// to handle the case where the from-value is",
-          "// a stream or something dynamic ... XXX ???",
-          "// Or maybe we want to cast *to* something dynamic?",
-          "// XXX FIXME this is unclear, under-specified and"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "atomspace/opencog/atoms/flow/StringOfLink.cc",
-        "line_number": 120,
-        "fixme_text": "// XXX FIXME this is unclear, under-specified and",
-        "context_lines": [
-          "// a stream or something dynamic ... XXX ???",
-          "// Or maybe we want to cast *to* something dynamic?",
-          "// XXX FIXME this is unclear, under-specified and",
-          "// under-used at the moment.",
-          "return createStringValue("
         ],
         "difficulty": "MEDIUM",
         "category": "General Implementation",
@@ -2167,23 +2114,6 @@
           "// Shoot. XXX FIXME. Most of the unit tests require that the atom",
           "// that we return is in the atomspace. But it would be nice if we",
           "// could defer this indefinitely, until its really needed."
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "atomspace/opencog/atoms/truthvalue/CountTruthValue.h",
-        "line_number": 73,
-        "fixme_text": "// XXX FIXME Are all of these really needed?",
-        "context_lines": [
-          "const MergeCtrl& mc=MergeCtrl()) const;",
-          "",
-          "// XXX FIXME Are all of these really needed?",
-          "// Can we get rid of some of them?",
-          "static TruthValuePtr createTV(strength_t s, confidence_t f, count_t c)"
         ],
         "difficulty": "MEDIUM",
         "category": "General Implementation",
@@ -7852,41 +7782,7 @@
       },
       {
         "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 108,
-        "fixme_text": ";; XXX FIXME huh? this needs documentation.",
-        "context_lines": [
-          "; ---------------------------------------------------------------------",
-          ";; Below creates say atom for face if sound came from it",
-          ";; XXX FIXME huh? this needs documentation.",
-          ";; XXX FIXME elminiate the use of cog-execute! -- that is not how",
-          ";; this should be designed -- these need to be learnable; and"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "Feature Implementation/Algorithm",
-        "estimated_effort": "1-4 weeks",
-        "dependencies": [],
-        "reasoning": "Requires moderate technical knowledge and implementation effort"
-      },
-      {
-        "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 109,
-        "fixme_text": ";; XXX FIXME elminiate the use of cog-execute! -- that is not how",
-        "context_lines": [
-          ";; Below creates say atom for face if sound came from it",
-          ";; XXX FIXME huh? this needs documentation.",
-          ";; XXX FIXME elminiate the use of cog-execute! -- that is not how",
-          ";; this should be designed -- these need to be learnable; and",
-          ";; cog-execute prevents learning."
-        ],
-        "difficulty": "MEDIUM",
-        "category": "Feature Implementation/Algorithm",
-        "estimated_effort": "1-4 weeks",
-        "dependencies": [],
-        "reasoning": "Requires moderate technical knowledge and implementation effort"
-      },
-      {
-        "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 162,
+        "line_number": 161,
         "fixme_text": ";; XXX FIXME -- this kind of crazy angle computation should be",
         "context_lines": [
           ";angle in radians",
@@ -7903,7 +7799,7 @@
       },
       {
         "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 197,
+        "line_number": 196,
         "fixme_text": ";; XXX FIXME -- this kind of tulity needs to be in the space-time",
         "context_lines": [
           ";; the face.  Returns the atom for the face, or the emtpy list.",
@@ -7920,7 +7816,7 @@
       },
       {
         "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 238,
+        "line_number": 237,
         "fixme_text": ";; XXX TODO -- this should eventually be a psi-rule, so that we can",
         "context_lines": [
           ";; This needs to be define-public, so that ros-bridge can send this",
@@ -8274,93 +8170,6 @@
         "estimated_effort": "1-2 weeks",
         "dependencies": [],
         "reasoning": "General implementation task requiring moderate effort"
-      }
-    ],
-    "EASY": [
-      {
-        "file_path": "fixme_easy_wins.py",
-        "line_number": 99,
-        "fixme_text": "# For other cases, convert FIXME to descriptive comments",
-        "context_lines": [
-          "return line.replace(\"XXX Temp hack alert.\", \"NOTE: Legacy compatibility handling.\")",
-          "",
-          "# For other cases, convert FIXME to descriptive comments",
-          "elif \"xxx fixme\" in line_lower or \"fixme:\" in line_lower:",
-          "# Convert to NOTE or TODO depending on content"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      },
-      {
-        "file_path": "analyze_fixme_instances.py",
-        "line_number": 103,
-        "fixme_text": "# Skip meta-comments about FIXME processing",
-        "context_lines": [
-          "return False",
-          "",
-          "# Skip meta-comments about FIXME processing",
-          "if ('fixme instances' in line_lower) or \\",
-          "('fixme text' in line_lower) or \\"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      },
-      {
-        "file_path": "analyze_fixme_instances.py",
-        "line_number": 131,
-        "fixme_text": "# Look for actual FIXME patterns in comments",
-        "context_lines": [
-          "return False",
-          "",
-          "# Look for actual FIXME patterns in comments",
-          "return (('fixme' in line_lower) or",
-          "('xxx' in line_lower and (line_lower.strip().startswith('#') or line_lower.strip().startswith('//'))) or  # XXX comments"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      },
-      {
-        "file_path": "setup_fixme_environment.py",
-        "line_number": 57,
-        "fixme_text": "# Pre-commit hook to prevent new FIXMEs",
-        "context_lines": [
-          "pre_commit_content = dedent('''",
-          "#!/bin/bash",
-          "# Pre-commit hook to prevent new FIXMEs",
-          "",
-          "echo \"\ud83d\udd0d Checking for new FIXME comments...\""
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      },
-      {
-        "file_path": "setup_fixme_environment.py",
-        "line_number": 251,
-        "fixme_text": "# Include this in your main Makefile with: include Makefile.fixme",
-        "context_lines": [
-          "makefile_content = dedent('''",
-          "# FIXME Resolution Makefile Targets",
-          "# Include this in your main Makefile with: include Makefile.fixme",
-          "",
-          ".PHONY: fixme-status fixme-easy-wins fixme-report fixme-setup"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
       }
     ],
     "VERY_HARD": [
@@ -10476,24 +10285,7 @@
       },
       {
         "file_path": "atomspace/opencog/ocaml/CamlWrap.cc",
-        "line_number": 57,
-        "fixme_text": "// XXX FIXME",
-        "context_lines": [
-          "opstbl.finalize = finalize;",
-          "",
-          "// XXX FIXME",
-          "opstbl.compare = custom_compare_default;",
-          "opstbl.hash = custom_hash_default;"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "atomspace/opencog/ocaml/CamlWrap.cc",
-        "line_number": 206,
+        "line_number": 207,
         "fixme_text": "// XXX FIXME",
         "context_lines": [
           "if (vp->is_atom()) return oc_to_caml_str(HandleCast(vp), indent);",
@@ -11011,40 +10803,6 @@
           "// XXX This is fairly tacky/broken, and needs a better fix.",
           "for (auto p : default_paths) {",
           "search_paths.push_back(p);"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "atomspace/opencog/atoms/flow/StringOfLink.cc",
-        "line_number": 118,
-        "fixme_text": "// a stream or something dynamic ... XXX ???",
-        "context_lines": [
-          "// Recase to an explicit (concrete) StringValue,",
-          "// to handle the case where the from-value is",
-          "// a stream or something dynamic ... XXX ???",
-          "// Or maybe we want to cast *to* something dynamic?",
-          "// XXX FIXME this is unclear, under-specified and"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "atomspace/opencog/atoms/flow/StringOfLink.cc",
-        "line_number": 120,
-        "fixme_text": "// XXX FIXME this is unclear, under-specified and",
-        "context_lines": [
-          "// a stream or something dynamic ... XXX ???",
-          "// Or maybe we want to cast *to* something dynamic?",
-          "// XXX FIXME this is unclear, under-specified and",
-          "// under-used at the moment.",
-          "return createStringValue("
         ],
         "difficulty": "MEDIUM",
         "category": "General Implementation",
@@ -11708,23 +11466,6 @@
           "// Shoot. XXX FIXME. Most of the unit tests require that the atom",
           "// that we return is in the atomspace. But it would be nice if we",
           "// could defer this indefinitely, until its really needed."
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "atomspace/opencog/atoms/truthvalue/CountTruthValue.h",
-        "line_number": 73,
-        "fixme_text": "// XXX FIXME Are all of these really needed?",
-        "context_lines": [
-          "const MergeCtrl& mc=MergeCtrl()) const;",
-          "",
-          "// XXX FIXME Are all of these really needed?",
-          "// Can we get rid of some of them?",
-          "static TruthValuePtr createTV(strength_t s, confidence_t f, count_t c)"
         ],
         "difficulty": "MEDIUM",
         "category": "General Implementation",
@@ -15541,93 +15282,6 @@
         "reasoning": "General implementation task requiring moderate effort"
       }
     ],
-    "Documentation/Simple Fix": [
-      {
-        "file_path": "fixme_easy_wins.py",
-        "line_number": 99,
-        "fixme_text": "# For other cases, convert FIXME to descriptive comments",
-        "context_lines": [
-          "return line.replace(\"XXX Temp hack alert.\", \"NOTE: Legacy compatibility handling.\")",
-          "",
-          "# For other cases, convert FIXME to descriptive comments",
-          "elif \"xxx fixme\" in line_lower or \"fixme:\" in line_lower:",
-          "# Convert to NOTE or TODO depending on content"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      },
-      {
-        "file_path": "analyze_fixme_instances.py",
-        "line_number": 103,
-        "fixme_text": "# Skip meta-comments about FIXME processing",
-        "context_lines": [
-          "return False",
-          "",
-          "# Skip meta-comments about FIXME processing",
-          "if ('fixme instances' in line_lower) or \\",
-          "('fixme text' in line_lower) or \\"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      },
-      {
-        "file_path": "analyze_fixme_instances.py",
-        "line_number": 131,
-        "fixme_text": "# Look for actual FIXME patterns in comments",
-        "context_lines": [
-          "return False",
-          "",
-          "# Look for actual FIXME patterns in comments",
-          "return (('fixme' in line_lower) or",
-          "('xxx' in line_lower and (line_lower.strip().startswith('#') or line_lower.strip().startswith('//'))) or  # XXX comments"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      },
-      {
-        "file_path": "setup_fixme_environment.py",
-        "line_number": 57,
-        "fixme_text": "# Pre-commit hook to prevent new FIXMEs",
-        "context_lines": [
-          "pre_commit_content = dedent('''",
-          "#!/bin/bash",
-          "# Pre-commit hook to prevent new FIXMEs",
-          "",
-          "echo \"\ud83d\udd0d Checking for new FIXME comments...\""
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      },
-      {
-        "file_path": "setup_fixme_environment.py",
-        "line_number": 251,
-        "fixme_text": "# Include this in your main Makefile with: include Makefile.fixme",
-        "context_lines": [
-          "makefile_content = dedent('''",
-          "# FIXME Resolution Makefile Targets",
-          "# Include this in your main Makefile with: include Makefile.fixme",
-          "",
-          ".PHONY: fixme-status fixme-easy-wins fixme-report fixme-setup"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      }
-    ],
     "Feature Implementation/Algorithm": [
       {
         "file_path": "setup_fixme_environment.py",
@@ -16438,40 +16092,6 @@
           ";; XXX FIXME -- the psi subsystem should be performing this action,",
           ";; instead of hard-coding it here.",
           ""
-        ],
-        "difficulty": "MEDIUM",
-        "category": "Feature Implementation/Algorithm",
-        "estimated_effort": "1-4 weeks",
-        "dependencies": [],
-        "reasoning": "Requires moderate technical knowledge and implementation effort"
-      },
-      {
-        "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 108,
-        "fixme_text": ";; XXX FIXME huh? this needs documentation.",
-        "context_lines": [
-          "; ---------------------------------------------------------------------",
-          ";; Below creates say atom for face if sound came from it",
-          ";; XXX FIXME huh? this needs documentation.",
-          ";; XXX FIXME elminiate the use of cog-execute! -- that is not how",
-          ";; this should be designed -- these need to be learnable; and"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "Feature Implementation/Algorithm",
-        "estimated_effort": "1-4 weeks",
-        "dependencies": [],
-        "reasoning": "Requires moderate technical knowledge and implementation effort"
-      },
-      {
-        "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 109,
-        "fixme_text": ";; XXX FIXME elminiate the use of cog-execute! -- that is not how",
-        "context_lines": [
-          ";; Below creates say atom for face if sound came from it",
-          ";; XXX FIXME huh? this needs documentation.",
-          ";; XXX FIXME elminiate the use of cog-execute! -- that is not how",
-          ";; this should be designed -- these need to be learnable; and",
-          ";; cog-execute prevents learning."
         ],
         "difficulty": "MEDIUM",
         "category": "Feature Implementation/Algorithm",
@@ -19409,7 +19029,7 @@
       },
       {
         "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 162,
+        "line_number": 161,
         "fixme_text": ";; XXX FIXME -- this kind of crazy angle computation should be",
         "context_lines": [
           ";angle in radians",
@@ -19426,7 +19046,7 @@
       },
       {
         "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 197,
+        "line_number": 196,
         "fixme_text": ";; XXX FIXME -- this kind of tulity needs to be in the space-time",
         "context_lines": [
           ";; the face.  Returns the atom for the face, or the emtpy list.",
@@ -19443,7 +19063,7 @@
       },
       {
         "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 238,
+        "line_number": 237,
         "fixme_text": ";; XXX TODO -- this should eventually be a psi-rule, so that we can",
         "context_lines": [
           ";; This needs to be define-public, so that ros-bridge can send this",
@@ -19701,61 +19321,6 @@
         "reasoning": "General implementation task requiring moderate effort"
       }
     ],
-    "fixme_easy_wins.py": [
-      {
-        "file_path": "fixme_easy_wins.py",
-        "line_number": 99,
-        "fixme_text": "# For other cases, convert FIXME to descriptive comments",
-        "context_lines": [
-          "return line.replace(\"XXX Temp hack alert.\", \"NOTE: Legacy compatibility handling.\")",
-          "",
-          "# For other cases, convert FIXME to descriptive comments",
-          "elif \"xxx fixme\" in line_lower or \"fixme:\" in line_lower:",
-          "# Convert to NOTE or TODO depending on content"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      }
-    ],
-    "analyze_fixme_instances.py": [
-      {
-        "file_path": "analyze_fixme_instances.py",
-        "line_number": 103,
-        "fixme_text": "# Skip meta-comments about FIXME processing",
-        "context_lines": [
-          "return False",
-          "",
-          "# Skip meta-comments about FIXME processing",
-          "if ('fixme instances' in line_lower) or \\",
-          "('fixme text' in line_lower) or \\"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      },
-      {
-        "file_path": "analyze_fixme_instances.py",
-        "line_number": 131,
-        "fixme_text": "# Look for actual FIXME patterns in comments",
-        "context_lines": [
-          "return False",
-          "",
-          "# Look for actual FIXME patterns in comments",
-          "return (('fixme' in line_lower) or",
-          "('xxx' in line_lower and (line_lower.strip().startswith('#') or line_lower.strip().startswith('//'))) or  # XXX comments"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
-      }
-    ],
     "setup_fixme_environment.py": [
       {
         "file_path": "setup_fixme_environment.py",
@@ -19773,23 +19338,6 @@
         "estimated_effort": "1-2 weeks",
         "dependencies": [],
         "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "setup_fixme_environment.py",
-        "line_number": 57,
-        "fixme_text": "# Pre-commit hook to prevent new FIXMEs",
-        "context_lines": [
-          "pre_commit_content = dedent('''",
-          "#!/bin/bash",
-          "# Pre-commit hook to prevent new FIXMEs",
-          "",
-          "echo \"\ud83d\udd0d Checking for new FIXME comments...\""
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
       },
       {
         "file_path": "setup_fixme_environment.py",
@@ -19909,23 +19457,6 @@
         "estimated_effort": "1-2 weeks",
         "dependencies": [],
         "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "setup_fixme_environment.py",
-        "line_number": 251,
-        "fixme_text": "# Include this in your main Makefile with: include Makefile.fixme",
-        "context_lines": [
-          "makefile_content = dedent('''",
-          "# FIXME Resolution Makefile Targets",
-          "# Include this in your main Makefile with: include Makefile.fixme",
-          "",
-          ".PHONY: fixme-status fixme-easy-wins fixme-report fixme-setup"
-        ],
-        "difficulty": "EASY",
-        "category": "Documentation/Simple Fix",
-        "estimated_effort": "1-3 days",
-        "dependencies": [],
-        "reasoning": "Simple documentation updates or minor code changes"
       }
     ],
     "language-learning/tests/test_grammar_learner.py": [
@@ -20591,24 +20122,7 @@
     "atomspace/opencog/ocaml/CamlWrap.cc": [
       {
         "file_path": "atomspace/opencog/ocaml/CamlWrap.cc",
-        "line_number": 57,
-        "fixme_text": "// XXX FIXME",
-        "context_lines": [
-          "opstbl.finalize = finalize;",
-          "",
-          "// XXX FIXME",
-          "opstbl.compare = custom_compare_default;",
-          "opstbl.hash = custom_hash_default;"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "atomspace/opencog/ocaml/CamlWrap.cc",
-        "line_number": 206,
+        "line_number": 207,
         "fixme_text": "// XXX FIXME",
         "context_lines": [
           "if (vp->is_atom()) return oc_to_caml_str(HandleCast(vp), indent);",
@@ -21432,42 +20946,6 @@
           "// XXX This is fairly tacky/broken, and needs a better fix.",
           "for (auto p : default_paths) {",
           "search_paths.push_back(p);"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      }
-    ],
-    "atomspace/opencog/atoms/flow/StringOfLink.cc": [
-      {
-        "file_path": "atomspace/opencog/atoms/flow/StringOfLink.cc",
-        "line_number": 118,
-        "fixme_text": "// a stream or something dynamic ... XXX ???",
-        "context_lines": [
-          "// Recase to an explicit (concrete) StringValue,",
-          "// to handle the case where the from-value is",
-          "// a stream or something dynamic ... XXX ???",
-          "// Or maybe we want to cast *to* something dynamic?",
-          "// XXX FIXME this is unclear, under-specified and"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      },
-      {
-        "file_path": "atomspace/opencog/atoms/flow/StringOfLink.cc",
-        "line_number": 120,
-        "fixme_text": "// XXX FIXME this is unclear, under-specified and",
-        "context_lines": [
-          "// a stream or something dynamic ... XXX ???",
-          "// Or maybe we want to cast *to* something dynamic?",
-          "// XXX FIXME this is unclear, under-specified and",
-          "// under-used at the moment.",
-          "return createStringValue("
         ],
         "difficulty": "MEDIUM",
         "category": "General Implementation",
@@ -22423,25 +21901,6 @@
           "// Shoot. XXX FIXME. Most of the unit tests require that the atom",
           "// that we return is in the atomspace. But it would be nice if we",
           "// could defer this indefinitely, until its really needed."
-        ],
-        "difficulty": "MEDIUM",
-        "category": "General Implementation",
-        "estimated_effort": "1-2 weeks",
-        "dependencies": [],
-        "reasoning": "General implementation task requiring moderate effort"
-      }
-    ],
-    "atomspace/opencog/atoms/truthvalue/CountTruthValue.h": [
-      {
-        "file_path": "atomspace/opencog/atoms/truthvalue/CountTruthValue.h",
-        "line_number": 73,
-        "fixme_text": "// XXX FIXME Are all of these really needed?",
-        "context_lines": [
-          "const MergeCtrl& mc=MergeCtrl()) const;",
-          "",
-          "// XXX FIXME Are all of these really needed?",
-          "// Can we get rid of some of them?",
-          "static TruthValuePtr createTV(strength_t s, confidence_t f, count_t c)"
         ],
         "difficulty": "MEDIUM",
         "category": "General Implementation",
@@ -29547,41 +29006,7 @@
       },
       {
         "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 108,
-        "fixme_text": ";; XXX FIXME huh? this needs documentation.",
-        "context_lines": [
-          "; ---------------------------------------------------------------------",
-          ";; Below creates say atom for face if sound came from it",
-          ";; XXX FIXME huh? this needs documentation.",
-          ";; XXX FIXME elminiate the use of cog-execute! -- that is not how",
-          ";; this should be designed -- these need to be learnable; and"
-        ],
-        "difficulty": "MEDIUM",
-        "category": "Feature Implementation/Algorithm",
-        "estimated_effort": "1-4 weeks",
-        "dependencies": [],
-        "reasoning": "Requires moderate technical knowledge and implementation effort"
-      },
-      {
-        "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 109,
-        "fixme_text": ";; XXX FIXME elminiate the use of cog-execute! -- that is not how",
-        "context_lines": [
-          ";; Below creates say atom for face if sound came from it",
-          ";; XXX FIXME huh? this needs documentation.",
-          ";; XXX FIXME elminiate the use of cog-execute! -- that is not how",
-          ";; this should be designed -- these need to be learnable; and",
-          ";; cog-execute prevents learning."
-        ],
-        "difficulty": "MEDIUM",
-        "category": "Feature Implementation/Algorithm",
-        "estimated_effort": "1-4 weeks",
-        "dependencies": [],
-        "reasoning": "Requires moderate technical knowledge and implementation effort"
-      },
-      {
-        "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 162,
+        "line_number": 161,
         "fixme_text": ";; XXX FIXME -- this kind of crazy angle computation should be",
         "context_lines": [
           ";angle in radians",
@@ -29598,7 +29023,7 @@
       },
       {
         "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 197,
+        "line_number": 196,
         "fixme_text": ";; XXX FIXME -- this kind of tulity needs to be in the space-time",
         "context_lines": [
           ";; the face.  Returns the atom for the face, or the emtpy list.",
@@ -29615,7 +29040,7 @@
       },
       {
         "file_path": "components/integration/opencog/opencog/eva/model/time-map.scm",
-        "line_number": 238,
+        "line_number": 237,
         "fixme_text": ";; XXX TODO -- this should eventually be a psi-rule, so that we can",
         "context_lines": [
           ";; This needs to be define-public, so that ros-bridge can send this",
