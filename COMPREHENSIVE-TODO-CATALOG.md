@@ -3,7 +3,7 @@
 **Problem Identification**
 The OpenCog Unified codebase contains distributed TODOs, FIXMEs, stubs, and "not implemented" fragments that block full cognitive realization. These are detected by CI and halt verification (see job: https://github.com/OzCog/opencog-unified/actions/runs/16539657246/job/46779076096, ref: 25d11bfe332cd501a967d9ab3a6957a22504249f).
 
-**Generated**: 2025-10-19 18:59:05 UTC  
+**Generated**: 2025-10-19 19:29:23 UTC  
 **Total Items**: 1983  
 **Commit Reference**: 25d11bfe332cd501a967d9ab3a6957a22504249f
 
@@ -3002,9 +3002,9 @@ A section for emergent TODOs.
   - `; A note of caution, though: ExecutionOutputLink is a kind-of hack.`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/atomspace/examples/atomspace/execute.scm#L9)
 
-- [ ] **atomspace/examples/pattern-matcher/deduction-engine.scm:9** (LOW, Feature Completion)
-  - `;; XXX under construction, incomplete. The correct fix is to remove`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/atomspace/examples/pattern-matcher/deduction-engine.scm#L9)
+- [ ] **atomspace/examples/pattern-matcher/deduction-engine.scm:56** (LOW, Feature Completion)
+  - `;; for proper deductive reasoning as recommended in the FIXME.`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/atomspace/examples/pattern-matcher/deduction-engine.scm#L56)
 
 - [ ] **atomspace/examples/pattern-matcher/recognizer.scm:448** (LOW, Feature Completion)
   - `; polluting it with sentences.  The push and pop here is a hack;`
@@ -8066,4 +8066,4 @@ The enumeration above represents our cognitive debt, but also our potential. Eac
 
 ---
 
-*This document is automatically generated and should be updated regularly as the codebase evolves. Last updated: 2025-10-19 18:59:05 UTC*
+*This document is automatically generated and should be updated regularly as the codebase evolves. Last updated: 2025-10-19 19:29:23 UTC*
