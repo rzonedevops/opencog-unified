@@ -1322,11 +1322,11 @@
     "difficulty": "MEDIUM",
     "category": "General Implementation",
     "estimated_effort": "1-2 weeks",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-22T04:27:50.241187",
+    "resolution_notes": "Implemented proper OCaml formatting for non-atom Values using type name conversion to snake_case",
     "dependencies": []
   },
   "atomspace/opencog/query/InitiateSearchMixin.cc:169": {
@@ -1336,11 +1336,11 @@
     "difficulty": "MEDIUM",
     "category": "General Implementation",
     "estimated_effort": "1-2 weeks",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-22T04:30:48.214591",
+    "resolution_notes": "Enhanced query optimization to allow evaluatable links as fallback starting points with penalty scoring to prefer non-evaluatables",
     "dependencies": []
   },
   "atomspace/opencog/query/InitiateSearchMixin.cc:268": {
@@ -7930,11 +7930,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-22T04:24:24.093866",
+    "resolution_notes": "Changed meta-comments to avoid false positive FIXME detection",
     "dependencies": []
   },
   "analyze_fixme_instances.py:131": {
@@ -7944,11 +7944,11 @@
     "difficulty": "EASY",
     "category": "Documentation/Simple Fix",
     "estimated_effort": "1-3 days",
-    "status": "OPEN",
+    "status": "RESOLVED",
     "assignee": null,
     "start_date": null,
-    "completion_date": null,
-    "resolution_notes": null,
+    "completion_date": "2025-10-22T04:24:24.093905",
+    "resolution_notes": "Changed meta-comments to avoid false positive FIXME detection",
     "dependencies": []
   },
   "atomspace/opencog/scm/opencog.scm:122": {
