@@ -164,12 +164,10 @@ InitiateSearchMixin::find_starter_recursive(const PatternTermPtr& ptm,
 	// Signatures are just anonymous variables.
 	if (SIGNATURE_LINK == t) return Handle::UNDEFINED;
 
-	// Ignore all dynamically-evaluatable links up front.
-	// However, we are allowed to start inside of IdenticalLinks.
-	// XXX TODO We could start inside an evaluatable, but it would
-	// be better to try elsewhere, first. Special-case Identical.
-	if (ptm->hasEvaluatable() and not ptm->isIdentical())
-		return Handle::UNDEFINED;
+	// Prefer non-evaluatable links for search starting points.
+	// IdenticalLinks are acceptable even if evaluatable.
+	// For other evaluatables, continue searching but apply a penalty to make
+	// them less attractive choices compared to non-evaluatable alternatives.
 
 	// Iterate over all the handles in the outgoing set.
 	// Find the deepest one that contains a constant, and start
@@ -208,13 +206,17 @@ InitiateSearchMixin::find_starter_recursive(const PatternTermPtr& ptm,
 				_start_choices.push_back(ch);
 			}
 			else
-			if (brwid < thinnest
-			    or (brwid == thinnest and deepest < brdepth))
+			// Apply penalty for evaluatable terms to prefer non-evaluatable starting points
+			bool branch_has_evaluatable = sbr->hasEvaluatable() and not sbr->isIdentical();
+			size_t evaluatable_penalty = branch_has_evaluatable ? 1000000 : 0;
+			size_t effective_brwid = brwid + evaluatable_penalty;
+			if (effective_brwid < thinnest
+			    or (effective_brwid == thinnest and deepest < brdepth))
 			{
 				deepest = brdepth;
 				hdeepest = s;
 				startrm = sbr;
-				thinnest = brwid;
+				thinnest = effective_brwid;
 			}
 		}
 	}

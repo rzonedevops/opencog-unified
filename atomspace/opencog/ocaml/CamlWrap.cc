@@ -204,8 +204,13 @@ std::string oc_to_caml_str(const ValuePtr& vp, const std::string& indent)
 
 	if (vp->is_atom()) return oc_to_caml_str(HandleCast(vp), indent);
 
-	// XXX FIXME
-	return vp->to_short_string();
+	// Handle non-atom values by converting to OCaml format
+	// e.g., FloatValue becomes "float_value [1.1 ; 2.2 ; 3.3]"
+	std::string camelcase(nameserver().getTypeName(vp->get_type()));
+	std::string snakecase = tosnake(camelcase);
+	
+	// For Values, format as snake_case followed by formatted content
+	return indent + snakecase + " " + vp->to_short_string();
 }
 
 /// Pretty-print the atom in OCaml format; that is, return what it
