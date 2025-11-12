@@ -42,7 +42,7 @@ jobs:
 
     - name: Upload progress report
       if: github.event_name == 'schedule' || github.event_name == 'push'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v5
       with:
         name: fixme-progress-report
         path: FIXME_RESOLUTION_PROGRESS_REPORT.md
