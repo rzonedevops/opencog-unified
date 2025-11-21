@@ -990,7 +990,7 @@ Exploration of quantum computational actualization:
 
 ## License
 
-MIT License - see [LICENSE](../../LICENSE) for details.
+AGPL3 License - see [LICENSE](../../LICENSE) for details.
 
 ---
 
