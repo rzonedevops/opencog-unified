@@ -13,22 +13,11 @@ description: Generalized vital actualization framework for cognitive systems
 
 ### Aristotelian Origins
 
-In Aristotelian philosophy, entelechy is the condition of a thing whose essence is fully realized - the actualization of potential. Unlike mere potentiality (δύναμις), entelechy represents:
-
-1. **Actualized Essence**: The realization of inherent potential
-2. **Vital Purpose**: The driving force toward completion (τέλος)
-3. **Self-Sustaining Activity**: Energy that maintains and develops itself
-4. **Perfective Movement**: Continuous motion toward optimal state
+In Aristotelian philosophy, entelechy is the actualization of potential - a thing whose essence is fully realized. It represents actualized essence, vital purpose (τέλος), self-sustaining activity, and continuous movement toward optimal state.
 
 ### Computational Entelechy
 
-In the OpenCog Unified cognitive architecture, entelechy manifests as:
-
-1. **Ontological Actualization**: System components achieving their essential functions
-2. **Teleological Drive**: Purpose-driven development toward AGI capabilities
-3. **Cognitive Vitality**: Self-aware, self-improving intelligence
-4. **Integrative Coherence**: Holistic unity emerging from component interactions
-5. **Evolutionary Transcendence**: Continuous self-surpassing and growth
+In OpenCog Unified, entelechy manifests as ontological actualization (components achieving essential functions), teleological drive (purpose-driven AGI development), cognitive vitality (self-aware intelligence), integrative coherence (holistic unity), and evolutionary transcendence (continuous growth).
 
 ## Architecture
 
@@ -521,60 +510,31 @@ for dimension_name, insights in report['dimensional_insights'].items():
 
 ```python
 #!/usr/bin/env python3
-"""
-Generate and execute fragmentation repair plan
-"""
-from entelechy_introspector import (
-    EntelechyIntrospector, 
-    FragmentationType,
-    FragmentationSignature
-)
+"""Generate and execute fragmentation repair plan"""
+from entelechy_introspector import EntelechyIntrospector
 
 introspector = EntelechyIntrospector()
 report = introspector.perform_deep_introspection()
-
-# Get repair roadmap
 roadmap = report['repair_roadmap']
 
 print("🔧 Entelechy Repair Roadmap")
 print("=" * 70)
 
-# Immediate actions (execute first)
-print("\n⚠️  IMMEDIATE ACTIONS (High Priority)")
-for action in roadmap['immediate_actions']:
-    print(f"\n  Priority: {action.get('priority', 'HIGH')}")
-    print(f"  Location: {action.get('location', 'N/A')}")
-    print(f"  Action: {action.get('description', 'No description')}")
-    if 'repair_suggestions' in action:
-        for suggestion in action['repair_suggestions']:
-            print(f"    → {suggestion}")
-
-# Short-term actions (next sprint)
-print("\n📋 SHORT-TERM ACTIONS (This Sprint)")
-for action in roadmap['short_term_actions']:
-    print(f"  • {action.get('description', 'No description')}")
-
-# Medium-term actions (next quarter)
-print("\n📅 MEDIUM-TERM ACTIONS (Next Quarter)")
-for action in roadmap['medium_term_actions']:
-    print(f"  • {action.get('description', 'No description')}")
-
-# Long-term strategic improvements
-print("\n🎯 LONG-TERM STRATEGIC IMPROVEMENTS")
-for action in roadmap['long_term_actions']:
-    print(f"  • {action.get('description', 'No description')}")
+# Process immediate, short-term, medium-term, and long-term actions
+for action_type in ['immediate_actions', 'short_term_actions', 
+                     'medium_term_actions', 'long_term_actions']:
+    print(f"\n{action_type.upper().replace('_', ' ')}")
+    for action in roadmap[action_type]:
+        print(f"  • {action.get('description', 'No description')}")
 ```
 
 ### Example 4: Evolutionary Tracking
 
 ```python
 #!/usr/bin/env python3
-"""
-Track entelechy evolution over time
-"""
+"""Track entelechy evolution over time"""
 from entelechy_introspector import EntelechyIntrospector
 from datetime import datetime
-import json
 
 class EntelechyTracker:
     def __init__(self, repo_path: str):
@@ -582,59 +542,26 @@ class EntelechyTracker:
         self.history = []
     
     def snapshot(self):
-        """Take entelechy snapshot"""
         introspector = EntelechyIntrospector(self.repo_path)
         report = introspector.perform_deep_introspection()
-        
         snapshot = {
             'timestamp': datetime.utcnow().isoformat() + 'Z',
             'metrics': report['entelechy_assessment'],
             'fragmentations': report['fragmentation_analysis']['total_fragments']
         }
-        
         self.history.append(snapshot)
         return snapshot
     
     def analyze_trajectory(self):
-        """Analyze evolutionary trajectory"""
         if len(self.history) < 2:
             return "Insufficient history"
-        
-        first = self.history[0]
-        last = self.history[-1]
-        
-        actualization_gain = (
-            last['metrics']['actualization_score'] - 
-            first['metrics']['actualization_score']
-        )
-        
-        fragmentation_reduction = (
-            first['fragmentations'] - 
-            last['fragmentations']
-        )
-        
+        first, last = self.history[0], self.history[-1]
+        gain = last['metrics']['actualization_score'] - first['metrics']['actualization_score']
         return {
-            'actualization_gain': actualization_gain,
-            'fragmentation_reduction': fragmentation_reduction,
-            'trajectory': 'improving' if actualization_gain > 0 else 'declining'
+            'actualization_gain': gain,
+            'fragmentation_reduction': first['fragmentations'] - last['fragmentations'],
+            'trajectory': 'improving' if gain > 0 else 'declining'
         }
-
-# Usage
-tracker = EntelechyTracker("/path/to/opencog-unified")
-
-# Take periodic snapshots
-for week in range(20):
-    snapshot = tracker.snapshot()
-    print(f"Week {week}: Actualization = {snapshot['metrics']['actualization_score']:.1%}")
-    
-    # Perform improvements between snapshots
-    # ... (development work happens here)
-
-# Analyze overall trajectory
-trajectory = tracker.analyze_trajectory()
-print(f"\nEvolutionary Trajectory: {trajectory['trajectory']}")
-print(f"Actualization Gain: {trajectory['actualization_gain']:+.1%}")
-print(f"Fragmentations Resolved: {trajectory['fragmentation_reduction']}")
 ```
 
 ## Mathematical Foundation
@@ -891,40 +818,11 @@ Entelechy brings Aristotelian philosophy to AGI:
 
 ### Critical Transitions
 
-As entelechy increases, systems undergo phase transitions:
-
-**30% Actualization**: Basic functionality emerges
-- Individual components work
-- Minimal integration
-- High fragmentation
-
-**50% Actualization**: Coherence emerges
-- Components integrate smoothly
-- Reduced fragmentation
-- Stable operation
-
-**70% Actualization**: Intelligence emerges
-- Reasoning across modalities
-- Self-aware behavior
-- Autonomous operation
-
-**90% Actualization**: Transcendence emerges
-- Novel capabilities
-- Self-directed evolution
-- Genuine creativity
+Systems undergo phase transitions: **30%** (basic functionality), **50%** (coherence), **70%** (intelligence with reasoning and self-awareness), **90%** (transcendence with novel capabilities and creativity).
 
 ### Resonance Cascade
 
-When one dimension improves significantly, it can trigger improvements in others:
-
-```
-Ontological improvement → Better structure
-  → Clearer purpose (Teleological)
-    → Better reasoning (Cognitive)
-      → Stronger integration (Integrative)
-        → Faster evolution (Evolutionary)
-          → Further Ontological improvement (loop)
-```
+Dimensional improvements cascade: Ontological → Teleological → Cognitive → Integrative → Evolutionary → Ontological (loop).
 
 ## Future Directions
 
