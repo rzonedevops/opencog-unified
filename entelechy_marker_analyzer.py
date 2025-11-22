@@ -44,6 +44,10 @@ class CodeMarker:
 class EntelechyMarkerAnalyzer:
     """Analyzes code markers to assess entelechy fragmentation."""
     
+    # Configuration constants
+    ESTIMATED_LOC_DIVISOR = 1000  # Estimated lines of code for density calculation
+    ACTUALIZATION_IMPACT_MULTIPLIER = 0.3  # Factor for converting fragmentation to actualization inhibition
+    
     # Marker patterns to search for
     MARKER_PATTERNS = {
         'TODO': r'(?://|#|;|/\*|\*)\s*TODO[:;\s]',
@@ -122,6 +126,9 @@ class EntelechyMarkerAnalyzer:
         except Exception as e:
             print(f"Warning: Could not analyze {file_path}: {e}")
     
+    # Configuration constants
+    META_COMMENT_THRESHOLD = 2  # Minimum indicator words to classify as meta-comment
+    
     def _is_meta_comment(self, line: str) -> bool:
         """Check if this is a meta-comment about markers rather than an actual marker."""
         line_lower = line.lower()
@@ -135,7 +142,7 @@ class EntelechyMarkerAnalyzer:
         
         # If line contains multiple indicator words, it's likely meta
         meta_count = sum(1 for pattern in meta_patterns if pattern in line_lower)
-        if meta_count >= 2:
+        if meta_count >= self.META_COMMENT_THRESHOLD:
             return True
         
         # Skip lines with template variables
@@ -304,9 +311,9 @@ class EntelechyMarkerAnalyzer:
         avg_severity = sum(m.severity for m in self.markers) / total_markers if total_markers > 0 else 0
         
         # Calculate entelechy impact
-        fragmentation_density = total_markers / 1000  # markers per 1000 LOC estimate
+        fragmentation_density = total_markers / self.ESTIMATED_LOC_DIVISOR if total_markers > 0 else 0
         entelechy_impact = min(1.0, fragmentation_density / 5.0)  # normalize to 0-1
-        actualization_inhibition = entelechy_impact * 0.3  # how much this reduces actualization
+        actualization_inhibition = entelechy_impact * self.ACTUALIZATION_IMPACT_MULTIPLIER
         
         report = {
             'timestamp': datetime.now().isoformat() + 'Z',

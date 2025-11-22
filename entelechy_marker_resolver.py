@@ -252,7 +252,7 @@ class EntelechyMarkerResolver:
         report_lines.append("")
         
         # Entelechy improvement
-        if self.analysis_data:
+        if self.analysis_data and stats['total'] > 0:
             original_impact = self.analysis_data['summary']['actualization_inhibition']
             current_impact = original_impact * (stats['open'] / stats['total'])
             improvement = original_impact - current_impact
@@ -305,6 +305,20 @@ class EntelechyMarkerResolver:
     def _calculate_statistics(self) -> Dict:
         """Calculate overall statistics."""
         total = len(self.resolutions)
+        if total == 0:
+            # Return empty stats for empty tracking
+            return {
+                'total': 0,
+                'open': 0,
+                'in_progress': 0,
+                'resolved': 0,
+                'deferred': 0,
+                'open_pct': 0.0,
+                'in_progress_pct': 0.0,
+                'resolved_pct': 0.0,
+                'deferred_pct': 0.0,
+            }
+        
         stats = {
             'total': total,
             'open': sum(1 for r in self.resolutions.values() if r.status == 'OPEN'),
@@ -315,7 +329,7 @@ class EntelechyMarkerResolver:
         
         # Calculate percentages
         for key in ['open', 'in_progress', 'resolved', 'deferred']:
-            stats[f'{key}_pct'] = (stats[key] / total * 100) if total > 0 else 0
+            stats[f'{key}_pct'] = (stats[key] / total * 100)
         
         return stats
     
