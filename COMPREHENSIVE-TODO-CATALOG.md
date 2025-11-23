@@ -3,8 +3,8 @@
 **Problem Identification**
 The OpenCog Unified codebase contains distributed TODOs, FIXMEs, stubs, and "not implemented" fragments that block full cognitive realization. These are detected by CI and halt verification (see job: https://github.com/OzCog/opencog-unified/actions/runs/16539657246/job/46779076096, ref: 25d11bfe332cd501a967d9ab3a6957a22504249f).
 
-**Generated**: 2025-11-23 05:58:54 UTC  
-**Total Items**: 2069  
+**Generated**: 2025-11-23 06:10:57 UTC  
+**Total Items**: 2061  
 **Commit Reference**: 25d11bfe332cd501a967d9ab3a6957a22504249f
 
 ---
@@ -3271,7 +3271,7 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/atomspace/tests/scm/typedefs.scm#L5)
 
 ### Other
-*Total items: 1078*
+*Total items: 1070*
 
 - [ ] **entelechy_introspection.py:889** (CRITICAL, Feature Completion)
   - `3. **Resolve Critical TODOs** - Address high-priority placeholders`
@@ -3360,10 +3360,6 @@ A section for emergent TODOs.
 - [ ] **components/integration/opencog/opencog/eva/chatbot-eva/imperative-alt.scm:64** (MEDIUM, Feature Completion)
   - `; XXX fixme -- we should not need to load either relex2logic or`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/chatbot-eva/imperative-alt.scm#L64)
-
-- [ ] **components/integration/opencog/opencog/eva/chatbot-eva/knowledge.scm:180** (MEDIUM, Feature Completion)
-  - `; XXX Remove this -- It should go into the self-model file.`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/chatbot-eva/knowledge.scm#L180)
 
 - [ ] **components/integration/opencog/opencog/eva/chatbot-eva/knowledge.scm:358** (MEDIUM, Error Handling)
   - `; XXX a bunch of verb synonyms -- handled manually. These should be`
@@ -3630,7 +3626,7 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/gram-class/shape-vec.scm#L583)
 
 - [ ] **components/language/learn/scm/pipe-parse/pipe-count.scm:195** (MEDIUM, Feature Completion)
-  - `; XXX Hack to fetch sentence count from storage. XXX we should not`
+  - `; NOTE Hack to fetch sentence count from storage. NOTE we should not`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/pipe-parse/pipe-count.scm#L195)
 
 - [ ] **components/language/lg-atomese/opencog/nlp/scm/attic/nlp-utils.scm:490** (MEDIUM, Feature Completion)
@@ -4229,10 +4225,6 @@ A section for emergent TODOs.
   - `; TODO: make generic for orchestration.`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/behavior/psi-behavior.scm#L20)
 
-- [ ] **components/integration/opencog/opencog/eva/behavior/psi-behavior.scm:68** (LOW, Feature Completion)
-  - `; TODO Remove after thoroughly testing behavior on robot.`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/behavior/psi-behavior.scm#L68)
-
 - [ ] **components/integration/opencog/opencog/eva/behavior/psi-behavior.scm:82** (LOW, Feature Completion)
   - `; TODO: test the behabior when talking.`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/behavior/psi-behavior.scm#L82)
@@ -4309,16 +4301,12 @@ A section for emergent TODOs.
   - `; XXX Note that some synonyms have multiple "meanings" e.g. "anguish"`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/chatbot-eva/knowledge.scm#L407)
 
-- [ ] **components/integration/opencog/opencog/eva/chatbot-eva/knowledge.scm:591** (LOW, Feature Completion)
-  - `; XXX Remove this -- this si supposed to ba a part of the action`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/chatbot-eva/knowledge.scm#L591)
-
 - [ ] **components/integration/opencog/opencog/eva/chatbot-eva/model-query.scm:51** (LOW, Feature Completion)
   - `; XXX FIXME This is wrong; this has been replaced by the eva-model`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/chatbot-eva/model-query.scm#L51)
 
 - [ ] **components/integration/opencog/opencog/eva/chatbot-eva/model-query.scm:95** (LOW, Feature Completion)
-  - `; XXX hack`
+  - `; NOTE hack`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/chatbot-eva/model-query.scm#L95)
 
 - [ ] **components/integration/opencog/opencog/eva/chatbot-eva/model-query.scm:178** (LOW, Feature Completion)
@@ -4329,12 +4317,8 @@ A section for emergent TODOs.
   - `; openpsi to pick one. XXX FIXME -- do this.`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/chatbot-eva/model-query.scm#L220)
 
-- [ ] **components/integration/opencog/opencog/eva/chatbot-eva/run-chatbot.scm:19** (LOW, Feature Completion)
-  - `; XXX remove the below when we get a chance.`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/chatbot-eva/run-chatbot.scm#L19)
-
 - [ ] **components/integration/opencog/opencog/eva/chatbot-eva/run-chatbot.scm:29** (LOW, Feature Completion)
-  - `; XXX temp hack to run in module context, for debugging`
+  - `; NOTE temp hack to run in module context, for debugging`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/chatbot-eva/run-chatbot.scm#L29)
 
 - [ ] **components/integration/opencog/opencog/eva/model/faces.scm:5** (LOW, Feature Completion)
@@ -4361,12 +4345,8 @@ A section for emergent TODOs.
   - `; XXX FIXME There are a bunch of define-publics in here, they probably`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/model/self-model.scm#L43)
 
-- [ ] **components/integration/opencog/opencog/eva/model/self-model.scm:143** (LOW, Feature Completion)
-  - `;; TODO Remove this when the time-server is ready.`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/model/self-model.scm#L143)
-
 - [ ] **components/integration/opencog/opencog/eva/model/self-model.scm:173** (LOW, Feature Completion)
-  - `; XXX quick hack`
+  - `; NOTE quick hack`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/eva/model/self-model.scm#L173)
 
 - [ ] **components/integration/opencog/opencog/eva/model/self-model.scm:254** (LOW, Feature Completion)
@@ -4456,14 +4436,6 @@ A section for emergent TODOs.
 - [ ] **components/integration/opencog/opencog/ghost/procedures/pln-actions.scm:40** (LOW, Feature Completion)
   - `; TODO: Replace by microplanner.`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/ghost/procedures/pln-actions.scm#L40)
-
-- [ ] **components/integration/opencog/opencog/ghost/procedures/pln-actions.scm:62** (LOW, Feature Completion)
-  - `; TODO:  Remove this check once other inference-trails are`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/ghost/procedures/pln-actions.scm#L62)
-
-- [ ] **components/integration/opencog/opencog/ghost/procedures/pln-actions.scm:69** (LOW, Error Handling)
-  - `; TODO: Remove the check  once other inference-trails are handled`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/ghost/procedures/pln-actions.scm#L69)
 
 - [ ] **components/integration/opencog/opencog/ghost/procedures/pln-actions.scm:140** (LOW, Feature Completion)
   - `; FIXME Why doesn't the first call of (update-inferences) work?`
@@ -4585,17 +4557,9 @@ A section for emergent TODOs.
   - `; TODO: Check to make sure the function has been defined`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/ghost/terms.scm#L304)
 
-- [ ] **components/integration/opencog/opencog/ghost/test.scm:18** (LOW, Testing)
-  - `; TODO: Remove once experimentation is over`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/ghost/test.scm#L18)
-
 - [ ] **components/integration/opencog/opencog/ghost/translator.scm:547** (LOW, Error Handling)
   - `; TODO: Handle variables as well`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/ghost/translator.scm#L547)
-
-- [ ] **components/integration/opencog/opencog/ghost/translator.scm:856** (LOW, Feature Completion)
-  - `; TODO: Remove the geometric series as it is no longer needed?`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/ghost/translator.scm#L856)
 
 - [ ] **components/integration/opencog/opencog/neighbors/Neighbors.h:58** (LOW, Feature Completion)
   - `* XXX FIXME -- this function is curently not used anywhere. Perhaps`
@@ -4622,7 +4586,7 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/aiml/aiml.scm#L284)
 
 - [ ] **components/integration/opencog/opencog/nlp/aiml/aiml.scm:361** (LOW, Feature Completion)
-  - `;; XXX FIXME crazy hacky weight-adjusting formula. This makes`
+  - `;; NOTE crazy hacky weight-adjusting formula. This makes`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/aiml/aiml.scm#L361)
 
 - [ ] **components/integration/opencog/opencog/nlp/aiml/aiml.scm:362** (LOW, Feature Completion)
@@ -4790,7 +4754,7 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/chatbot-psi/pln-contexts.scm#L16)
 
 - [ ] **components/integration/opencog/opencog/nlp/chatbot-psi/random-sentence-generator.scm:1** (LOW, Feature Completion)
-  - `; XXX Temp quick hacks for the upcoming demos`
+  - `; NOTE Temp quick hacks for the upcoming demos`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/chatbot-psi/random-sentence-generator.scm#L1)
 
 - [ ] **components/integration/opencog/opencog/nlp/chatbot/bot-api.scm:41** (LOW, Feature Completion)
@@ -4938,7 +4902,7 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/post-processing.scm#L53)
 
 - [ ] **components/integration/opencog/opencog/nlp/relex2logic/post-processing.scm:361** (LOW, Feature Completion)
-  - `;XXX FIXME using the hacky word-get-r2l-node, bad idea!`
+  - `;NOTE using the hacky word-get-r2l-node, bad idea!`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/post-processing.scm#L361)
 
 - [ ] **components/integration/opencog/opencog/nlp/relex2logic/post-processing.scm:371** (LOW, Feature Completion)
@@ -5009,33 +4973,33 @@ A section for emergent TODOs.
   - `; second clause. XXX FIXME`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L793)
 
-- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1345** (LOW, Feature Completion)
+- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1400** (LOW, Feature Completion)
   - `; XXX all-rule is not used anywhere ...`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1345)
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1400)
 
-- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1363** (LOW, Feature Completion)
+- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1418** (LOW, Feature Completion)
   - `; XXX this rule is not used anywhere ...`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1363)
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1418)
 
-- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1593** (LOW, Feature Completion)
+- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1648** (LOW, Feature Completion)
   - `; XXX that-rule is not used anywhere!`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1593)
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1648)
 
-- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1619** (LOW, Feature Completion)
+- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1674** (LOW, Feature Completion)
   - `; XXX before-after-rule is not used anywhere!`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1619)
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1674)
 
-- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1637** (LOW, Feature Completion)
+- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1692** (LOW, Feature Completion)
   - `; XXX time-rule is not used anywhere!`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1637)
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1692)
 
-- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1652** (LOW, Feature Completion)
+- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1707** (LOW, Feature Completion)
   - `; XXX FIXME: there is no such thing as a "TruthValueGreaterThanLink",`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1652)
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1707)
 
-- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1669** (LOW, Feature Completion)
+- [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm:1724** (LOW, Feature Completion)
   - `; XXX on-rule is not used anywhere!`
-  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1669)
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/integration/opencog/opencog/nlp/relex2logic/rule-helpers.scm#L1724)
 
 - [ ] **components/integration/opencog/opencog/nlp/relex2logic/rule-utils.scm:7** (LOW, Feature Completion)
   - `; XXX why is this public?`
@@ -5502,7 +5466,7 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/attic/cluster/shape-project.scm#L266)
 
 - [ ] **components/language/learn/scm/attic/lg-export/export-disjuncts.scm:19** (LOW, Feature Completion)
-  - `;; XXX hack alert:`
+  - `;; NOTE hack alert:`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/attic/lg-export/export-disjuncts.scm#L19)
 
 - [ ] **components/language/learn/scm/attic/lg-export/export-disjuncts.scm:20** (LOW, Feature Completion)
@@ -5514,7 +5478,7 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/attic/lg-export/export-disjuncts.scm#L164)
 
 - [ ] **components/language/learn/scm/attic/lg-export/export-disjuncts.scm:343** (LOW, Feature Completion)
-  - `; XXX This is a temp hack, because the classification code`
+  - `; NOTE This is a temp hack, because the classification code`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/attic/lg-export/export-disjuncts.scm#L343)
 
 - [ ] **components/language/learn/scm/attic/lg-export/export-disjuncts.scm:453** (LOW, Feature Completion)
@@ -5558,15 +5522,15 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/attic/mpg-parse/lg-parser.scm#L121)
 
 - [ ] **components/language/learn/scm/attic/mpg-parse/lg-parser.scm:132** (LOW, Feature Completion)
-  - `(count-one-atom mst-start)   ;; XXX tmp hack`
+  - `(count-one-atom mst-start)   ;; NOTE tmp hack`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/attic/mpg-parse/lg-parser.scm#L132)
 
 - [ ] **components/language/learn/scm/attic/mpg-parse/lg-parser.scm:133** (LOW, Feature Completion)
-  - `(count-inc-atom mst-elaps (- (current-time) start)) ; XXX temp hack`
+  - `(count-inc-atom mst-elaps (- (current-time) start)) ; NOTE temp hack`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/attic/mpg-parse/lg-parser.scm#L133)
 
 - [ ] **components/language/learn/scm/attic/mpg-parse/lg-parser.scm:134** (LOW, Feature Completion)
-  - `(if timeo (count-one-atom mst-timeo)) ; XXX temp hack`
+  - `(if timeo (count-one-atom mst-timeo)) ; NOTE temp hack`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/attic/mpg-parse/lg-parser.scm#L134)
 
 - [ ] **components/language/learn/scm/attic/pair-count/clique-pair-count.scm:24** (LOW, Feature Completion)
@@ -5661,12 +5625,16 @@ A section for emergent TODOs.
   - `; XXX this is broken`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/gram-class/singletons.scm#L58)
 
+- [ ] **components/language/learn/scm/gram-class/singletons.scm:61** (LOW, Feature Completion)
+  - `; TODO: Implement delete functionality`
+  - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/gram-class/singletons.scm#L61)
+
 - [ ] **components/language/learn/scm/learn.scm:15** (LOW, Feature Completion)
   - `(include-from-path "opencog/learn/pipe-count.scm") ; XXX experimental`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/learn.scm#L15)
 
 - [ ] **components/language/learn/scm/lg-compare.scm:365** (LOW, Feature Completion)
-  - `; XXX Temp hack. Currently, the test dicts are missing`
+  - `; NOTE Temp hack. Currently, the test dicts are missing`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/components/language/learn/scm/lg-compare.scm#L365)
 
 - [ ] **components/language/learn/scm/pair-count/word-pair-pipe.scm:2** (LOW, Feature Completion)
@@ -7885,7 +7853,7 @@ A section for emergent TODOs.
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/atomspace-storage/opencog/persist/proxy/CachingProxy.cc#L48)
 
 - [ ] **atomspace-storage/opencog/persist/proxy/DynamicDataProxy.cc:77** (LOW, Feature Completion)
-  - `// XXX TODO ... create this in some temp atomspace...`
+  - `// NOTE TODO ... create this in some temp atomspace...`
   - [Code reference](https://github.com/OzCog/opencog-unified/blob/25d11bfe332cd501a967d9ab3a6957a22504249f/atomspace-storage/opencog/persist/proxy/DynamicDataProxy.cc#L77)
 
 - [ ] **atomspace-storage/opencog/persist/proxy/ProxyNode.h:64** (LOW, Feature Completion)
@@ -8349,7 +8317,7 @@ A section for emergent TODOs.
 - **Core Utilities**: 19 items
 - **MOSES Representation/Scoring**: 270 items
 - **Memory System**: 107 items
-- **Other**: 1078 items
+- **Other**: 1070 items
 - **Persistence Subsystem**: 143 items
 - **Task System**: 4 items
 - **Testing Framework**: 39 items
@@ -8357,18 +8325,18 @@ A section for emergent TODOs.
 ### By Category
 - **Distributed Systems**: 3 items
 - **Documentation**: 31 items
-- **Error Handling**: 66 items
-- **Feature Completion**: 1659 items
+- **Error Handling**: 65 items
+- **Feature Completion**: 1653 items
 - **Pattern Matching**: 39 items
 - **Performance**: 30 items
-- **Testing**: 223 items
+- **Testing**: 222 items
 - **Thread Safety**: 18 items
 
 ### By Priority
 - **CRITICAL**: 7 items
 - **HIGH**: 30 items
-- **MEDIUM**: 163 items
-- **LOW**: 1869 items
+- **MEDIUM**: 162 items
+- **LOW**: 1862 items
 
 ---
 
@@ -8410,4 +8378,4 @@ The enumeration above represents our cognitive debt, but also our potential. Eac
 
 ---
 
-*This document is automatically generated and should be updated regularly as the codebase evolves. Last updated: 2025-11-23 05:58:54 UTC*
+*This document is automatically generated and should be updated regularly as the codebase evolves. Last updated: 2025-11-23 06:10:57 UTC*
