@@ -154,6 +154,11 @@ void activate_tensor(T* output, const T* input, size_t len,
             break;
             
         case ActivationType::SOFTMAX: {
+            // Handle empty tensor case
+            if (len == 0) {
+                break;
+            }
+            
             // Find max for numerical stability
             T max_val = input[0];
             for (size_t i = 1; i < len; ++i) {
